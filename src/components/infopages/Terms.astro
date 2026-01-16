@@ -1,0 +1,70 @@
+---
+import Title from "@components/global/Title.astro";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Fecha de actualización dinámica (puedes ajustarla)
+const lastUpdated = "January 15, 2026";
+---
+
+<section class="bg-zinc-950 text-white min-h-screen">
+  <div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-32">
+    <div>
+      <Title 
+        title={t("services") || "Terms"} 
+        subtitle={`${t("privacy.wip") || "Last updated"} ${lastUpdated}`} 
+        class="pb-10 pt-20 uppercase text-lime-500" 
+      />
+    </div>
+
+    <div class="prose prose-invert prose-lime mt-12 lg:mt-24 max-w-none">
+      <h2 id="terms-title" class="text-3xl font-display font-bold text-white border-b border-zinc-800 pb-4">
+        {t("hero.title.4") || "Terms of Service"} — Vantta Studio
+      </h2>
+
+      <div class="space-y-6 text-zinc-400 leading-relaxed mt-8">
+        <p>
+          {t("about.description.p1") || "From everyone at Vantta Studio, thank you for using our products! We build them to help you do your best work."}
+        </p>
+        
+        <p>
+          {t("about.description.p2") || "Because we don't know every one of our customers personally, we have to put in place some Terms of Service to help keep the ship afloat."}
+        </p>
+
+        <div class="bg-zinc-900/50 border border-zinc-800 p-8 rounded-3xl my-12">
+           <h3 class="text-lime-500 font-bold uppercase tracking-widest text-sm mb-4">
+             {t("privacy.wip")}
+           </h3>
+           <p class="text-zinc-300 italic">
+             {t("privacy.wip.content")}
+           </p>
+        </div>
+
+        <h3 class="text-white text-xl font-bold mt-12">{t("faq.otherquestions")}</h3>
+        <p>
+          {t("contact.subtitle")}
+          <br />
+          <a href="mailto:support@vantta.studio" class="text-lime-500 hover:text-lime-400 underline transition-colors">
+            support@vantta.studio
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* Estilos específicos para el cuerpo de texto tipo legal */
+  .prose-lime h2, .prose-lime h3 {
+    color: white;
+    font-family: inherit;
+  }
+  .prose-lime p {
+    margin-bottom: 1.5rem;
+  }
+  .prose-lime strong {
+    color: #bef264; /* lime-300 */
+  }
+</style>

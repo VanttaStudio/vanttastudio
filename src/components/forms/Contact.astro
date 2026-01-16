@@ -1,0 +1,97 @@
+---
+import Title from "@components/global/Title.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section class="isolate px-6 py-24 sm:py-32 lg:px-8 bg-zinc-950">
+    <div class="absolute inset-x-0 top-[-10rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
+        <div class="gradient-element"></div>
+    </div>
+
+    <div class="mx-auto max-w-5xl">
+        <Title 
+            class="pb-10 pt-20 uppercase text-white" 
+            title={t("contact.title")} 
+            subtitle={t("contact.subtitle")} 
+        />
+        
+        <form data-static-form-name="contact" class="mx-auto max-w-2xl pt-12 lg:pt-20">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2">
+                
+                <div class="form-field sm:col-span-2">
+                    <label for="name" class="form-label">{t("contact.name")}*</label>
+                    <input type="text" name="name" id="name" autocomplete="given-name" required placeholder="John Doe" />
+                </div>
+
+                <div class="form-field sm:col-span-2">
+                    <label for="email" class="form-label">{t("contact.email")}*</label>
+                    <input type="email" name="email" id="email" autocomplete="email" required placeholder="hello@company.com" />
+                </div>
+
+                <div class="form-field sm:col-span-2">
+                    <label for="company" class="form-label">{t("contact.company")}</label>
+                    <input type="text" name="company" id="company" autocomplete="organization" placeholder="Vantta Studio Co." />
+                </div>
+
+                <div class="form-field sm:col-span-2">
+                    <label for="message" class="form-label">{t("contact.message")}*</label>
+                    <textarea name="message" id="message" rows="4" required placeholder={t("contact.placeholder") || "How can we help?"}></textarea>
+                </div>
+
+                <div class="flex items-center gap-x-4 sm:col-span-2">
+                    <input type="checkbox" id="privacy" required class="h-4 w-4 rounded border-zinc-700 bg-zinc-800 text-lime-400 focus:ring-lime-500" />
+                    <label class="text-sm leading-6 text-zinc-400" for="privacy">
+                        {t("contact.agree")}
+                        <a href={translatePath("/privacy")} class="font-semibold text-lime-400 hover:underline">
+                            privacy policy
+                        </a>.
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex pt-12">
+                <button
+                    type="submit"
+                    class="group relative flex h-14 w-full items-center justify-center overflow-hidden rounded-full bg-lime-400 px-8 py-4 text-xl font-bold text-black transition-all hover:bg-white sm:w-auto"
+                >
+                    <span class="relative z-10">{t("contact.send")}</span>
+                    <div class="absolute inset-0 z-0 h-full w-full translate-y-full bg-white transition-transform duration-300 group-hover:translate-y-0"></div>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<style>
+    .gradient-element {
+        @apply relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#a3e635] to-[#166534] opacity-20 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem];
+        clip-path: polygon(
+            74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 
+            60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 
+            0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%
+        );
+    }
+
+    .form-field {
+        @apply flex flex-col gap-2;
+    }
+
+    .form-label {
+        @apply text-xs font-bold uppercase tracking-widest text-zinc-500 ml-1;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        @apply w-full border-b-2 border-zinc-800 bg-transparent px-2 py-4 text-2xl font-medium text-white outline-none transition-all placeholder:text-zinc-700 focus:border-lime-400 focus:bg-zinc-900/30;
+    }
+
+    /* Estilo para el checkbox */
+    input[type="checkbox"] {
+        @apply cursor-pointer;
+    }
+</style>

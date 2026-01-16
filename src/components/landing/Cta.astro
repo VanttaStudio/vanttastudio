@@ -1,0 +1,54 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section id="cta-section">
+  <div class="px-8 py-12 mx-auto md:px-12 2xl:max-w-7xl lg:py-24">
+    <div class="p-8 lg:p-20 bg-zinc-900 rounded-4xl lg:rounded-6xl text-center border border-zinc-800 shadow-2xl relative overflow-hidden">
+      
+      <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-lime-500/10 rounded-full blur-3xl"></div>
+      
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-4">
+          <div class="w-12 h-1 bg-lime-500 hidden md:block"></div>
+          <span class="text-xs font-semibold tracking-widest uppercase text-lime-500">
+            Vantta Studio — {t("contact.subtitle")}
+          </span>
+        </div>
+        
+        <h2 class="mt-8 text-4xl font-display font-bold md:text-6xl lg:text-7xl text-white leading-tight tracking-tighter">
+          {t("cta.title") || "Elevate your digital vision with us. Start creating the extraordinary!"}
+        </h2>
+        
+        <div class="flex mt-12 justify-center">
+          <a
+            class="flex items-center justify-center w-full h-12 px-10 rounded-full py-4 text-lg font-bold text-black transition-all lg:h-20 bg-lime-500 hover:bg-lime-400 lg:w-auto transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(132,204,22,0.3)]"
+            href={translatePath("/contact/")}>
+            {t("contactus")} &nbsp;&nbsp; →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Clases de utilidad para bordes extra redondeados si tu config de Tailwind no los tiene */
+  .rounded-4xl {
+    border-radius: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .rounded-6xl {
+      border-radius: 4.5rem;
+    }
+  }
+
+  /* Animación suave para el hover del botón */
+  #cta-section a {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+</style>

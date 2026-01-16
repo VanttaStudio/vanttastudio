@@ -1,0 +1,110 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("posts");
+
+    return blogEntries.map((entry) => {
+        const [lang, ...slugParts] = entry.slug.split("/");
+        const slug = slugParts.join("/");
+        return { 
+            params: { lang, slug: slug || undefined }, 
+            props: { entry } 
+        };
+    });
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Construcción dinámica de SEO para Vantta Studio
+const seo: AstroSeoProps = {
+    title: `${entry.data.title} | Vantta Studio`,
+    description: entry.data.description,
+    canonical: `https://vantta.studio/${entry.slug}/`, // Actualizado a tu dominio
+    openGraph: {
+        url: `https://vantta.studio/${entry.slug}/`,
+        title: entry.data.title,
+        description: entry.data.description,
+        type: "article",
+        article: {
+            publishedTime: entry.data.pubDate.toISOString(),
+            authors: [entry.data.author.name],
+            tags: entry.data.tags,
+        },
+        images: [
+            {
+                url: entry.data.image.source, // Usamos la imagen real del post
+                width: 1200,
+                height: 630,
+                alt: entry.data.title,
+                type: "image/jpeg",
+            }
+        ],
+        site_name: "Vantta Studio",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        site: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+};
+---
+
+<MarkdownPostLayout frontmatter={entry.data} body={entry.body} seo={seo}>
+    <div class="animate-content">
+        <Content />
+    </div>
+</MarkdownPostLayout>
+
+<style is:global>
+    /* Estilos para el contenido Markdown dentro de Vantta Studio */
+    .animate-content {
+        animation: fadeInContent 1s ease-out forwards;
+    }
+
+    @keyframes fadeInContent {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilización del contenido renderizado */
+    article prose {
+        @apply max-w-none text-zinc-300;
+    }
+
+    article h2, article h3 {
+        @apply font-display font-black uppercase tracking-tighter text-white mt-12 mb-6;
+    }
+
+    article p {
+        @apply font-display text-lg leading-relaxed text-zinc-400 mb-6;
+    }
+
+    article img {
+        @apply rounded-2xl border border-zinc-800 my-12;
+    }
+
+    article a {
+        @apply text-lime-400 no-underline hover:text-white transition-colors border-b border-lime-400/30 hover:border-white;
+    }
+
+    article blockquote {
+        @apply border-l-4 border-lime-400 bg-zinc-900/50 p-8 italic rounded-r-xl my-10 text-xl text-white;
+    }
+
+    article ul, article ol {
+        @apply my-8 space-y-4 list-none pl-0;
+    }
+
+    article li {
+        @apply flex items-start gap-3 text-zinc-400;
+    }
+
+    article li::before {
+        content: "—";
+        @apply text-lime-400 font-bold;
+    }
+</style>

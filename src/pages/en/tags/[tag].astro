@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Tag from "@components/blog/Tag.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    // Filtramos solo los posts en inglés
+    const allPosts = (await getCollection("posts")).filter((post) => {
+        const [postLang, ...slug] = post.slug.split("/");
+        return postLang === "en";
+    });
+
+    const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+    
+    return uniqueTags.map((tag) => {
+        const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag))
+            .map(post => {
+                // Limpiamos el prefijo del idioma del slug para las URLs relativas
+                const [postLang, ...slugParts] = post.slug.split("/");
+                return {
+                    ...post,
+                    slug: slugParts.join("/")
+                };
+            });
+            
+        return {
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+
+const seo: AstroSeoProps = {
+    title: `${tag} | Vantta Studio`,
+    description: `Explore all articles and insights tagged as '${tag}' at Vantta Studio. High-end content about digital strategy and creative development.`,
+    canonical: `https://vantta.studio/en/tags/${tag}/`,
+    openGraph: {
+        title: `${tag} - Insights | Vantta Studio`,
+        description: `Deep dive into ${tag} with our latest articles and case studies.`,
+        type: "website",
+    }
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 min-h-screen">
+        <Tag tag={tag} posts={posts} />
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aseguramos que la rejilla de tags tenga una entrada fluida */
+    main {
+        animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>

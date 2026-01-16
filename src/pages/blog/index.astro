@@ -1,0 +1,46 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Articles from "@components/blog/Articles.astro";
+
+const seo: AstroSeoProps = {
+    title: "Vantta Studio Blog | Diseño Web, Desarrollo y Estrategia Digital",
+    description:
+        "Explora el blog de Vantta Studio para descubrir las últimas tendencias en diseño minimalista, desarrollo con Astro y estrategias SEO de alto rendimiento.",
+    canonical: "https://vantta.studio/blog/", // Asumiendo el nuevo dominio
+    openGraph: {
+        url: "https://vantta.studio/blog",
+        title: "Vantta Studio Blog: Insights sobre Diseño y Tecnología",
+        description:
+            "Consejos expertos, análisis de tendencias y guías sobre el futuro de la web por el equipo de Vantta Studio.",
+        images: [
+            {
+                url: "https://vantta.studio/opengraph/social-og.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Open Graph de Vantta Studio Blog",
+                type: "image/jpeg",
+            },
+            {
+                url: "https://vantta.studio/opengraph/twitter-og.jpg",
+                width: 1200,
+                height: 1200,
+                alt: "Twitter Open Graph de Vantta Studio Blog",
+                type: "image/jpeg",
+            }
+        ],
+        site_name: "Vantta Studio",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        site: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950">
+        <Articles />
+    </main>
+</BaseLayout>

@@ -1,0 +1,146 @@
+---
+import LinkBlend from "@components/global/LinkBlend.astro";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section id="hero" class="relative min-h-screen overflow-hidden bg-zinc-950 text-white selection:bg-lime-400 selection:text-black">
+    <div class="container mx-auto flex min-h-screen flex-col items-center justify-center px-4 py-20 text-center">
+        
+        <h1 class="hero-title relative z-10 font-display font-black uppercase tracking-tighter text-[15vw] sm:text-[12vw] lg:text-[11rem] w-full">
+            <span class="block leading-[0.8] mb-2">{t("hero.title.main")}</span>
+            
+            <div class="relative flex justify-center text-lime-400">
+                <div class="word-wrapper relative h-[1.1em] w-full flex items-center justify-center">
+                    <span class="word-item absolute whitespace-nowrap opacity-0">WEBS</span>
+                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.2")}</span>
+                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.3")}</span>
+                    <span class="word-item absolute whitespace-nowrap opacity-0">{t("hero.title.4")}</span>
+                </div>
+            </div>
+        </h1>
+
+        <div class="hero-content relative z-10 mt-16 flex max-w-2xl flex-col items-center gap-10">
+            <p class="font-mono text-base leading-relaxed text-zinc-400 md:text-lg px-4">
+                {t("hero.subtitle")}
+            </p>
+            
+            <div class="flex flex-col items-center gap-8">
+                <a
+                    href={translatePath("/contact/")}
+                    data-cursor-hover
+                    class="group relative flex h-14 min-w-[240px] items-center justify-center overflow-hidden rounded-full bg-white px-10 py-4 font-bold uppercase tracking-widest text-black transition-all hover:bg-lime-400 active:scale-95"
+                >
+                    <span class="relative z-10">{t("contact")}</span>
+                </a>
+
+                <button 
+                    id="go-projects-button" 
+                    class="group flex flex-col items-center gap-2 font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:text-white"
+                >
+                    <span class="text-[10px] tracking-[0.3em]">{t("or")} {t("hero.scroll")}</span>
+                    <div class="h-10 w-px bg-zinc-800 transition-all group-hover:h-16 group-hover:bg-lime-400"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pointer-events-none absolute inset-0 z-0">
+        <div class="absolute left-1/2 top-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet-600/10 blur-[120px]"></div>
+    </div>
+</section>
+
+<style>
+    .hero-title {
+        visibility: hidden; /* Se activa con GSAP */
+    }
+
+    .word-wrapper {
+        perspective: 1000px;
+    }
+
+    .word-item {
+        display: block;
+        width: 100%;
+        text-align: center;
+        will-change: opacity, transform;
+        line-height: 1;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+    import { SplitText } from "gsap/SplitText";
+
+    gsap.registerPlugin(ScrollToPlugin, SplitText);
+
+    function initHero() {
+        const title = document.querySelector(".hero-title");
+        if (!title) return;
+        gsap.set(title, { visibility: "visible" });
+
+        // 1. Animación de entrada inicial (Letra por letra)
+        const split = new SplitText(".hero-title span:first-child", { type: "chars" });
+        const tl = gsap.timeline();
+
+        tl.from(split.chars, {
+            duration: 1,
+            y: 80,
+            opacity: 0,
+            stagger: 0.04,
+            ease: "expo.out"
+        })
+        .from(".hero-content", {
+            duration: 1,
+            y: 30,
+            opacity: 0,
+            ease: "power3.out"
+        }, "-=0.6");
+
+        // 2. Lógica de Intercambio de Palabras (Fade In/Out)
+        const words = document.querySelectorAll(".word-item");
+        let currentIndex = 0;
+
+        function rotateWords() {
+            const currentWord = words[currentIndex];
+            const nextIndex = (currentIndex + 1) % words.length;
+            const nextWord = words[nextIndex];
+
+            const wordTl = gsap.timeline();
+
+            // La palabra actual se desvanece y sube un poco
+            wordTl.to(currentWord, {
+                duration: 0.5,
+                opacity: 0,
+                y: -20,
+                ease: "power2.in"
+            })
+            // La nueva palabra aparece desde abajo
+            .fromTo(nextWord, 
+                { opacity: 0, y: 20 },
+                { duration: 0.6, opacity: 1, y: 0, ease: "power2.out" }
+            );
+
+            currentIndex = nextIndex;
+            gsap.delayedCall(3, rotateWords); // 3 segundos de pausa para lectura clara
+        }
+
+        // Inicializar ciclo
+        if(words.length > 0) {
+            gsap.set(words[0], { opacity: 1, y: 0 });
+            gsap.delayedCall(3, rotateWords);
+        }
+
+        // 3. Scroll suave al botón de proyectos
+        document.getElementById("go-projects-button")?.addEventListener("click", () => {
+            gsap.to(window, { duration: 1.5, scrollTo: "#work-preview", ease: "power4.inOut" });
+        });
+    }
+
+    document.addEventListener("astro:page-load", initHero);
+    if (document.readyState !== "loading") initHero();
+</script>

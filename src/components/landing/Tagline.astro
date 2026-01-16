@@ -1,0 +1,105 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const { class: className } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<div id="smooth-wrapper" class:list={["section tagline-section relative bg-zinc-900 text-white py-24", className]}>
+    <div class="tagline-arrows flex justify-center mb-12">
+        <svg
+            stroke-linecap="round"
+            class="h-[15rem] w-[15rem] rotate-45 md:w-[20rem] md:rotate-0 lg:w-[25rem]"
+            stroke-linejoin="round"
+            viewBox="0 0 550 330">
+            <path
+                id="tagline-arrow-path"
+                fill="none"
+                stroke="#fff"
+                stroke-width="10"
+                d="M8.5,7.8C46.3,67,121.7,185.5,265.5,185.9c42.8,0.1,120.5-55.9-25.2-120.3
+    C79-5.8,177.6,164.1,222.3,207.7c59.1,49.9,83.8,62.1,162.6,96.8">
+            </path>
+            <path class="opacity-0" id="tagline-arrow" fill="white" stroke="white" stroke-width="12" d="M465.7 172.9l47.1 6-29.8 33.3-17.3-39.3z"></path>
+        </svg>
+    </div>
+    <div class="text col-span-12 flex justify-center font-light px-8">
+        <p id="services-tagline" class="max-w-5xl text-center text-4xl md:text-5xl lg:text-7xl leading-tight">
+            {t("tagline")}
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Estilo para el efecto de revelado de texto línea por línea */
+    .text > p > :global(div) {
+        background: linear-gradient(to right, rgb(255, 255, 255) 50%, rgb(63, 63, 70) 50%);
+        background-size: 200% 100%;
+        background-position-x: 100%;
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        line-height: 1.2;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    // Nota: Estos plugins suelen requerir membresía de GSAP. 
+    // Si no los tienes instalados, el script fallará.
+    import { SplitText } from "gsap/SplitText";
+    import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+    import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+
+    gsap.registerPlugin(ScrollTrigger, SplitText, DrawSVGPlugin, MotionPathPlugin);
+
+    function initTagline() {
+        const linePath = document.querySelector("#tagline-arrow-path");
+        if (!linePath) return;
+
+        gsap.set(linePath, { drawSVG: 0 });
+
+        // Animación de la flecha y el camino
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: ".tagline-arrows",
+                start: "center bottom",
+                end: "center center",
+                scrub: 1,
+            },
+        })
+        .to(linePath, { drawSVG: "100%" }, 0)
+        .to("#tagline-arrow", { opacity: 1, duration: 0.1 }, 0)
+        .to("#tagline-arrow", {
+            motionPath: {
+                path: "#tagline-arrow-path",
+                align: "#tagline-arrow-path",
+                alignOrigin: [0.5, 0.5],
+                autoRotate: 30,
+            },
+        }, 0);
+
+        // Animación de revelado de texto
+        const split = new SplitText("#services-tagline", { type: "lines" });
+        split.lines.forEach((target) => {
+            gsap.to(target, {
+                backgroundPositionX: 0,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: target,
+                    scrub: 1,
+                    start: "top bottom-=20%",
+                    end: "bottom bottom-=10%",
+                },
+            });
+        });
+    }
+
+    // Inicialización compatible con Astro
+    document.addEventListener("astro:page-load", initTagline);
+    initTagline();
+</script>

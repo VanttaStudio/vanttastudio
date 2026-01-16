@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const { title, url, author, pubDate, description, image, titleInside = false } = Astro.props;
+---
+
+<a href={translatePath(url)} title={title} class="group block h-full" data-cursor-hover>
+    <article class="relative flex h-full flex-col overflow-hidden rounded-xl border border-zinc-900 bg-zinc-950 transition-all duration-500 hover:border-zinc-700">
+        
+        <div class:list={[
+            "relative block w-full overflow-hidden aspect-[16/10]",
+            titleInside ? "after:absolute after:inset-0 after:bg-gradient-to-t after:from-black after:to-transparent after:opacity-80" : ""
+        ]}>
+            <Image 
+                class="h-full w-full object-cover transition-all duration-700 ease-out group-hover:scale-110 grayscale group-hover:grayscale-0" 
+                src={image} 
+                alt={title} 
+                width={800}
+                height={500}
+            />
+            
+            {titleInside && (
+                <div class="absolute bottom-0 left-0 z-20 p-6 md:p-8">
+                    <p class="font-display text-2xl font-black uppercase leading-tight tracking-tighter text-white md:text-3xl">
+                        {title}
+                    </p>
+                </div>
+            )}
+        </div>
+
+        <div class:list={[
+            "flex flex-1 flex-col justify-between p-6 md:p-8",
+            titleInside ? "hidden" : "flex"
+        ]}>
+            <div class="w-full">
+                <p class="font-display text-xl font-bold uppercase tracking-tighter text-white transition-colors group-hover:text-lime-400 md:text-2xl">
+                    {title}
+                </p>
+                <p class="mt-4 line-clamp-3 font-mono text-sm leading-relaxed text-zinc-500">
+                    {description}
+                </p>
+            </div>
+
+            <footer class="mt-8 flex items-center justify-between border-t border-zinc-900 pt-6">
+                <div class="flex items-center space-x-3">
+                    <div class="h-6 w-6 rounded-full bg-zinc-800 border border-zinc-700 overflow-hidden">
+                        </div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                        {author.name}
+                    </p>
+                </div>
+                <time datetime={pubDate} class="font-mono text-[10px] uppercase tracking-widest text-zinc-600">
+                    {pubDate}
+                </time>
+            </footer>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 h-1 w-0 bg-lime-400 transition-all duration-500 group-hover:w-full"></div>
+    </article>
+</a>
+
+<style>
+    /* Efecto de ruido sutil sobre la imagen */
+    article::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+    }
+
+    /* Animación fluida para el cambio de escala de grises */
+    img {
+        will-change: transform, filter;
+    }
+</style>

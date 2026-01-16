@@ -1,0 +1,62 @@
+----
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section class="relative isolate overflow-hidden bg-zinc-950 min-h-[80vh] flex items-center justify-center">
+    <div class="absolute inset-0 -z-10 flex justify-center">
+        <div class="w-[500px] h-[500px] bg-lime-500/10 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="px-6 py-24 sm:py-32 lg:px-8 w-full">
+        <div class="mx-auto max-w-2xl text-center">
+            <div class="flex flex-col items-center justify-center gap-6 uppercase">
+                <div class="inline-flex items-center gap-3">
+                    <div class="w-8 h-[1px] bg-lime-500"></div>
+                    <span class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-lime-500">
+                        {t("thanks.subtitle")}
+                    </span>
+                    <div class="w-8 h-[1px] bg-lime-500"></div>
+                </div>
+
+                <h1 class="font-display text-5xl font-black tracking-tighter text-white sm:text-7xl md:text-8xl">
+                    {t("thanks.title")}
+                </h1>
+            </div>
+
+            <p class="mt-8 text-lg leading-8 text-zinc-400 max-w-md mx-auto">
+                {t("thanks.content")}
+            </p>
+
+            <div class="mt-12 flex items-center justify-center gap-x-6">
+                <a
+                    class="group relative flex h-14 items-center justify-center overflow-hidden rounded-full bg-white px-10 text-lg font-bold text-black transition-all hover:bg-lime-500 transform hover:scale-105 active:scale-95"
+                    href={translatePath("/")}>
+                    <span class="relative z-10 flex items-center gap-2">
+                         ← {t("homepage")}
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Estilo para la fuente display si no está cargada globalmente */
+    .font-display {
+        font-family: inherit; /* Cambiar por tu fuente de títulos si es específica */
+    }
+
+    /* Animación de entrada suave */
+    section {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

@@ -1,0 +1,118 @@
+---
+import Newsletter from "@components/blog/Newsletter.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<footer class="section min-h-screen gap-y-10 py-12 lg:gap-y-32 bg-zinc-950 text-white">
+    <div class="relative flex-grow"></div>
+    
+    <div class="relative grid grid-cols-6 gap-y-20 lg:grid-cols-12 lg:text-xl border-t border-zinc-800 pt-20">
+        <div class="col-span-6 col-start-1 grid grid-cols-6 gap-6 lg:col-span-8">
+            <div class="col-span-3 lg:col-span-3 flex flex-col gap-4">
+                <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold">Social</p>
+                <div class="flex flex-col gap-2">
+                    <a href="https://twitter.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Twitter / X</a>
+                    <a href="https://www.instagram.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Instagram</a>
+                    <a href="https://www.linkedin.com/company/vantta" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-2xl lg:text-xl font-medium">Linkedin</a>
+                </div>
+            </div>
+
+            <div class="col-span-3 lg:col-span-3 flex flex-col gap-4">
+                <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold">Sitemap</p>
+                <div class="flex flex-col gap-2">
+                    <a href={translatePath("/")} class="hover:text-lime-400 transition-colors w-fit">Home</a>
+                    <a href={translatePath("/blog/")} class="hover:text-lime-400 transition-colors w-fit">Blog</a>
+                    <a href={translatePath("/contact/")} class="hover:text-lime-400 transition-colors w-fit">{t("contacts")}</a>
+                    <a href={translatePath("/privacy/")} class="hover:text-zinc-400 transition-colors text-zinc-500 text-base">Privacy Policy</a>
+                </div>
+            </div>
+
+            <div class="col-span-6 mt-10">
+                <p class="text-zinc-500 text-sm uppercase tracking-widest font-bold mb-4">Contact</p>
+                <a href="mailto:hello@vantta.studio" class="text-2xl lg:text-4xl font-bold hover:text-lime-400 transition-colors break-words">
+                    hello@vantta.studio
+                </a>
+            </div>
+        </div>
+
+        <div class="col-span-6 row-start-1 lg:col-span-4 lg:row-start-auto">
+            <div class="text-4xl lg:text-5xl font-black leading-tight uppercase mb-8">
+                <span class="text-lime-400">{t("footer.newsletter") || "Stay"}</span>
+                <br />
+                {t("footer.newsletter2") || "Updated"}
+            </div>
+            <Newsletter />
+        </div>
+    </div>
+
+    <div class="relative mt-20 flex w-full items-end justify-between border-t border-zinc-800 pt-8 text-sm lg:text-base text-zinc-500">
+        <div class="flex flex-col gap-1">
+            <p class="font-bold text-white uppercase tracking-tighter text-lg">Vantta Studio</p>
+            <p>©2026 — All rights reserved</p>
+        </div>
+
+        <button
+            id="go-top-button"
+            aria-label="Go to Top"
+            class="group relative flex items-center justify-center p-4 rounded-full border border-zinc-800 hover:border-lime-400 hover:bg-lime-400 transition-all duration-500 overflow-hidden"
+            data-cursor-hover>
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="32" height="32" 
+                viewBox="0 0 24 24"
+                class="text-white group-hover:text-black transition-colors duration-500 relative z-10"
+            >
+                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 11l-5-5m0 0l-5 5m5-5v12"></path>
+            </svg>
+        </button>
+    </div>
+</footer>
+
+<style>
+    footer {
+        @apply relative flex w-full flex-col px-6 lg:px-12;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+    gsap.registerPlugin(ScrollToPlugin);
+
+    function init() {
+        const goTopButton = document.getElementById("go-top-button");
+
+        if (!goTopButton) return;
+
+        goTopButton.addEventListener("click", () => {
+            gsap.to(window, { 
+                duration: 1.2, 
+                scrollTo: 0, 
+                ease: "power4.inOut" 
+            });
+        });
+        
+        // Efecto parallax simple en hover (si tienes cursor personalizado)
+        goTopButton.addEventListener("mousemove", (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = goTopButton.getBoundingClientRect();
+            const x = (clientX - (left + width / 2)) * 0.5;
+            const y = (clientY - (top + height / 2)) * 0.5;
+            
+            gsap.to(goTopButton, { x, y, duration: 0.3 });
+        });
+
+        goTopButton.addEventListener("mouseleave", () => {
+            gsap.to(goTopButton, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+        });
+    }
+
+    // Compatibilidad con Astro Transitions
+    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("astro:page-load", init);
+</script>

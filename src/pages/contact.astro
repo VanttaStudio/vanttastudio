@@ -1,0 +1,35 @@
+---
+import Contact from "@/components/forms/Contact.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+    title: "Contacto | Vantta Studio — Diseño y Desarrollo de Alto Impacto",
+    description:
+        "Ponte en contacto con Vantta Studio para servicios expertos de diseño web, desarrollo y estrategia digital. Hablemos sobre tu próximo proyecto innovador.",
+    canonical: "https://vanttastudio.cl/contact/",
+    openGraph: {
+        title: "Contacta con Vantta Studio",
+        description: "Iniciemos una conversación sobre tu presencia digital y cómo elevar tu marca.",
+        type: "website",
+    }
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 min-h-screen pt-20">
+        <Contact />
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aseguramos que el formulario de contacto resalte sobre el fondo oscuro de Vantta */
+    main {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>

@@ -1,0 +1,47 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Authors from "@components/blog/Authors.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getLangFromUrl } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+// Filtramos los autores por idioma antes de pasarlos si fuera necesario, 
+// aunque el componente <Authors /> ya maneja su propia lógica interna.
+const allAuthors = await getCollection("authors");
+
+const seo: AstroSeoProps = {
+    title: "Mentes Creativas | Vantta Studio",
+    description:
+        "Conoce al equipo de Vantta Studio. Expertos en diseño minimalista, desarrollo de alto rendimiento y estrategia digital.",
+    canonical: `https://vantta.studio/${lang}/authors/`,
+    openGraph: {
+        title: "Mentes Creativas | Vantta Studio",
+        description: "El equipo detrás de las mejores experiencias digitales.",
+        images: [
+            {
+                url: "https://vantta.studio/og-authors.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Equipo Vantta Studio",
+            },
+        ],
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950">
+        <Authors />
+        
+        <div class="h-32 bg-gradient-to-t from-zinc-900/20 to-transparent"></div>
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aseguramos que el fondo de la página sea consistente durante las transiciones */
+    body {
+        background-color: #09090b; /* zinc-950 */
+    }
+</style>

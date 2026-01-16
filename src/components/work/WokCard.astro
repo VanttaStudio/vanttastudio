@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+// Definimos las props extendidas para incluir tags y cliente
+const { image, project, link, description, tags = [], client, class: className } = Astro.props;
+---
+
+<li class:list={["flex flex-col group", className]}>
+    <a href={translatePath(link)} aria-label={`Proyecto ${project}`} class="overflow-hidden rounded-md lg:rounded-lg">
+        <Image 
+            class="h-[25rem] w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+            src={image} 
+            alt={project} 
+        />
+    </a>
+    <div class="px-2 py-8">
+        {tags.length > 0 && (
+            <div class="flex flex-wrap gap-2 mb-4">
+                {tags.map((tag) => (
+                    <span class="text-[10px] uppercase tracking-widest bg-slate-100 px-2 py-1 rounded text-slate-600 font-bold">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+        )}
+
+        <a href={translatePath(link)} class="flex items-start justify-between text-base font-medium lg:gap-x-8">
+            <div class="flex flex-col">
+                <h3 class="font-mono text-lg font-medium uppercase tracking-wide md:mt-0 lg:text-xl">
+                    {project}
+                </h3>
+                {client && <span class="text-xs text-slate-400 mt-1 uppercase tracking-tighter">Cliente: {client}</span>}
+            </div>
+            
+            <span class="text-right text-base transition-colors group-hover:text-black">
+                <span class="hidden lg:inline-block">{t("projects.see")}</span>
+                <span class="sr-only">{project}</span> &nbsp; &rarr;
+            </span>
+        </a>
+
+        {description && (
+            <p class="mt-6 line-clamp-2 text-sm text-slate-500 leading-relaxed">
+                {description}
+            </p>
+        )}
+    </div>
+</li>

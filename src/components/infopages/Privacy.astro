@@ -1,0 +1,60 @@
+---
+import Title from "@components/global/Title.astro";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Fecha de actualización para 2026
+const lastUpdated = "15. Jan 2026";
+---
+
+<section class="relative isolate overflow-hidden bg-zinc-950 min-h-screen">
+    <div class="absolute inset-x-0 top-0 -z-10 transform-gpu overflow-hidden blur-3xl" aria-hidden="true">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-lime-900/20 to-zinc-900/40 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-32">
+        <header>
+            <Title 
+                title="Privacy" 
+                subtitle={`${t("privacy.wip") || "Last updated"} ${lastUpdated}`} 
+                class="pb-10 pt-20 uppercase text-white" 
+            />
+        </header>
+
+        <div class="mt-12 lg:mt-24 max-w-3xl">
+            <div class="bg-zinc-900/40 border border-zinc-800 p-10 rounded-4xl lg:rounded-5xl backdrop-blur-sm">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-lime-500"></span>
+                    </span>
+                    <h2 class="text-2xl font-display font-bold text-white uppercase tracking-tight" id="shine-the-light-disclosure">
+                        {t("privacy.wip")}
+                    </h2>
+                </div>
+                
+                <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                    {t("privacy.wip.content")}
+                </p>
+
+                <div class="h-px w-full bg-gradient-to-r from-zinc-800 to-transparent mb-8"></div>
+
+                <p class="text-zinc-500 text-sm italic">
+                    {t("contact.subtitle")} 
+                    <a href="mailto:privacy@vantta.studio" class="text-lime-500 hover:text-lime-400 underline transition-colors ml-1">
+                        privacy@vantta.studio
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Aseguramos que el componente Title mantenga el estilo visual de Vantta */
+    :global(.font-display) {
+        letter-spacing: -0.02em;
+    }
+</style>

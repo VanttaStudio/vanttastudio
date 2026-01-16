@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@components/landing/Hero.astro";
+import Services from "@components/landing/Services.astro";
+import Tagline from "@components/landing/Tagline.astro";
+import WorkPreview from "@components/landing/WorkPreview.astro";
+import Faq from "@components/landing/Faq.astro";
+
+// Importamos los componentes de atmósfera que definen a Vantta
+import GrainyGradient from "@components/global/GrainyGradient.astro";
+import TextureOverlay from "@components/global/TextureOverlay.astro";
+import CursorFollower from "@components/global/CursorFollower.astro";
+---
+
+<BaseLayout>
+    <TextureOverlay />
+
+    <CursorFollower />
+
+    <main class="relative bg-zinc-950">
+        <div class="relative min-h-screen overflow-hidden">
+            <GrainyGradient class="absolute inset-0 opacity-40" />
+            <Hero />
+        </div>
+
+        <WorkPreview class="relative z-10 !pt-20 pb-20 lg:!pt-36 lg:pb-40 bg-zinc-950" />
+
+        <section class="border-y border-zinc-800 bg-zinc-900/30">
+            <Services />
+        </section>
+
+        <Tagline />
+
+        <section class="bg-zinc-950 py-20">
+            <Faq />
+        </section>
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aseguramos que el scroll sea suave en todo el sitio */
+    html {
+        scroll-behavior: smooth;
+        background-color: #09090b; /* zinc-950 */
+    }
+
+    /* Estilo de selección personalizado con el color de Vantta */
+    ::selection {
+        background-color: #a3e635; /* lime-400 */
+        color: #000;
+    }
+
+    /* Ocultar scrollbar para un look más limpio (opcional) */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+</style>

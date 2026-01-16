@@ -1,0 +1,131 @@
+---
+import { Image } from "astro:assets";
+import Cta from "@/components/blog/Cta.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Comments from "@components/blog/Comments.astro";
+import Title from "@components/global/Title.astro";
+import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+import { Icon } from "astro-icon/components";
+import BaseLayout from "./BaseLayout.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+type Props = {
+    frontmatter: any;
+    body: string;
+    seo?: AstroSeoProps;
+};
+
+const { frontmatter, body, seo } = Astro.props;
+
+function getArticleReadingTime(body: string): number {
+    if (!body) return 0;
+    const wordsPerMinute = 183;
+    const numberOfWords = body.split(/\s/g).length;
+    const minutes = numberOfWords / wordsPerMinute;
+    return Math.ceil(minutes);
+}
+
+const readingTime = getArticleReadingTime(body);
+
+// Formateo de fecha según idioma
+const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+});
+---
+
+<BaseLayout seo={seo}>
+    <section class="bg-zinc-950 text-white">
+        <div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-32">
+            <div class="flex flex-col gap-6 pt-20">
+                <Title
+                    title={frontmatter.title}
+                    subtitle={`${lang === 'es' ? 'Escrito por' : 'Written by'}: <a href="${frontmatter.author.link}" class="text-lime-400 hover:text-white transition-colors" rel="author">${frontmatter.author.name}</a> — ${formattedDate}`}
+                />
+
+                <p class="max-w-2xl text-lg text-zinc-400 leading-relaxed italic">
+                    "{frontmatter.description}"
+                </p>
+
+                {
+                    frontmatter?.link && (
+                        <a class="font-mono text-sm font-bold uppercase tracking-widest text-lime-400 hover:text-white transition-all flex items-center gap-2" href={frontmatter?.link} target="_blank">
+                            <Icon name="iconamoon:link-external-thin" class="text-xl" /> {t("blog.gotoproject") || (lang === 'es' ? 'Ver Proyecto' : 'View Project')}
+                        </a>
+                    )
+                }
+            </div>
+
+            <div class="mt-12 w-full">
+                {frontmatter.image?.url ? (
+                    <Image 
+                        class="w-full rounded-2xl object-cover aspect-video border border-zinc-800 shadow-2xl" 
+                        src={frontmatter.image.url} 
+                        alt={frontmatter.image.alt || frontmatter.title} 
+                        width={1600}
+                        height={900}
+                    />
+                ) : (
+                    <div class="w-full aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center text-zinc-700">
+                        Image Asset Missing
+                    </div>
+                )}
+                
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-2 pt-8 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
+                    <div class="flex flex-wrap items-center gap-4">
+                        {frontmatter?.tags?.length > 0 && <span class="text-zinc-400">{lang === 'es' ? 'Etiquetas' : 'Tags'}:</span>}
+                        <ul class="flex flex-wrap gap-2">
+                            {
+                                frontmatter?.tags?.map((tag: string) => (
+                                    <li class="inline-flex items-center rounded-full border border-zinc-800 px-3 py-1 hover:border-lime-400 hover:text-lime-400 transition-colors">
+                                        <a href={translatePath(`/tags/${tag}`)}>{tag}</a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                    <div class="flex items-center gap-2 bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800">
+                        <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+                        <span class="text-zinc-300">~{readingTime} MIN {lang === 'es' ? 'LECTURA' : 'READ'}</span>
+                    </div>
+                </div>
+
+                <article class="prose-styles mt-16 lg:mt-24">
+                    <slot />
+                </article>
+            </div>
+
+            <div class="mt-24 border-t border-zinc-900 pt-12">
+                <Comments />
+            </div>
+        </div>
+    </section>
+    <Cta />
+</BaseLayout>
+
+<style is:global>
+    /* Estilos para que el contenido del post se vea impecable */
+    .prose-styles {
+        @apply prose-invert max-w-none;
+    }
+    
+    .prose-styles p {
+        @apply text-zinc-400 text-lg leading-relaxed mb-8;
+    }
+
+    .prose-styles h2 {
+        @apply text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-white mt-16 mb-8;
+    }
+
+    .prose-styles img {
+        @apply rounded-xl border border-zinc-800 my-12;
+    }
+
+    .prose-styles strong {
+        @apply text-lime-400 font-semibold;
+    }
+</style>

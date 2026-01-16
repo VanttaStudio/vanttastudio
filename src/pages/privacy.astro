@@ -1,0 +1,30 @@
+---
+import PrivacyPage from "@/components/infopages/Privacy.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+    title: "Política de Privacidad - Vantta Studio",
+    description:
+        "Nuestra Política de Privacidad describe cómo Vantta Studio protege su información personal. Conozca nuestro compromiso con su privacidad y la seguridad de sus datos.",
+    canonical: "https://vanttastudio.cl/privacy/",
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 py-24">
+        <PrivacyPage />
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Estilos para asegurar que el contenido legal sea legible en el modo oscuro */
+    .privacy-content h1, 
+    .privacy-content h2 {
+        @apply text-white font-bold mb-6 mt-12;
+    }
+    .privacy-content p, 
+    .privacy-content li {
+        @apply text-zinc-400 leading-relaxed mb-4;
+    }
+</style>

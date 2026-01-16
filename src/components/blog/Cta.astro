@@ -1,0 +1,56 @@
+---
+import Newsletter from "@components/blog/Newsletter.astro";
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="relative overflow-hidden bg-zinc-950 py-24 lg:py-40">
+    <div class="absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-lime-400/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="mx-auto max-w-7xl px-8 md:px-12 lg:px-32">
+        <div class="relative z-10 flex flex-col items-center justify-center gap-12 text-center">
+            
+            <div class="flex flex-col items-center gap-4">
+                <span class="font-mono text-xs uppercase tracking-[0.4em] text-lime-400">
+                    {t("newsletter.pretitle") || "Stay Ahead"}
+                </span>
+                <h2 class="max-w-4xl font-display text-5xl font-black uppercase italic leading-[0.85] tracking-tighter text-white md:text-7xl lg:text-9xl">
+                    ÚNETE AL <br />
+                    <span class="text-zinc-800 outline-text">MOVIMIENTO</span>
+                </h2>
+            </div>
+
+            <p class="max-w-xl font-mono text-sm leading-relaxed text-zinc-500 md:text-base">
+                {t("newsletter.description") || "Recibe estrategias de diseño, desarrollo y minimalismo digital directamente en tu bandeja de entrada."}
+            </p>
+
+            <div class="w-full max-w-2xl">
+                <Newsletter class="w-full" />
+            </div>
+
+            <p class="text-[10px] uppercase tracking-widest text-zinc-700">
+                Sin spam. Solo valor real.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Efecto de texto con borde (hollow) para la palabra MOVIMIENTO */
+    .outline-text {
+        color: transparent;
+        -webkit-text-stroke: 1px rgb(63 63 70); /* zinc-700 */
+        transition: -webkit-text-stroke 0.5s ease;
+    }
+
+    section:hover .outline-text {
+        -webkit-text-stroke: 1px rgb(163 230 71); /* lime-400 */
+    }
+
+    /* Ajuste para que el título sea responsivo y no se rompa */
+    h2 {
+        text-wrap: balance;
+    }
+</style>

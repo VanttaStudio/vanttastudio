@@ -1,0 +1,84 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import MarkdownPostLayout from "@layouts/MarkdownPostLayout.astro";
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("posts");
+
+    return blogEntries
+        .map((entry) => {
+            const [lang, ...slugParts] = entry.slug.split("/");
+            const slug = slugParts.join("/");
+            return { 
+                params: { lang, slug: slug || undefined }, 
+                props: { entry } 
+            };
+        })
+        .filter((entry) => entry.params.lang === "en"); // Filtro para Inglés
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const seo: AstroSeoProps = {
+    title: `${entry.data.title} | Vantta Studio Blog`,
+    description: entry.data.description,
+    canonical: `https://vantta.studio/en/blog/${entry.slug.split('/').slice(1).join('/')}/`,
+    openGraph: {
+        url: `https://vantta.studio/en/blog/${entry.slug.split('/').slice(1).join('/')}/`,
+        title: entry.data.title,
+        description: entry.data.description,
+        type: "article",
+        article: {
+            publishedTime: entry.data.pubDate.toISOString(),
+            authors: [entry.data.author.name],
+            tags: entry.data.tags,
+        },
+        images: [
+            {
+                url: entry.data.image.source,
+                width: 1200,
+                height: 630,
+                alt: entry.data.title,
+                type: "image/jpeg",
+            },
+        ],
+        site_name: "Vantta Studio",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        site: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+};
+---
+
+<MarkdownPostLayout frontmatter={entry.data} body={entry.body} seo={seo}>
+    <div class="animate-in-view">
+        <Content />
+    </div>
+</MarkdownPostLayout>
+
+<style is:global>
+    /* Estilos de animación para el contenido en inglés */
+    .animate-in-view {
+        animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes slideUpFade {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Consistencia con el diseño oscuro de Vantta */
+    article {
+        color: #d4d4d8; /* zinc-300 */
+    }
+</style>

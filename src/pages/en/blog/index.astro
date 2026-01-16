@@ -1,0 +1,55 @@
+---
+import type { AstroSeoProps } from "@astrolib/seo";
+import Articles from "@components/blog/Articles.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const seo: AstroSeoProps = {
+    title: "Vantta Studio Blog: Digital Craftsmanship & Tech Insights",
+    description:
+        "Explore the Vantta Studio Blog for the latest trends in high-end web design, performance-driven development, and minimalist digital strategies.",
+    canonical: "https://vantta.studio/en/blog/",
+    openGraph: {
+        url: "https://vantta.studio/en/blog/",
+        title: "Vantta Studio Blog: Digital Craftsmanship & Tech Insights",
+        description:
+            "Expert advice, minimalist design tips, and industry insights. Stay updated with our latest digital solutions and creative process.",
+        images: [
+            {
+                url: "https://vantta.studio/opengraph/social-og-en.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Vantta Studio Blog - Digital Insights",
+                type: "image/jpeg",
+            },
+            {
+                url: "https://vantta.studio/opengraph/twitter-og-en.jpg",
+                width: 4096,
+                height: 4096,
+                alt: "Vantta Studio Blog - Tech & Design",
+                type: "image/jpeg",
+            }
+        ],
+        site_name: "Vantta Studio",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        site: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950">
+        <Articles />
+        
+        <div class="h-24 bg-gradient-to-t from-zinc-900/10 to-transparent"></div>
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Aseguramos que el cuerpo de la página respete el tema oscuro de Vantta */
+    body {
+        background-color: #09090b; /* zinc-950 */
+    }
+</style>

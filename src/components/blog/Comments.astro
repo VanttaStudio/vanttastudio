@@ -1,0 +1,65 @@
+---
+/* * Componente de Comentarios Giscus para Vantta Studio
+ * Configurado para modo oscuro permanente y carga optimizada.
+ */
+---
+
+<section class="mx-auto w-full max-w-4xl px-6 py-20">
+    <div class="mb-20 flex items-center gap-4">
+        <span class="h-px flex-1 bg-zinc-800"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500">Feedback / Comentarios</span>
+        <span class="h-px flex-1 bg-zinc-800"></span>
+    </div>
+
+    <div
+        id="giscus-container"
+        class="giscus mx-auto min-h-[250px] w-full"
+        data-repo="majesticooss/mintaka"
+        data-repo-id="R_kgDOK_K6WQ"
+        data-category="Blog"
+        data-category-id="DIC_kwDOK_K6Wc4CcGH6"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed" 
+        data-lang="es"
+        data-loading="lazy"
+        crossorigin="anonymous"
+    >
+    </div>
+</section>
+
+<script>
+    function loadGiscus() {
+        const container = document.getElementById('giscus-container');
+        if (!container || document.querySelector('.giscus-frame')) return;
+
+        const script = document.createElement('script');
+        script.src = 'https://giscus.app/client.js';
+        
+        // Copiamos los atributos data del contenedor al script
+        Object.keys(container.dataset).forEach(key => {
+            script.setAttribute(`data-${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`, container.dataset[key] as string);
+        });
+
+        script.async = true;
+        document.head.appendChild(script);
+    }
+
+    // Ejecutar en carga inicial y en transiciones de Astro
+    document.addEventListener('astro:page-load', loadGiscus);
+    
+    // Fallback por si no usas View Transitions
+    if (document.readyState !== 'loading') {
+        loadGiscus();
+    }
+</script>
+
+<style is:global>
+    /* Ajuste para que el iframe de Giscus no rompa la estética */
+    .giscus-frame {
+        border-radius: 12px !important;
+    }
+</style>

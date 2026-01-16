@@ -1,0 +1,104 @@
+---
+import BlobCursorFollower from "@/components/global/BlobCursorFollower.astro";
+import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
+import BaseHead from "@components/BaseHead.astro";
+import BackgroundTexture from "@components/global/BackgroundTexture.astro";
+import Footer from "@components/global/Footer.astro";
+import Navigation from "@components/global/Navigation.astro";
+import { getLangFromUrl } from "../i18n/utils";
+
+const { pathname } = Astro.url;
+
+type Props = {
+    seo?: AstroSeoProps;
+};
+
+const { seo: seoProp } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+// Imagen para compartir en redes sociales (Open Graph)
+const shareImage = new URL("/images/meta/vantta_share.png", Astro.site).toString();
+
+const defaultSeo: AstroSeoProps = {
+    title: "Vantta Studio | Diseño Web de Alto Impacto y Performance",
+    description:
+        "Vantta Studio crea sitios web rápidos, minimalistas y optimizados para SEO. Especialistas en transformar marcas mediante diseño digital sofisticado.",
+    canonical: "https://vanttastudio.cl",
+    openGraph: {
+        url: "https://vanttastudio.cl",
+        title: "Vantta Studio | Digital Craftsmanship",
+        description:
+            "Agencia boutique de diseño y desarrollo web enfocada en performance y estética minimalista.",
+        images: [
+            {
+                url: shareImage,
+                width: 1200,
+                height: 630,
+                alt: "Vantta Studio Open Graph",
+                type: "image/png",
+            }
+        ],
+        site_name: "Vantta",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        site: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+    additionalMetaTags: [
+        {
+            name: "publisher",
+            content: "Vantta Studio",
+        },
+        {
+            name: "theme-color",
+            content: "#09090b", // zinc-950
+        }
+    ],
+};
+
+const seo = {
+    ...defaultSeo,
+    ...seoProp,
+};
+
+// Control de dónde se activa el seguidor de cursor
+function cursorFollowerActive() {
+    // Activado en la home principal y la home en inglés
+    const paths = ["", "/", "/en/", "/en"];
+    return paths.includes(pathname);
+}
+---
+
+<html lang={lang} class="scroll-smooth">
+    <head>
+        <BaseHead />
+        <AstroSeo {...seo} />
+    </head>
+    <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black">
+        <BackgroundTexture />
+        <Navigation />
+        
+        {cursorFollowerActive() && <BlobCursorFollower />}
+        
+        <main id="main-content">
+            <slot />
+        </main>
+        
+        <Footer />
+    </body>
+</html>
+
+<style is:global>
+    /* Aseguramos que el contenido siempre ocupe el alto de pantalla */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    main {
+        flex: 1;
+    }
+</style>

@@ -1,0 +1,66 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Author from "@components/blog/Author.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const authors = await getCollection("authors");
+
+    return authors
+        .map((entry) => {
+            const [lang, ...slugParts] = entry.slug.split("/");
+            const slug = slugParts.join("/");
+            return { 
+                params: { lang, author: slug || undefined }, 
+                props: { author: entry } 
+            };
+        })
+        .filter((entry) => entry.params.lang === "en"); // Filtro para inglés
+}
+
+const { author } = Astro.props;
+
+const seo: AstroSeoProps = {
+    title: `${author.data.name} | Vantta Studio`,
+    description: author.data.bio || `Meet ${author.data.name}, creative mind at Vantta Studio.`,
+    canonical: `https://vantta.studio/en/author/${author.slug}/`,
+    openGraph: {
+        title: `${author.data.name} - Author Profile`,
+        description: author.data.bio,
+        type: "profile",
+        profile: {
+            firstName: author.data.name.split(' ')[0],
+            lastName: author.data.name.split(' ').slice(1).join(' '),
+            username: author.slug,
+        },
+        images: [
+            {
+                url: author.data.avatar?.src || "https://vantta.studio/default-avatar.jpg",
+                width: 400,
+                height: 400,
+                alt: author.data.name,
+            },
+        ],
+    },
+    twitter: {
+        handle: author.data.twitter || "@vanttastudio",
+        cardType: "summary",
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950">
+        <Author author={author} />
+    </main>
+</BaseLayout>
+
+<style is:global>
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        background-color: #09090b; /* zinc-950 */
+    }
+</style>

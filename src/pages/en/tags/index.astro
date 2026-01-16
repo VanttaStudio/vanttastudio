@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Tags from "@components/blog/Tags.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+const seo: AstroSeoProps = {
+    title: "Topics & Tags | Vantta Studio",
+    description:
+        "Explore our content by topics. Find specialized articles on high-end design, creative development, and digital strategy through our tag index.",
+    canonical: "https://vantta.studio/en/tags/",
+    openGraph: {
+        title: "Explore Topics | Vantta Studio",
+        description: "Browse our expertise through tags and categories.",
+        type: "website",
+        images: [
+            {
+                url: "https://vantta.studio/og-tags-en.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Vantta Studio Tags Index",
+            },
+        ],
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 min-h-screen">
+        <Tags />
+        
+        <div class="h-24 bg-gradient-to-t from-zinc-900/10 to-transparent"></div>
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Forzamos el fondo oscuro para evitar destellos blancos en la carga */
+    body {
+        background-color: #09090b; /* zinc-950 */
+    }
+</style>

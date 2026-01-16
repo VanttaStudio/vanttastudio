@@ -1,0 +1,62 @@
+---
+const { class: className } = Astro.props;
+import { getLangFromUrl, useTranslations, useTranslatedPath } from "@i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<div class:list={["relative mt-8 h-16 max-w-[30rem] lg:max-w-[35rem]", className]}>
+    <div class="squircle-bg-dark absolute inset-0 h-full w-full rounded-2xl bg-zinc-900 border border-zinc-800 transition-colors duration-300 group-within:border-lime-400/50"></div>
+    
+    <form class="relative h-full flex items-center">
+        <input
+            type="email"
+            name="EMAIL"
+            required
+            autocomplete="email"
+            placeholder={t("footer.yourmail")}
+            class="pointer-events-auto h-full w-full bg-transparent px-6 py-2 text-lg font-medium text-white outline-none placeholder:text-zinc-600 focus:ring-0"
+        />
+        
+        <button
+            type="submit"
+            aria-label="Send newsletter"
+            data-cursor-hover
+            class="group/btn pointer-events-auto absolute right-2 flex h-12 w-12 items-center justify-center rounded-xl bg-lime-400 text-black transition-all hover:scale-105 active:scale-95"
+        >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-300 group-hover/btn:translate-x-1">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M1.9999 11.9998C1.9999 12.552 2.44762 12.9997 2.9999 12.9997H18.9757C18.8901 13.148 18.7838 13.2876 18.657 13.4144L12.2931 19.7784C11.9025 20.1689 11.9025 20.8021 12.2931 21.1926C12.6836 21.5831 13.3168 21.5831 13.7073 21.1926L22.1926 12.7073C22.5831 12.3168 22.5831 11.6836 22.1926 11.2931L22.1924 11.293L13.7071 2.80767C13.3166 2.41715 12.6834 2.41715 12.2929 2.80767C11.9024 3.1982 11.9024 3.83136 12.2929 4.22189L18.657 10.586C18.7836 10.7126 18.8896 10.8518 18.9752 10.9998H2.9999C2.44762 10.9997 1.9999 11.4475 1.9999 11.9998Z"
+                    fill="currentColor">
+                </path>
+            </svg>
+        </button>
+    </form>
+    <div class="mx-4 mt-2 text-xs font-mono text-zinc-500 uppercase tracking-widest">
+        </div>
+</div>
+
+<style>
+    /* Mantenemos el soporte de Squircle pero con colores Vantta */
+    .squircle-bg-dark {
+        --squircle-smooth: 1;
+        --squircle-radius: 20px;
+        mask-image: paint(squircle);
+        -webkit-mask-image: paint(squircle);
+    }
+
+    /* Pequeño ajuste para dispositivos que no soportan el paint API de Squircle */
+    @supports not (mask-image: paint(squircle)) {
+        .squircle-bg-dark {
+            border-radius: 1rem;
+        }
+    }
+
+    input:focus + button {
+        background-color: white;
+    }
+</style>

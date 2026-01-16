@@ -1,0 +1,48 @@
+---
+import TermsPage from "@/components/infopages/Terms.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import type { AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+    title: "Términos de Servicio — Vantta Studio",
+    description:
+        "Lea los Términos de Servicio de Vantta Studio. Conozca nuestras pautas y sus responsabilidades al utilizar nuestros servicios de diseño web y estrategia digital.",
+    canonical: "https://vanttastudio.cl/terms/",
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950 py-24 min-h-screen">
+        <div class="max-w-4xl mx-auto px-8">
+            <TermsPage />
+        </div>
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Estilos para legibilidad de textos legales en fondo oscuro */
+    main {
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    /* Ajustes de color para el componente TermsPage */
+    .terms-container h1, 
+    .terms-container h2, 
+    .terms-container h3 {
+        @apply text-white font-black uppercase tracking-tighter italic mb-6 mt-10;
+    }
+
+    .terms-container p, 
+    .terms-container li {
+        @apply text-zinc-400 leading-relaxed mb-4 text-sm md:text-base;
+    }
+
+    .terms-container strong {
+        @apply text-lime-400 font-bold;
+    }
+</style>

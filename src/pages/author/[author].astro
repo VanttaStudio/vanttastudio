@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import type { AstroSeoProps } from "@astrolib/seo";
+import Author from "@components/blog/Author.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+    const authors = await getCollection("authors");
+
+    return authors.map((entry) => {
+        const [lang, ...slugParts] = entry.slug.split("/");
+        const slug = slugParts.join("/");
+        return { 
+            params: { lang, author: slug || undefined }, 
+            props: { author: entry } 
+        };
+    });
+}
+
+const { author } = Astro.props;
+
+// Configuración SEO específica para el perfil del autor
+const seo: AstroSeoProps = {
+    title: `${author.data.name} | Vantta Studio`,
+    description: author.data.bio || `Conoce a ${author.data.name}, parte del equipo creativo de Vantta Studio.`,
+    canonical: `https://vantta.studio/author/${author.slug}/`,
+    openGraph: {
+        title: `${author.data.name} - Perfil de Autor`,
+        description: author.data.bio,
+        type: "profile",
+        profile: {
+            firstName: author.data.name.split(' ')[0],
+            lastName: author.data.name.split(' ').slice(1).join(' '),
+            username: author.slug,
+        },
+        images: [
+            {
+                url: author.data.avatar?.src || "https://vantta.studio/default-avatar.jpg",
+                width: 400,
+                height: 400,
+                alt: author.data.name,
+            },
+        ],
+    },
+    twitter: {
+        handle: author.data.twitter || "@vanttastudio",
+        cardType: "summary",
+    },
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="bg-zinc-950">
+        <Author author={author} />
+    </main>
+</BaseLayout>
+
+<style is:global>
+    /* Suavizado de scroll para la navegación de artículos del autor */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Aseguramos que el fondo oscuro sea impecable */
+    body {
+        background-color: #09090b;
+    }
+</style>

@@ -1,0 +1,26 @@
+---
+const { title, subtitle, class: className } = Astro.props;
+---
+
+<div class:list={["flex md:justify-center", className]}>
+    <div class="inline-flex flex-col gap-4">
+        <div class="inline-flex items-center gap-4">
+            <div class="hidden h-1 w-20 bg-lime-500 md:block"></div>
+            <span 
+                class="font-mono text-xs font-bold uppercase tracking-[0.2em] text-zinc-400" 
+                set:html={subtitle} 
+            />
+        </div>
+
+        <h1 class="font-display text-5xl font-black tracking-tighter text-white sm:text-7xl md:text-8xl lg:text-9xl leading-[0.9]">
+            {title}
+        </h1>
+    </div>
+</div>
+
+<style>
+    /* Ajuste de kerning para títulos de gran tamaño */
+    .font-display {
+        letter-spacing: -0.05em;
+    }
+</style>

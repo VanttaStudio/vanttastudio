@@ -1,0 +1,102 @@
+---
+import { getLangFromUrl, useTranslations } from "@i18n/utils";
+
+const { class: className } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Definimos los puntos de texto que aparecerán durante el scroll
+const steps = [
+  {
+    title: t("allinone.step1.title") || "Lo mejor de todo?",
+    subtitle: t("allinone.step1.sub") || "Todo en un solo lugar",
+    class: "top-[10%]"
+  },
+  {
+    title: t("allinone.step2.title") || "Diseño y Estrategia",
+    subtitle: t("allinone.step2.sub") || "Unidos para convertir",
+    class: "top-[40%] md:left-[50%]"
+  },
+  {
+    title: t("allinone.step3.title") || "Resultado Final",
+    subtitle: t("allinone.step3.sub") || "Tu marca lista para brillar",
+    class: "top-[80%]"
+  }
+];
+---
+
+<section id="all-in-one" class:list={["all-in-one-section relative bg-zinc-950 text-white overflow-hidden", className]}>
+    <div class="wrapper col-span-12 w-full relative">
+        
+        <div class="line-animation-wrapper absolute inset-0 h-full min-h-[150rem] pointer-events-none">
+            <svg id="all-in-one-svg" class="w-full h-full opacity-30" preserveAspectRatio="none" viewBox="0 0 600 1200" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    class="all-in-one-line-path"
+                    d="M -5 0 Q 334 135 189 164 T 227 362 A 1 1 0 0 0 302 268 A 1 1 0 0 0 215 410 C 274 443 324 481 322 552 C 310 703 365 610 983 719"
+                    fill="none"
+                    stroke="#bef264" 
+                    stroke-width="3px">
+                </path>
+            </svg>
+        </div>
+
+        <div class="relative z-10 min-h-[180rem] px-8 md:px-20">
+            {steps.map((step) => (
+                <div class:list={["absolute flex flex-col max-w-xl transition-opacity duration-500", step.class]}>
+                    <h2 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-white">
+                        {step.title}
+                    </h2>
+                    <h3 class="font-display text-2xl md:text-4xl text-lime-500 mt-4 uppercase tracking-widest font-medium">
+                        {step.subtitle}
+                    </h3>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+    .all-in-one-section {
+        /* Evita saltos visuales en el scroll */
+        contain: paint;
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
+
+    gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
+
+    function initAllInOne() {
+        const linePath = document.querySelector(".all-in-one-line-path");
+        if (!linePath) return;
+
+        // Inicializamos la línea oculta
+        gsap.set(linePath, { drawSVG: 0 });
+
+        // Animación de la línea basada en el scroll
+        gsap.timeline({
+            scrollTrigger: {
+                trigger: ".all-in-one-section",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5,
+                markers: false,
+            },
+            defaults: { ease: "none" },
+        }).to(
+            linePath,
+            {
+                drawSVG: "100%",
+            },
+            0
+        );
+    }
+
+    // Compatibilidad con Astro Transitions
+    document.addEventListener("astro:page-load", initAllInOne);
+    // Ejecución inicial
+    initAllInOne();
+</script>

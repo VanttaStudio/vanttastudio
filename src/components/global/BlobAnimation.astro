@@ -1,0 +1,117 @@
+---
+// Paleta Vantta Studio: Verde Lima, Verde Bosque y Zinc
+const {
+    blobAColor = "#a3e635", // Lima principal
+    blobBColor = "#166534", // Verde oscuro para profundidad
+    blobCColor = "#3f3f46", // Zinc para neutralizar
+} = Astro.props;
+---
+
+<div class="blob-cont">
+    <div class="blob-color-a blob"></div>
+    <div class="blob-color-c blob"></div>
+    <div class="blob-color-b blob"></div>
+</div>
+
+<style define:vars={{ blobAColor, blobBColor, blobCColor }}>
+    .blob-cont {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: -2;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .blob {
+        border-radius: 100%;
+        filter: blur(120px); /* Desenfoque más suave para Vantta */
+        opacity: 30%; /* Opacidad reducida para no distraer del contenido */
+        will-change: transform, top, left;
+    }
+
+    .blob-color-a {
+        background-color: var(--blobAColor);
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        height: 400px;
+        width: 400px;
+        animation: blob-color-a 15s infinite ease-in-out;
+    }
+
+    .blob-color-b {
+        background-color: var(--blobBColor);
+        position: absolute;
+        bottom: 10%;
+        right: 10%;
+        height: 500px;
+        width: 500px;
+        animation: blob-color-b 20s infinite ease-in-out;
+    }
+
+    .blob-color-c {
+        background-color: var(--blobCColor);
+        position: absolute;
+        left: 30%;
+        top: 40%;
+        height: 350px;
+        width: 350px;
+        animation: blob-color-c 12s infinite ease-in-out;
+    }
+
+    @keyframes blob-color-a {
+        0%, 100% {
+            top: 10%;
+            left: 10%;
+            transform: scale(1);
+        }
+        33% {
+            top: 25%;
+            left: 40%;
+            transform: scale(1.2);
+        }
+        66% {
+            top: 50%;
+            left: 15%;
+            transform: scale(0.9);
+        }
+    }
+
+    @keyframes blob-color-b {
+        0%, 100% {
+            bottom: 10%;
+            right: 10%;
+            transform: scale(1);
+        }
+        50% {
+            bottom: 40%;
+            right: 30%;
+            transform: scale(1.3);
+        }
+    }
+
+    @keyframes blob-color-c {
+        0%, 100% {
+            left: 30%;
+            top: 40%;
+            transform: scale(1);
+        }
+        40% {
+            left: 50%;
+            top: 20%;
+            transform: scale(1.4);
+        }
+        80% {
+            left: 15%;
+            top: 60%;
+            transform: scale(0.8);
+        }
+    }
+</style>
