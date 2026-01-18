@@ -40,16 +40,16 @@ const points = [
 ---
 
 <section id="services-scroll" class:list={["relative bg-zinc-950 text-white", className]}>
-    <div class="wrapper h-screen w-full flex items-center justify-center overflow-hidden">
+    <div class="wrapper min-h-screen w-full flex flex-col lg:flex-row lg:items-center lg:justify-center overflow-hidden py-20 lg:py-0">
         
-        <div class="indicators absolute left-8 top-1/2 -translate-y-1/2 hidden h-[200px] w-[2px] flex-col justify-between gap-4 z-50">
+        <div class="indicators absolute left-8 top-1/2 -translate-y-1/2 hidden lg:flex h-[200px] w-[2px] flex-col justify-between gap-4 z-50">
             {points.map(() => <div class="indicator-bar w-full grow bg-zinc-800 transition-colors duration-300" />)}
         </div>
 
-        <div class="container-inner relative h-full w-full max-w-7xl mx-auto px-8 md:px-12">
+        <div class="container-inner relative w-full max-w-7xl mx-auto px-8 md:px-12 flex flex-col gap-20 lg:block lg:h-full">
             {
                 points.map((point, i) => (
-                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-12">
+                    <div class="point-slide relative lg:absolute inset-0 flex flex-col lg:flex-row items-center justify-center gap-12 lg:opacity-0 lg:translate-y-[100px]">
                         
                         <div class="illustration hidden lg:block w-1/3 opacity-100">
                             <Fragment set:html={point.image} />
@@ -90,9 +90,11 @@ const points = [
 </section>
 
 <style is:global>
-    #services-scroll .point-slide {
-        visibility: hidden;
-        opacity: 0;
+    @media (min-width: 1024px) {
+        #services-scroll .point-slide {
+            visibility: hidden;
+            opacity: 0;
+        }
     }
     
     #services-scroll article p strong {
@@ -119,54 +121,75 @@ const points = [
         
         if (slides.length === 0) return;
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#services-scroll",
-                start: "top top",
-                end: `+=${slides.length * 150}%`,
-                pin: true,
-                scrub: 1,
+        ScrollTrigger.matchMedia({
+            // Desktop only: Pinning animation
+            "(min-width: 1024px)": function() {
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#services-scroll",
+                        start: "top top",
+                        end: `+=${slides.length * 150}%`,
+                        pin: true,
+                        scrub: 1,
+                    }
+                });
+
+                slides.forEach((slide, i) => {
+                    // Initial states for desktop
+                    if (i === 0) {
+                        gsap.set(slide, { autoAlpha: 1, y: 0, visibility: "visible" });
+                        if(indicators[0]) gsap.set(indicators[0], { backgroundColor: "#a3e635" });
+                    } else {
+                        gsap.set(slide, { autoAlpha: 0, y: 100, visibility: "hidden" });
+                    }
+
+                    if (i > 0) {
+                        tl.to(slide, {
+                            autoAlpha: 1,
+                            y: 0,
+                            visibility: "visible",
+                            duration: 1
+                        }, i);
+
+                        if(indicators[i]) {
+                            tl.to(indicators[i], {
+                                backgroundColor: "#a3e635",
+                                duration: 0.5
+                            }, i);
+                        }
+                    }
+
+                    if (i < slides.length - 1) {
+                        tl.to(slide, {
+                            autoAlpha: 0,
+                            y: -100,
+                            visibility: "hidden",
+                            duration: 1
+                        }, i + 0.5);
+
+                        if(indicators[i]) {
+                            tl.to(indicators[i], {
+                                backgroundColor: "#27272a",
+                                duration: 0.5
+                            }, i + 0.5);
+                        }
+                    }
+                });
+                
+                gsap.set(".indicators", { display: "flex" });
+            },
+
+            // Mobile: Ensure visibility
+            "(max-width: 1023px)": function() {
+                // Reset styles for mobile
+                slides.forEach(slide => {
+                    gsap.set(slide, { autoAlpha: 1, y: 0, visibility: "visible", clearProps: "all" });
+                });
+                gsap.set(".indicators", { display: "none" });
             }
         });
-
-        slides.forEach((slide, i) => {
-            if (i === 0) {
-                gsap.set(slide, { autoAlpha: 1, y: 0 });
-                gsap.set(indicators[0], { backgroundColor: "#a3e635" });
-            } else {
-                gsap.set(slide, { autoAlpha: 0, y: 100 });
-            }
-
-            if (i > 0) {
-                tl.to(slide, { 
-                    autoAlpha: 1, 
-                    y: 0, 
-                    duration: 1 
-                }, i);
-                
-                tl.to(indicators[i], { 
-                    backgroundColor: "#a3e635", 
-                    duration: 0.5 
-                }, i);
-            }
-
-            if (i < slides.length - 1) {
-                tl.to(slide, { 
-                    autoAlpha: 0, 
-                    y: -100, 
-                    duration: 1 
-                }, i + 0.5);
-                
-                tl.to(indicators[i], { 
-                    backgroundColor: "#27272a", 
-                    duration: 0.5 
-                }, i + 0.5);
-            }
-        });
-
-        gsap.set(".indicators", { display: "flex" });
     }
 
     document.addEventListener("astro:page-load", initServices);
-    initServices();
+    // Remove direct call to avoid duplicates or issues before page-load
 </script>

@@ -1,17 +1,23 @@
 ---
-import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
 import BaseHead from "@components/BaseHead.astro";
 import BackgroundTexture from "@components/global/BackgroundTexture.astro";
+import CursorFollower from "@components/global/CursorFollower.astro";
 import Footer from "@components/global/Footer.astro";
 import Navigation from "@components/global/Navigation.astro";
 import { getLangFromUrl } from "../i18n/utils";
 
 const { pathname } = Astro.url;
-type Props = { seo?: AstroSeoProps; };
+interface Props {
+    seo?: {
+        title?: string;
+        description?: string;
+        image?: string;
+    };
+}
 const { seo: seoProp } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 
-const defaultSeo: AstroSeoProps = {
+const defaultSeo = {
     title: "Vantta Studio",
     description: "Vantta Studio diseño web.",
 };
@@ -21,13 +27,10 @@ const seo = { ...defaultSeo, ...seoProp };
 
 <html lang={lang} class="scroll-smooth">
     <head>
-        <BaseHead />
-        <AstroSeo {...seo} />
+        <BaseHead title={seo.title} description={seo.description} image={seo.image} />
     </head>
     <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black overflow-x-hidden w-full">
-        
-        <div id="js-cursor-follower" class="custom-cursor-follower hidden md:block"></div>
-        <div id="js-cursor-dot" class="custom-cursor-dot hidden md:block"></div>
+        <CursorFollower />
 
         <div class="fixed inset-0 z-0 pointer-events-none">
             <BackgroundTexture />
@@ -65,111 +68,11 @@ const seo = { ...defaultSeo, ...seoProp };
                 overflow-x: hidden;
             }
 
-            /* 3. CURSOR PERSONALIZADO (Solo Desktop) */
-            @media (hover: hover) and (pointer: fine) {
-                html, body, a, button, * {
-                    cursor: none !important;
-                }
-
-                .custom-cursor-follower {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 30px;
-                    height: 30px;
-                    border: 2px solid #a3e635;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 999999;
-                    transform: translate(-50%, -50%);
-                    opacity: 0;
-                    mix-blend-mode: exclusion;
-                    will-change: transform;
-                }
-
-                .custom-cursor-dot {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 6px;
-                    height: 6px;
-                    background-color: #a3e635;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000000;
-                    transform: translate(-50%, -50%);
-                    opacity: 0;
-                    will-change: transform;
-                }
-
-                body.is-hovering .custom-cursor-follower {
-                    width: 60px;
-                    height: 60px;
-                    background-color: #a3e635;
-                    border-color: transparent;
-                    opacity: 0.5;
-                }
-            }
-
             body {
                 display: flex;
                 flex-direction: column;
                 min-height: 100vh;
             }
         </style>
-
-        <script>
-            import { gsap } from "gsap";
-
-            function setupCursor() {
-                // Solo ejecutar si no es un dispositivo táctil
-                if (window.matchMedia("(pointer: coarse)").matches) return;
-
-                const follower = document.getElementById('js-cursor-follower');
-                const dot = document.getElementById('js-cursor-dot');
-                
-                if (!follower || !dot) return;
-
-                const onMouseMove = (e: MouseEvent) => {
-                    const { clientX: x, clientY: y } = e;
-                    
-                    gsap.set([follower, dot], { opacity: 1 });
-
-                    gsap.to(follower, {
-                        x: x,
-                        y: y,
-                        duration: 0.5,
-                        ease: "power2.out"
-                    });
-
-                    gsap.set(dot, {
-                        x: x,
-                        y: y
-                    });
-                };
-
-                const onMouseEnter = () => document.body.classList.add('is-hovering');
-                const onMouseLeave = () => document.body.classList.remove('is-hovering');
-
-                window.addEventListener('mousemove', onMouseMove);
-
-                document.addEventListener('mouseover', (e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
-                        onMouseEnter();
-                    }
-                });
-
-                document.addEventListener('mouseout', (e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
-                        onMouseLeave();
-                    }
-                });
-            }
-
-            document.addEventListener('astro:page-load', setupCursor);
-            if (document.readyState !== 'loading') setupCursor();
-        </script>
     </body>
 </html>

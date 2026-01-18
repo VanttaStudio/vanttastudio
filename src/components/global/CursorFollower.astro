@@ -75,6 +75,9 @@
     import { gsap } from "gsap";
 
     function initCursor() {
+        // Desactivar lógica JS en móviles
+        if (window.matchMedia("(pointer: coarse)").matches) return;
+
         const follower = document.getElementById('cursor-follower');
         const dot = document.getElementById('cursor-dot');
         

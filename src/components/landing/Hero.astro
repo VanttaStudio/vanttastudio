@@ -11,13 +11,13 @@ const contactText = "Contacto";
 
 <section id="hero" class:list={["relative min-h-[110vh] overflow-hidden bg-zinc-950 text-white selection:bg-lime-400 selection:text-black flex items-center justify-center pt-32 pb-40", className]}>
     
-    <div id="hero-light-wrapper" class="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+    <div id="hero-light-wrapper" class="pointer-events-none absolute inset-0 z-10 overflow-hidden hidden md:block">
         <div id="mouse-follower-light" class="absolute h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lime-400/15 blur-[130px] opacity-0"></div>
     </div>
 
     <div class="container mx-auto flex flex-col items-center justify-center px-4 text-center relative z-20">
         
-        <h1 class="hero-title pt-16 font-display font-black uppercase text-[13vw] sm:text-[12vw] lg:text-[11rem] w-full leading-[0.8] tracking-[0.05em]">
+        <h1 class="hero-title pt-16 font-display font-black uppercase text-[13vw] sm:text-[12vw] lg:text-[clamp(5rem,14vw,10rem)] w-full leading-[0.8] tracking-[0.05em] break-words hyphens-auto">
             <span class="block mb-4 overflow-hidden">
                 <span class="inline-block translate-y-full hero-main-title">{heroTitleMain}</span>
             </span>
@@ -109,11 +109,10 @@ const contactText = "Contacto";
         const words = document.querySelectorAll(".word-item");
         const mouseLight = document.getElementById("mouse-follower-light");
 
-        if (!titleLine || !content || !mouseLight) return;
+        if (!titleLine || !content) return;
 
         gsap.set(titleLine, { y: "100%" });
         gsap.set(content, { opacity: 0, y: 20 });
-        gsap.set(mouseLight, { opacity: 0 });
 
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
@@ -126,21 +125,26 @@ const contactText = "Contacto";
             opacity: 1,
             y: 0,
             duration: 1
-        }, "-=0.8")
-        .to(mouseLight, { 
-            opacity: 1, 
-            duration: 1.5 
-        }, "-=0.5");
+        }, "-=0.8");
 
-        mouseMoveHandler = (e) => {
-            gsap.to(mouseLight, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.8,
-                ease: "power2.out"
-            });
-        };
-        window.addEventListener("mousemove", mouseMoveHandler);
+        // Logic for mouse light only on desktop
+        if (mouseLight && window.matchMedia("(pointer: fine)").matches) {
+             gsap.set(mouseLight, { opacity: 0 });
+             tl.to(mouseLight, {
+                opacity: 1,
+                duration: 1.5
+            }, "-=0.5");
+
+            mouseMoveHandler = (e) => {
+                gsap.to(mouseLight, {
+                    x: e.clientX,
+                    y: e.clientY,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            };
+            window.addEventListener("mousemove", mouseMoveHandler);
+        }
 
         let currentIndex = 0;
         let wordRotationActive = true;
