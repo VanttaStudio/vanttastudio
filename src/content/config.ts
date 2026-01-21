@@ -2,17 +2,19 @@ import { defineCollection, z } from "astro:content";
 
 // Colección para los artículos del Blog
 const postsCollection = defineCollection({
+    // Usamos el helper 'image' para que Astro procese las rutas de las imágenes
     schema: ({ image }) =>
         z.object({
             title: z.string(),
-            pubDate: z.date(),
+            // 'z.coerce.date()' permite que Astro lea fechas incluso si vienen como string en el MDX
+            pubDate: z.coerce.date(), 
             description: z.string(),
             author: z.object({
                 name: z.string(),
                 link: z.string(),
             }),
             image: z.object({
-                source: image(),
+                source: image(), // Valida que el archivo de imagen exista físicamente
                 alt: z.string(),
             }),
             tags: z.array(z.string()),
@@ -24,10 +26,10 @@ const projectsCollection = defineCollection({
     schema: ({ image }) =>
         z.object({
             title: z.string(),
-            client: z.string().optional(), // Nuevo: Para poner el nombre del cliente
-            pubDate: z.date(),
+            client: z.string().optional(),
+            pubDate: z.coerce.date(),
             description: z.string(),
-            link: z.string(), // URL del proyecto en vivo
+            link: z.string().url().optional(), // '.url()' asegura que sea un enlace válido
             author: z.object({
                 name: z.string(),
                 link: z.string(),
@@ -36,7 +38,7 @@ const projectsCollection = defineCollection({
                 source: image(),
                 alt: z.string(),
             }),
-            tags: z.array(z.string()), // Nuevo: Para poner "Desarrollo Web", "Branding", etc.
+            tags: z.array(z.string()),
         }),
 });
 
@@ -53,6 +55,7 @@ const authorsCollection = defineCollection({
         }),
 });
 
+// Exportamos las colecciones
 export const collections = {
     posts: postsCollection,
     projects: projectsCollection,

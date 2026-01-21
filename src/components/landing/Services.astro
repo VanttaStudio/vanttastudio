@@ -1,4 +1,6 @@
 ---
+// src/components/landing/Services.astro
+// IMPORTANTE: Asegúrate de que las rutas a los iconos sean correctas
 import advertisingSvg from "@assets/images/services/advertising.svg?raw";
 import designSvg from "@assets/images/services/creative-designer-doing-multitasking.svg?raw";
 import mobileSvg from "@assets/images/services/mobile-app-ui-ux-design.svg?raw";
@@ -113,60 +115,86 @@ const points = [
 
     gsap.registerPlugin(ScrollTrigger);
 
+    let ctx; // Contexto global para limpieza
+
     function initServices() {
-        const slides = gsap.utils.toArray(".point-slide") as HTMLElement[];
-        const indicators = gsap.utils.toArray(".indicator-bar") as HTMLElement[];
+        // Limpiamos cualquier animación previa para evitar duplicados
+        if (ctx) ctx.revert();
         
-        if (slides.length === 0) return;
+        const container = document.querySelector("#services-scroll");
+        if (!container) return;
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#services-scroll",
-                start: "top top",
-                end: `+=${slides.length * 150}%`,
-                pin: true,
-                scrub: 1,
-            }
-        });
+        // Creamos un nuevo contexto GSAP (Scoped al componente)
+        ctx = gsap.context(() => {
+            const slides = gsap.utils.toArray(".point-slide");
+            const indicators = gsap.utils.toArray(".indicator-bar");
+            
+            if (slides.length === 0) return;
 
-        slides.forEach((slide, i) => {
-            if (i === 0) {
-                gsap.set(slide, { autoAlpha: 1, y: 0 });
-                gsap.set(indicators[0], { backgroundColor: "#a3e635" });
-            } else {
-                gsap.set(slide, { autoAlpha: 0, y: 100 });
-            }
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: container, // Usamos la referencia directa
+                    start: "top top",
+                    end: "+=400%", // Aumentamos un poco el recorrido para más suavidad
+                    pin: true,
+                    scrub: 1,
+                    // invalidateOnRefresh ayuda si redimensionas la ventana
+                    invalidateOnRefresh: true 
+                }
+            });
 
-            if (i > 0) {
-                tl.to(slide, { 
-                    autoAlpha: 1, 
-                    y: 0, 
-                    duration: 1 
-                }, i);
-                
-                tl.to(indicators[i], { 
-                    backgroundColor: "#a3e635", 
-                    duration: 0.5 
-                }, i);
-            }
+            slides.forEach((slide, i) => {
+                // Estado inicial
+                if (i === 0) {
+                    gsap.set(slide, { autoAlpha: 1, y: 0 });
+                    gsap.set(indicators[0], { backgroundColor: "#a3e635" });
+                } else {
+                    gsap.set(slide, { autoAlpha: 0, y: 100 });
+                }
 
-            if (i < slides.length - 1) {
-                tl.to(slide, { 
-                    autoAlpha: 0, 
-                    y: -100, 
-                    duration: 1 
-                }, i + 0.5);
-                
-                tl.to(indicators[i], { 
-                    backgroundColor: "#27272a", 
-                    duration: 0.5 
-                }, i + 0.5);
-            }
-        });
+                // Animación de entrada
+                if (i > 0) {
+                    tl.to(slide, { 
+                        autoAlpha: 1, 
+                        y: 0, 
+                        duration: 1,
+                        ease: "power2.out" // Suavizado añadido
+                    }, i);
+                    
+                    tl.to(indicators[i], { 
+                        backgroundColor: "#a3e635", 
+                        duration: 0.5 
+                    }, i);
+                }
 
-        gsap.set(".indicators", { display: "flex" });
+                // Animación de salida
+                if (i < slides.length - 1) {
+                    tl.to(slide, { 
+                        autoAlpha: 0, 
+                        y: -100, 
+                        duration: 1,
+                        ease: "power2.in" // Suavizado añadido
+                    }, i + 0.5);
+                    
+                    tl.to(indicators[i], { 
+                        backgroundColor: "#27272a", 
+                        duration: 0.5 
+                    }, i + 0.5);
+                }
+            });
+
+            gsap.set(".indicators", { display: "flex" });
+        }, container); // Scope
     }
 
+    // Inicialización y Limpieza
     document.addEventListener("astro:page-load", initServices);
+    
+    // Importante: Limpiar al salir de la página
+    document.addEventListener("astro:before-swap", () => {
+        if (ctx) ctx.revert();
+    });
+
+    // Fallback inicial
     initServices();
 </script>

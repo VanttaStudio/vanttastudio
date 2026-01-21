@@ -1,175 +1,82 @@
 ---
-import { AstroSeo, type AstroSeoProps } from "@astrolib/seo";
+// src/layouts/BaseLayout.astro
 import BaseHead from "@components/BaseHead.astro";
-import BackgroundTexture from "@components/global/BackgroundTexture.astro";
 import Footer from "@components/global/Footer.astro";
 import Navigation from "@components/global/Navigation.astro";
 import { getLangFromUrl } from "../i18n/utils";
 
-const { pathname } = Astro.url;
-type Props = { seo?: AstroSeoProps; };
-const { seo: seoProp } = Astro.props;
+// Componentes de Efectos (Cursor y Scroll)
+import CursorFollower from "@components/global/CursorFollower.astro";
+import SmoothScroll from "@components/global/SmoothScroll.astro";
+
 const lang = getLangFromUrl(Astro.url);
 
-const defaultSeo: AstroSeoProps = {
-    title: "Vantta Studio",
-    description: "Vantta Studio diseño web.",
-};
-
-const seo = { ...defaultSeo, ...seoProp };
+// Recibimos las props de SEO desde las páginas
+const { seo } = Astro.props;
 ---
 
-<html lang={lang} class="scroll-smooth">
+<html lang={lang}>
     <head>
-        <BaseHead />
-        <AstroSeo {...seo} />
+        <BaseHead {...seo} />
     </head>
-    <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black overflow-x-hidden w-full">
+    
+    <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black w-full min-h-screen flex flex-col">
         
-        <div id="js-cursor-follower" class="custom-cursor-follower hidden md:block"></div>
-        <div id="js-cursor-dot" class="custom-cursor-dot hidden md:block"></div>
+        <SmoothScroll />
 
-        <div class="fixed inset-0 z-0 pointer-events-none">
-            <BackgroundTexture />
+        <CursorFollower />
+
+        <div class="relative z-50">
+            <Navigation />
         </div>
-
-        <Navigation />
         
-        <main id="main-content" class="relative z-10 flex-1 w-full overflow-x-hidden">
+        <main id="main-content" class="relative z-10 w-full flex-1">
             <slot />
         </main>
         
-        <Footer />
+        <div class="relative z-10">
+            <Footer />
+        </div>
 
         <style is:global>
-            /* 1. PERSONALIZACIÓN VANTTA: Letras gruesas y suaves */
-            h1, h2, h3, h4, .font-bold, .uppercase {
-                font-weight: 900 !important;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                text-rendering: optimizeLegibility;
-            }
-
-            /* Técnica para las A sin línea media - Solo vía clip-path o font-feature si la fuente lo permite */
-            /* Por ahora forzamos el estilo visual suave */
-            .uppercase, h1 {
-                letter-spacing: -0.04em;
-                line-height: 0.9;
-            }
-
-            /* 2. REGLAS RESPONSIVE CRÍTICAS */
-            html, body {
+            /* --- CONFIGURACIÓN CRÍTICA PARA LENIS SCROLL --- */
+            
+            html {
+                height: auto;
                 width: 100%;
-                margin: 0;
-                padding: 0;
-                overflow-x: hidden;
-            }
-
-            /* 3. CURSOR PERSONALIZADO (Solo Desktop) */
-            @media (hover: hover) and (pointer: fine) {
-                html, body, a, button, * {
-                    cursor: none !important;
-                }
-
-                .custom-cursor-follower {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 30px;
-                    height: 30px;
-                    border: 2px solid #a3e635;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 999999;
-                    transform: translate(-50%, -50%);
-                    opacity: 0;
-                    mix-blend-mode: exclusion;
-                    will-change: transform;
-                }
-
-                .custom-cursor-dot {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 6px;
-                    height: 6px;
-                    background-color: #a3e635;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 1000000;
-                    transform: translate(-50%, -50%);
-                    opacity: 0;
-                    will-change: transform;
-                }
-
-                body.is-hovering .custom-cursor-follower {
-                    width: 60px;
-                    height: 60px;
-                    background-color: #a3e635;
-                    border-color: transparent;
-                    opacity: 0.5;
-                }
             }
 
             body {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                /* Solo ocultamos el scroll horizontal en el body */
+                overflow-x: hidden; 
+            }
+
+            /* Clases inyectadas por Lenis */
+            html.lenis, html.lenis body {
+                height: auto;
+            }
+
+            .lenis.lenis-smooth {
+                scroll-behavior: auto !important; /* Desactiva el scroll nativo para que no pelee */
+            }
+
+            .lenis.lenis-stopped {
+                overflow: hidden;
+            }
+
+            .lenis.lenis-scrolling iframe {
+                pointer-events: none; /* Mejora rendimiento al hacer scroll sobre iframes */
+            }
+
+            /* Tipografía Global */
+            h1, h2, h3, h4, .font-bold, .uppercase {
+                font-weight: 900 !important;
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
             }
         </style>
-
-        <script>
-            import { gsap } from "gsap";
-
-            function setupCursor() {
-                // Solo ejecutar si no es un dispositivo táctil
-                if (window.matchMedia("(pointer: coarse)").matches) return;
-
-                const follower = document.getElementById('js-cursor-follower');
-                const dot = document.getElementById('js-cursor-dot');
-                
-                if (!follower || !dot) return;
-
-                const onMouseMove = (e: MouseEvent) => {
-                    const { clientX: x, clientY: y } = e;
-                    
-                    gsap.set([follower, dot], { opacity: 1 });
-
-                    gsap.to(follower, {
-                        x: x,
-                        y: y,
-                        duration: 0.5,
-                        ease: "power2.out"
-                    });
-
-                    gsap.set(dot, {
-                        x: x,
-                        y: y
-                    });
-                };
-
-                const onMouseEnter = () => document.body.classList.add('is-hovering');
-                const onMouseLeave = () => document.body.classList.remove('is-hovering');
-
-                window.addEventListener('mousemove', onMouseMove);
-
-                document.addEventListener('mouseover', (e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
-                        onMouseEnter();
-                    }
-                });
-
-                document.addEventListener('mouseout', (e) => {
-                    const target = e.target as HTMLElement;
-                    if (target.closest('a, button, .group, [data-cursor-hover]')) {
-                        onMouseLeave();
-                    }
-                });
-            }
-
-            document.addEventListener('astro:page-load', setupCursor);
-            if (document.readyState !== 'loading') setupCursor();
-        </script>
     </body>
 </html>

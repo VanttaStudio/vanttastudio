@@ -4,16 +4,15 @@ import { Image } from "astro:assets";
 
 const { class: className } = Astro.props;
 
-// Obtenemos todos los proyectos de la colección 'projects' de forma directa
 const allProjects = (await getCollection("projects"))
-    .sort((a, b) => Number(b.data.pubDate) - Number(a.data.pubDate))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 8); 
 ---
 
 <section id="work-preview-section" class:list={["w-full bg-zinc-950", className]}>
-    <div class="max-w-7xl mx-auto px-8 pb-16 md:px-12 w-full">
+    <div class="max-w-7xl mx-auto px-8 pb-16 md:px-12 w-full text-white">
         <div class="flex flex-col gap-2 border-l border-lime-400/30 pl-6">
-            <h2 class="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight text-white leading-none">
+            <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none">
                 Proyectos<span class="text-lime-400">.</span>
             </h2>
         </div>
@@ -22,31 +21,30 @@ const allProjects = (await getCollection("projects"))
     <div class="inspiro-grid">
         {
             allProjects.map((project) => {
-                const projectImage = project.data.image?.source;
-                const firstTag = project.data.tags?.[0] || "Creative";
+                const imgSource = project.data.image?.source;
+                const imgAlt = project.data.image?.alt || project.data.title;
                 
                 return (
-                    <a 
-                        href={`/work/${project.slug}`} 
-                        class="work-item group"
-                    >
-                        <div class="image-container">
-                            {projectImage ? (
+                    <a href={`/work/${project.slug}`} class="work-item group">
+                        <div class="image-container bg-zinc-900">
+                            {imgSource ? (
                                 <Image 
-                                    src={projectImage} 
-                                    alt={project.data.title}
+                                    src={imgSource} 
+                                    alt={imgAlt}
                                     width={800}
                                     height={800}
                                     class="project-img"
                                 />
                             ) : (
-                                <div class="placeholder">IMG</div>
+                                <div class="flex h-full w-full items-center justify-center text-zinc-600 font-mono text-[10px]">
+                                    IMAGE_ERROR
+                                </div>
                             )}
                             <div class="overlay"></div>
                         </div>
 
                         <div class="content">
-                            <span class="tag">{firstTag}</span>
+                            <span class="tag">{project.data.tags?.[0] || "Vantta Code"}</span>
                             <h3 class="title">{project.data.title}</h3>
                             <div class="line"></div>
                         </div>
@@ -70,6 +68,7 @@ const allProjects = (await getCollection("projects"))
         background-color: #09090b !important;
         gap: 1px !important;
         border-top: 1px solid #18181b !important;
+        max-width: 100vw !important;
     }
 
     @media (min-width: 640px) {
@@ -83,15 +82,12 @@ const allProjects = (await getCollection("projects"))
         position: relative !important;
         aspect-ratio: 1 / 1 !important;
         overflow: hidden !important;
-        background-color: #09090b !important;
         display: block !important;
     }
 
     .image-container {
         position: absolute !important;
         inset: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
     }
 
     .project-img {
@@ -99,7 +95,7 @@ const allProjects = (await getCollection("projects"))
         height: 100% !important;
         object-fit: cover !important;
         transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
-        filter: grayscale(0.5) contrast(1.1);
+        filter: grayscale(1) contrast(1.1);
     }
 
     .work-item:hover .project-img {
@@ -116,9 +112,7 @@ const allProjects = (await getCollection("projects"))
         z-index: 10 !important;
     }
 
-    .work-item:hover .overlay {
-        opacity: 0.9 !important;
-    }
+    .work-item:hover .overlay { opacity: 0.4 !important; }
 
     .content {
         position: absolute !important;
@@ -129,7 +123,7 @@ const allProjects = (await getCollection("projects"))
         justify-content: center !important;
         z-index: 20 !important;
         padding: 2.5rem !important;
-        text-align: center !important;
+        text-align: center;
     }
 
     .tag {
@@ -164,54 +158,50 @@ const allProjects = (await getCollection("projects"))
         transition: width 0.6s ease 0.2s !important;
     }
 
-    .work-item:hover .tag, 
-    .work-item:hover .title {
+    .work-item:hover .tag, .work-item:hover .title {
         transform: translateY(0) !important;
         opacity: 1 !important;
     }
 
-    .work-item:hover .line {
-        width: 30px !important;
-    }
-
-    .placeholder {
-        display: flex !important;
-        height: 100% !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: #0f0f12 !important;
-        color: #27272a !important;
-    }
+    .work-item:hover .line { width: 30px !important; }
 </style>
 
 <script>
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-    function initWork() {
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Limpiar triggers anteriores si existen
-        ScrollTrigger.getAll().forEach(t => t.kill());
+    gsap.registerPlugin(ScrollTrigger);
 
-        gsap.from(".work-item", {
-            scrollTrigger: {
-                trigger: ".inspiro-grid",
-                start: "top 90%",
-                toggleActions: "play none none none"
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.05,
-            ease: "expo.out"
-        });
+    let ctx: gsap.Context;
+
+    function initWork() {
+        if (ctx) ctx.revert();
+
+        const grid = document.querySelector(".inspiro-grid");
+        if (!grid) return;
+
+        ctx = gsap.context(() => {
+            const items = gsap.utils.toArray(".work-item");
+            
+            gsap.set(items, { y: 60, opacity: 0 });
+
+            ScrollTrigger.batch(items, {
+                start: "top 85%",
+                onEnter: (batch) => {
+                    gsap.to(batch, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        stagger: 0.1,
+                        ease: "expo.out",
+                        overwrite: true
+                    });
+                }
+            });
+        }, grid);
     }
 
     document.addEventListener("astro:page-load", initWork);
-    
-    // Fallback inicial
-    if (document.readyState !== "loading") {
-        initWork();
-    }
+    document.addEventListener("astro:before-swap", () => { if (ctx) ctx.revert(); });
+    initWork();
 </script>

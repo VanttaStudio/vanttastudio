@@ -1,46 +1,54 @@
 ---
+/* src/layouts/MarkdownPostLayout.astro */
 import { Image } from "astro:assets";
+import BaseLayout from "./BaseLayout.astro"; 
 import Cta from "@/components/blog/Cta.astro";
-import type { AstroSeoProps } from "@astrolib/seo";
 import Comments from "@components/blog/Comments.astro";
 import Title from "@components/global/Title.astro";
 import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
 import { Icon } from "astro-icon/components";
-import BaseLayout from "./BaseLayout.astro";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
 
-type Props = {
-    frontmatter: any;
-    body: string;
-    seo?: AstroSeoProps;
-};
-
 const { frontmatter, body, seo } = Astro.props;
 
-function getArticleReadingTime(body: string): number {
-    if (!body) return 0;
+// Calculadora de tiempo de lectura
+function getArticleReadingTime(content: string): number {
+    if (!content) return 0;
     const wordsPerMinute = 183;
-    const numberOfWords = body.split(/\s/g).length;
+    const numberOfWords = content.split(/\s/g).length;
     const minutes = numberOfWords / wordsPerMinute;
     return Math.ceil(minutes);
 }
 
 const readingTime = getArticleReadingTime(body);
 
-// Formateo de fecha según idioma
-const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-});
+// Formateo de fecha seguro (usando el objeto Date que entrega z.coerce.date())
+const formattedDate = frontmatter.pubDate 
+    ? new Date(frontmatter.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    : '';
+
+// LÓGICA CORREGIDA PARA IMÁGENES (Astro Content Collections)
+// Accedemos a .source que es donde vive el objeto procesado por Sharp
+const heroImage = frontmatter.image?.source; 
+const heroAlt = frontmatter.image?.alt || frontmatter.title || "Vantta Project";
+
+// Ajuste de SEO para que la imagen de redes sociales funcione
+if (seo && seo.openGraph && heroImage) {
+    seo.openGraph.images = [{ url: heroImage.src, width: 1200, height: 630 }];
+}
 ---
 
 <BaseLayout seo={seo}>
-    <section class="bg-zinc-950 text-white">
+    <section class="bg-zinc-950 text-white min-h-screen">
         <div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-32">
+            
             <div class="flex flex-col gap-6 pt-20">
                 <Title
                     title={frontmatter.title}
@@ -53,7 +61,7 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(lang === 
 
                 {
                     frontmatter?.link && (
-                        <a class="font-mono text-sm font-bold uppercase tracking-widest text-lime-400 hover:text-white transition-all flex items-center gap-2" href={frontmatter?.link} target="_blank">
+                        <a class="font-mono text-sm font-bold uppercase tracking-widest text-lime-400 hover:text-white transition-all flex items-center gap-2 w-fit" href={frontmatter?.link} target="_blank" rel="noopener noreferrer">
                             <Icon name="iconamoon:link-external-thin" class="text-xl" /> {t("blog.gotoproject") || (lang === 'es' ? 'Ver Proyecto' : 'View Project')}
                         </a>
                     )
@@ -61,17 +69,18 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(lang === 
             </div>
 
             <div class="mt-12 w-full">
-                {frontmatter.image?.url ? (
+                {heroImage ? (
                     <Image 
                         class="w-full rounded-2xl object-cover aspect-video border border-zinc-800 shadow-2xl" 
-                        src={frontmatter.image.url} 
-                        alt={frontmatter.image.alt || frontmatter.title} 
+                        src={heroImage} 
+                        alt={heroAlt} 
                         width={1600}
                         height={900}
+                        loading="eager" 
                     />
                 ) : (
-                    <div class="w-full aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center text-zinc-700">
-                        Image Asset Missing
+                    <div class="w-full aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center text-zinc-700 font-mono text-sm">
+                        NO IMAGE AVAILABLE
                     </div>
                 )}
                 
@@ -104,28 +113,50 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(lang === 
             </div>
         </div>
     </section>
+    
     <Cta />
 </BaseLayout>
 
 <style is:global>
-    /* Estilos para que el contenido del post se vea impecable */
+    /* Estilos para el contenido del blog (Tailwind Typography Customization) */
     .prose-styles {
-        @apply prose-invert max-w-none;
+        @apply prose prose-invert prose-lg max-w-none;
     }
     
     .prose-styles p {
-        @apply text-zinc-400 text-lg leading-relaxed mb-8;
+        @apply text-zinc-400 leading-relaxed mb-8;
     }
 
     .prose-styles h2 {
         @apply text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-white mt-16 mb-8;
+        scroll-margin-top: 100px;
+    }
+
+    .prose-styles h3 {
+        @apply text-2xl font-bold text-white mt-12 mb-6;
     }
 
     .prose-styles img {
-        @apply rounded-xl border border-zinc-800 my-12;
+        @apply rounded-xl border border-zinc-800 my-12 w-full h-auto;
     }
 
     .prose-styles strong {
         @apply text-lime-400 font-semibold;
+    }
+
+    .prose-styles a {
+        @apply text-white underline decoration-lime-400 underline-offset-4 hover:text-lime-400 transition-colors;
+    }
+
+    .prose-styles ul {
+        @apply list-disc list-outside ml-6 mb-8 text-zinc-400;
+    }
+
+    .prose-styles li {
+        @apply mb-2 pl-2;
+    }
+
+    .prose-styles blockquote {
+        @apply border-l-4 border-lime-400 pl-6 py-2 my-8 bg-zinc-900/50 italic text-zinc-300;
     }
 </style>

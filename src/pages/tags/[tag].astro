@@ -1,43 +1,55 @@
 ---
+// src/pages/tags/[tag].astro
 import { getCollection } from "astro:content";
 import type { AstroSeoProps } from "@astrolib/seo";
 import Tag from "@components/blog/Tag.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-	const allPosts = (await getCollection("posts")).filter((post) => {
-		const [postLang, ...slug] = post.slug.split("/");
-		return postLang === "en";
-	});
+    // 1. Busca todos los posts en español
+    const allPosts = (await getCollection("posts")).filter((post) => {
+        const [postLang, ...slug] = post.slug.split("/");
+        return postLang === "es"; 
+    });
 
-	const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
-	return uniqueTags.map((tag) => {
-		const filteredPosts = allPosts.filter((post) => post.data.tags.includes(tag))
-			.map(post => {
-				// Remove language prefix from slug
-				const [postLang, ...slugParts] = post.slug.split("/");
-				return {
-					...post,
-					slug: slugParts.join("/")
-				};
-			});
-		return {
-			params: { tag },
-			props: { posts: filteredPosts },
-		};
-	});
+    // 2. Extrae las etiquetas únicas (ej: "SaaS", "Astro", "Ubikapp")
+    const uniqueTags = [...new Set(allPosts.flatMap((post) => post.data.tags))];
+
+    // 3. Crea una ruta dinámica para cada etiqueta
+    return uniqueTags.map((tag) => {
+        const filteredPosts = allPosts
+            .filter((post) => post.data.tags.includes(tag))
+            .map(post => {
+                const [postLang, ...slugParts] = post.slug.split("/");
+                return {
+                    ...post,
+                    slug: slugParts.join("/")
+                };
+            });
+            
+        return {
+            params: { tag },
+            props: { posts: filteredPosts },
+        };
+    });
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
 
+// SEO configurado para Vantta Code
 const seo: AstroSeoProps = {
-	title: `${tag} | Majestico Studio`,
-	description: `Explore articles and insights on '${tag}' at Majestico Studio. Dive into a wealth of knowledge covering the latest trends and tips in web design and SEO.`,
-	canonical: `https://mintaka.co/tags/${tag}/`,
+    title: `${tag} | Vantta Code`,
+    description: `Explora ingeniería, artículos y recursos sobre ${tag} en Vantta Code.`,
+    canonical: `https://vanttacode.cl/tags/${tag}/`,
+    openGraph: {
+        title: `${tag} - Archivo | Vantta Code`,
+        description: `Colección de proyectos y artículos sobre ${tag}.`,
+        site_name: "Vantta Code",
+    }
 };
 ---
 
 <BaseLayout seo={seo}>
-	<Tag tag={tag} posts={posts} />
+    <Tag tag={tag} posts={posts} />
 </BaseLayout>

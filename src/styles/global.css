@@ -1,3 +1,4 @@
+/* src/styles/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -46,11 +47,47 @@
     }
 }
 
+/* --- CONFIGURACIÓN DE SCROLL Y BODY --- */
 html {
+    width: 100%;
+    height: auto;
+    /* IMPORTANTE: Eliminamos 'scroll-behavior: smooth' aquí porque usamos Lenis */
+}
+
+body {
+    background-color: #09090b; /* zinc-950 */
+    color: white;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* Prevenir scroll horizontal solo en el body */
+    overflow-x: hidden;
     scrollbar-gutter: stable;
-    /* Cambio: Forzamos el fondo oscuro por defecto de Vantta */
-    @apply overflow-x-hidden bg-zinc-950 text-white selection:bg-lime-400 selection:text-black;
-    scroll-behavior: smooth;
+    @apply selection:bg-lime-400 selection:text-black;
+}
+
+/* --- CLASES OBLIGATORIAS PARA LENIS (Evita temblores) --- */
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important; /* Fuerza al navegador a no interferir */
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none; /* Mejora rendimiento */
+}
+
+/* --- CURSOR PERSONALIZADO (Solo Desktop) --- */
+@media (hover: hover) and (pointer: fine) {
+    html, body, a, button, input, textarea, select, [data-cursor-hover] {
+        cursor: none !important;
+    }
 }
 
 /* Custom scrollbar Minimalista */
@@ -71,7 +108,7 @@ html {
     @apply bg-lime-400;
 }
 
-/* Selección Personalizada (Brand Color: Lime 400) */
+/* Selección Personalizada (Fallback) */
 ::-moz-selection {
     color: #000;
     background: #a3e635;
@@ -103,7 +140,13 @@ html {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--grid-gap);
-    padding: var(--base-padding-y) var(--base-padding-x);
+    padding: 3rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .section {
+        padding: var(--base-padding-y) var(--base-padding-x);
+    }
 }
 
 /* Squircles con radio suavizado para Vantta */
@@ -131,4 +174,14 @@ html {
 /* Optimizaciones de accesibilidad y foco */
 :focus-visible {
     @apply outline-none ring-2 ring-lime-400 ring-offset-2 ring-offset-zinc-950;
+}
+
+/* Desactivar animaciones pesadas si el usuario tiene activado 'reducir movimiento' */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -7,7 +7,7 @@
 </div>
 
 <style is:global>
-    /* Desactivar cursor real solo en dispositivos con puntero (no táctiles) */
+    /* Ocultar cursor por defecto en escritorio */
     @media (hover: hover) and (pointer: fine) {
         html, body, a, button, [data-cursor-hover] {
             cursor: none !important;
@@ -32,7 +32,6 @@
             opacity: 0;
             z-index: 99999;
             will-change: transform;
-            /* El mix-blend-mode exclusion hace que el cursor sea legible sobre cualquier color */
             mix-blend-mode: exclusion;
         }
 
@@ -56,16 +55,15 @@
             height: 80px;
             background-color: #a3e635;
             border-color: transparent;
-            opacity: 1 !important;
+            opacity: 0.5 !important;
         }
 
-        /* Cambiamos el punto cuando está activo */
         .cursor-active #cursor-dot {
             opacity: 0 !important;
         }
     }
 
-    /* Ocultar en dispositivos táctiles */
+    /* Ocultar custom cursor en táctil */
     @media (hover: none) {
         #cursor-container { display: none; }
     }
@@ -75,18 +73,20 @@
     import { gsap } from "gsap";
 
     function initCursor() {
+        // Validación de dispositivos táctiles
+        if (window.matchMedia("(hover: none)").matches) return;
+
         const follower = document.getElementById('cursor-follower');
         const dot = document.getElementById('cursor-dot');
         
         if (!follower || !dot) return;
 
-        // Posicionamiento inicial
         gsap.set([follower, dot], { xPercent: -50, yPercent: -50 });
 
-        const moveCursor = (e: MouseEvent) => {
+        const moveCursor = (e) => {
             const { clientX: x, clientY: y } = e;
 
-            // El punto (dot) es instantáneo
+            // Punto instantáneo
             gsap.to(dot, {
                 x: x,
                 y: y,
@@ -94,7 +94,7 @@
                 opacity: 1
             });
 
-            // El seguidor (follower) tiene un delay suave (0.15s) para el efecto orgánico
+            // Seguidor suave
             gsap.to(follower, {
                 x: x,
                 y: y,
@@ -106,12 +106,11 @@
 
         window.addEventListener('mousemove', moveCursor);
 
-        // Lógica de Hovers mejorada
+        // Hover Effects
         const handleMouseEnter = () => document.body.classList.add('cursor-active');
         const handleMouseLeave = () => document.body.classList.remove('cursor-active');
 
         const refreshLinks = () => {
-            // Buscamos links, botones y cualquier cosa con el atributo que usamos en el footer/header
             const targets = document.querySelectorAll('a, button, [data-cursor-hover], .nav-container');
             targets.forEach(target => {
                 target.addEventListener('mouseenter', handleMouseEnter);
@@ -121,13 +120,14 @@
 
         refreshLinks();
 
-        // Limpieza para evitar fugas de memoria en Astro
+        // Limpieza para View Transitions
         document.addEventListener("astro:before-swap", () => {
             window.removeEventListener('mousemove', moveCursor);
             document.body.classList.remove('cursor-active');
         }, { once: true });
     }
 
-    // Ejecución inicial y en cada transición de página
     document.addEventListener("astro:page-load", initCursor);
+    // Fallback inicial
+    initCursor();
 </script>

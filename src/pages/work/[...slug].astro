@@ -4,55 +4,52 @@ import type { AstroSeoProps } from "@astrolib/seo";
 import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
 
 export async function getStaticPaths() {
-	const projectsEntries = await getCollection("projects");
+    const projectsEntries = await getCollection("projects");
 
-	return projectsEntries
-		.map((entry) => {
-			const [lang, ...slug] = entry.slug.split("/");
-			return { params: { lang, slug: slug.join("/") || undefined }, props: entry };
-		})
-		.filter((entry) => entry.params.lang === "en");
+    return projectsEntries.map((entry) => {
+        // Extraemos el slug real ignorando la carpeta de idioma
+        // Ejemplo: "es/studiovision" -> "studiovision"
+        const slug = entry.slug.split("/").pop();
+        
+        return { 
+            params: { slug }, 
+            props: { entry } 
+        };
+    });
 }
 
-const entry = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await entry.render();
 
+// VALIDACIÓN DE IMAGEN PARA SEO
+// Buscamos la imagen en el frontmatter para el OpenGraph
+const ogImage = entry.data.image?.source || entry.data.image || "https://vanttastudio.cl/opengraph/social-og.jpg";
+
 const seo: AstroSeoProps = {
-	title: `Project ${entry.data.title} - Majestico`,
-	description: entry.data.description,
-	canonical: `https://mintaka.co/work/${entry.slug}/`,
-	openGraph: {
-		url: entry.slug,
-		title: entry.data.title,
-		description: "{frontmatter.description}",
-		images: [
-			{
-				url: "https://mintaka.co/opengraph/social-og.jpg",
-				width: 1200,
-				height: 630,
-				alt: "Social open graph",
-				type: "image/jpeg",
-			},
-			{
-				url: "https://mintaka.co/opengraph/twitter-og.jpg",
-				width: 4096,
-				height: 4096,
-				alt: "Twitter open graph",
-				type: "image/jpeg",
-			},
-			{ url: "https://mintaka.co/opengraph/social-og.jpg" },
-			{ url: "https://mintaka.co/opengraph/twitter-og.jpg" },
-		],
-		site_name: "YourSitesName",
-	},
-	twitter: {
-		handle: "@TwitterHandle",
-		site: "@site",
-		cardType: "summary_large_image",
-	},
+    title: `${entry.data.title} - VANTTA code_`,
+    description: entry.data.description,
+    canonical: `https://vanttastudio.cl/work/${entry.slug.split('/').pop()}/`,
+    openGraph: {
+        url: `https://vanttastudio.cl/work/${entry.slug.split('/').pop()}`,
+        title: entry.data.title,
+        description: entry.data.description,
+        images: [
+            {
+                url: ogImage,
+                width: 1200,
+                height: 630,
+                alt: entry.data.title,
+            }
+        ],
+        site_name: "VANTTA code_",
+    },
+    twitter: {
+        handle: "@vanttastudio",
+        cardType: "summary_large_image",
+    },
 };
 ---
 
 <MarkdownPostLayout frontmatter={entry.data} body={entry.body} seo={seo}>
-	<Content />
+    <Content />
 </MarkdownPostLayout>
