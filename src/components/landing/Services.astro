@@ -1,7 +1,5 @@
 ---
 // src/components/landing/Services.astro
-// IMPORTANTE: Asegúrate de que las rutas a los iconos sean correctas
-import advertisingSvg from "@assets/images/services/advertising.svg?raw";
 import designSvg from "@assets/images/services/creative-designer-doing-multitasking.svg?raw";
 import mobileSvg from "@assets/images/services/mobile-app-ui-ux-design.svg?raw";
 import seoSvg from "@assets/images/services/seo-link-building.svg?raw";
@@ -11,77 +9,73 @@ const { class: className } = Astro.props;
 
 const points = [
     {
-        tag: "Performance & SEO",
+        tag: "01. Digital Experience",
         title: "Desarrollo Web",
-        content: "Páginas web de alto impacto creadas con <strong>Astro, React y Vue</strong>. Optimizamos la velocidad y el SEO para convertir visitantes en clientes reales.",
+        content: "Interfaces de alto rendimiento con <strong>Astro y React</strong>. No solo hacemos webs; construimos herramientas de conversión optimizadas en SEO y velocidad crítica.",
         image: websiteSvg,
         link: "/services/web-development"
     },
     {
-        tag: "Software a medida",
-        title: "Gestión de Empresas",
-        content: "Programamos soluciones robustas: sistemas de <strong>Gestión de Clientes (CRM), Control de Inventario y ERP</strong> para automatizar tu operativa.",
+        tag: "02. Operations & Scale",
+        title: "Software a Medida",
+        content: "Desarrollamos ecosistemas robustos: <strong>Sistemas ERP y CRM</strong> diseñados para centralizar tu operativa y automatizar procesos que hoy te quitan tiempo.",
         image: mobileSvg,
         link: "/services/software-solutions"
     },
     {
-        tag: "Diseño Estratégico",
-        title: "Marca e Identidad",
-        content: "Creamos o transformamos tu imagen con un <strong>Re-branding estratégico</strong>. Identidad visual diseñada para impulsar el valor real de tu negocio.",
+        tag: "03. Visual Identity",
+        title: "Branding y Diseño",
+        content: "Creamos identidades que imponen respeto. Desde el concepto hasta el <strong>Diseño Gráfico avanzado</strong>, alineamos tu estética con el valor real de tu negocio.",
         image: designSvg,
         link: "/services/branding"
     },
     {
-        tag: "Crecimiento Comercial",
-        title: "Vender más y mejor",
-        content: "Estrategias comerciales de alto nivel y procesos de atención al cliente. Potenciamos tus ventas mediante <strong>inducciones de alto impacto</strong>.",
+        tag: "04. Revenue Growth",
+        title: "Estrategias de Venta",
+        content: "Optimizamos tu flujo comercial. Implementamos <strong>metodologías de prospección y cierre</strong> para transformar leads en revenue constante y escalable.",
         image: seoSvg,
         link: "/services/sales-strategy"
     },
 ];
 ---
 
-<section id="services-scroll" class:list={["relative bg-zinc-950 text-white", className]}>
+<section id="services-scroll" class:list={["relative bg-zinc-950 text-white overflow-hidden", className]}>
     <div class="wrapper h-screen w-full flex items-center justify-center overflow-hidden">
         
-        <div class="indicators absolute left-8 top-1/2 -translate-y-1/2 hidden h-[200px] w-[2px] flex-col justify-between gap-4 z-50">
-            {points.map(() => <div class="indicator-bar w-full grow bg-zinc-800 transition-colors duration-300" />)}
+        <div class="indicators absolute left-6 md:left-12 top-1/2 -translate-y-1/2 hidden h-[240px] w-[1px] flex-col justify-between gap-2 z-50">
+            {points.map(() => <div class="indicator-bar w-full grow bg-zinc-900 transition-all duration-500" />)}
         </div>
 
         <div class="container-inner relative h-full w-full max-w-7xl mx-auto px-8 md:px-12">
             {
-                points.map((point, i) => (
-                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-12">
+                points.map((point) => (
+                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-24">
                         
-                        <div class="illustration hidden lg:block w-1/3 opacity-100">
+                        <div class="illustration hidden lg:block w-1/3 opacity-20 transition-all duration-700">
                             <Fragment set:html={point.image} />
                         </div>
 
-                        <article class="content-box flex flex-col gap-8 md:w-2/3 items-start">
-                            <div class="flex items-center gap-4">
-                                <span class="h-[2px] w-12 bg-lime-400"></span>
-                                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-lime-400">
+                        <article class="content-box flex flex-col gap-10 md:w-2/3 items-start translate-y-10">
+                            <div class="flex items-center gap-6">
+                                <span class="h-[1px] w-16 bg-lime-400/50"></span>
+                                <span class="font-mono text-[11px] uppercase tracking-[0.5em] text-lime-400 font-bold">
                                     {point.tag}
                                 </span>
                             </div>
                             
-                            <div class="space-y-4">
-                                <h3 class="title-text text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85] text-white">
-                                    {point.title}
+                            <div class="space-y-6">
+                                <h3 class="title-text text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.8] text-white">
+                                    {point.title.split(' ')[0]} <br/>
+                                    <span class="text-zinc-800 outline-text">{point.title.split(' ').slice(1).join(' ')}</span>
                                 </h3>
-                                <p class="description-text text-xl md:text-3xl text-zinc-400 font-light max-w-2xl leading-tight" set:html={point.content} />
+                                <p class="description-text text-xl md:text-2xl text-zinc-400 font-light max-w-xl leading-snug" set:html={point.content} />
                             </div>
 
-                            <a 
-                                href={point.link}
-                                class="group/btn relative inline-flex items-center gap-4 px-8 py-4 border border-zinc-800 hover:border-lime-400/50 transition-all duration-300"
-                            >
-                                <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-white group-hover/btn:text-lime-400 transition-colors">
-                                    MÁS INFO
+                            <a href={point.link} class="group/btn relative inline-flex items-center gap-5 px-0 py-2 overflow-hidden transition-all">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-zinc-100 group-hover/btn:text-lime-400 transition-colors">
+                                    Explorar Servicio
                                 </span>
-                                <svg class="w-4 h-4 text-zinc-500 group-hover/btn:text-lime-400 group-hover/btn:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                                </svg>
+                                <div class="w-10 h-[1px] bg-zinc-800 group-hover/btn:w-20 group-hover/btn:bg-lime-400 transition-all duration-500"></div>
                             </a>
                         </article>
                     </div>
@@ -92,20 +86,33 @@ const points = [
 </section>
 
 <style is:global>
-    #services-scroll .point-slide {
-        visibility: hidden;
-        opacity: 0;
+    /* Estilos de Texto y Gráfica Mejorados */
+    #services-scroll .outline-text {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+        color: transparent;
+        transition: all 0.8s ease;
     }
     
-    #services-scroll article p strong {
-        color: #fff;
-        font-weight: 700;
+    #services-scroll .point-slide[style*="opacity: 1"] .outline-text {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.02);
+    }
+
+    #services-scroll .point-slide[style*="opacity: 1"] .illustration {
+        opacity: 1;
+        transform: scale(1.1);
     }
 
     #services-scroll .illustration svg {
         width: 100%;
         height: auto;
-        display: block;
+        filter: grayscale(1) invert(1) brightness(0.7);
+        mix-blend-mode: screen;
+    }
+
+    #services-scroll article p strong {
+        color: #fff;
+        font-weight: 600;
     }
 </style>
 
@@ -115,86 +122,72 @@ const points = [
 
     gsap.registerPlugin(ScrollTrigger);
 
-    let ctx; // Contexto global para limpieza
+    let ctx;
 
     function initServices() {
-        // Limpiamos cualquier animación previa para evitar duplicados
         if (ctx) ctx.revert();
         
         const container = document.querySelector("#services-scroll");
         if (!container) return;
 
-        // Creamos un nuevo contexto GSAP (Scoped al componente)
         ctx = gsap.context(() => {
             const slides = gsap.utils.toArray(".point-slide");
             const indicators = gsap.utils.toArray(".indicator-bar");
             
-            if (slides.length === 0) return;
-
             const tl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: container, // Usamos la referencia directa
+                    trigger: container,
                     start: "top top",
-                    end: "+=400%", // Aumentamos un poco el recorrido para más suavidad
+                    end: `+=${slides.length * 100}%`,
                     pin: true,
-                    scrub: 1,
-                    // invalidateOnRefresh ayuda si redimensionas la ventana
+                    scrub: 1.2,
                     invalidateOnRefresh: true 
                 }
             });
 
             slides.forEach((slide, i) => {
-                // Estado inicial
-                if (i === 0) {
-                    gsap.set(slide, { autoAlpha: 1, y: 0 });
-                    gsap.set(indicators[0], { backgroundColor: "#a3e635" });
-                } else {
-                    gsap.set(slide, { autoAlpha: 0, y: 100 });
-                }
+                // Seteo inicial
+                gsap.set(slide, { autoAlpha: (i === 0 ? 1 : 0), y: (i === 0 ? 0 : 50) });
+                if (i === 0) gsap.set(indicators[0], { backgroundColor: "#a3e635" });
 
-                // Animación de entrada
                 if (i > 0) {
+                    // Entrada del slide
                     tl.to(slide, { 
                         autoAlpha: 1, 
                         y: 0, 
                         duration: 1,
-                        ease: "power2.out" // Suavizado añadido
+                        ease: "expo.out"
                     }, i);
                     
                     tl.to(indicators[i], { 
                         backgroundColor: "#a3e635", 
+                        height: "140%", // Efecto de estiramiento
                         duration: 0.5 
                     }, i);
                 }
 
-                // Animación de salida
                 if (i < slides.length - 1) {
+                    // Salida del slide
                     tl.to(slide, { 
                         autoAlpha: 0, 
-                        y: -100, 
+                        y: -50, 
                         duration: 1,
-                        ease: "power2.in" // Suavizado añadido
-                    }, i + 0.5);
+                        ease: "expo.in"
+                    }, i + 0.6);
                     
                     tl.to(indicators[i], { 
-                        backgroundColor: "#27272a", 
+                        backgroundColor: "#18181b", 
+                        height: "100%",
                         duration: 0.5 
-                    }, i + 0.5);
+                    }, i + 0.6);
                 }
             });
 
             gsap.set(".indicators", { display: "flex" });
-        }, container); // Scope
+        }, container);
     }
 
-    // Inicialización y Limpieza
     document.addEventListener("astro:page-load", initServices);
-    
-    // Importante: Limpiar al salir de la página
-    document.addEventListener("astro:before-swap", () => {
-        if (ctx) ctx.revert();
-    });
-
-    // Fallback inicial
+    document.addEventListener("astro:before-swap", () => ctx?.revert());
     initServices();
 </script>

@@ -9,42 +9,43 @@ const allProjects = (await getCollection("projects"))
     .slice(0, 8); 
 ---
 
-<section id="work-preview-section" class:list={["w-full bg-zinc-950", className]}>
-    <div class="max-w-7xl mx-auto px-8 pb-16 md:px-12 w-full text-white">
+<section id="work-preview-section" class:list={["w-full bg-zinc-950 pt-20", className]}>
+    <div class="max-w-7xl mx-auto px-8 pb-12 md:px-12 w-full text-white">
         <div class="flex flex-col gap-2 border-l border-lime-400/30 pl-6">
-            <h2 class="text-4xl md:text-6xl font-bold uppercase tracking-tight leading-none">
-                Proyectos<span class="text-lime-400">.</span>
+            <span class="font-mono text-lime-400 text-xs tracking-[0.3em] uppercase">Portafolio Seleccionado</span>
+            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">
+                Proyectos<span class="text-lime-400">_</span>
             </h2>
         </div>
     </div>
 
-    <div class="inspiro-grid">
+    <div class="inspiro-grid border-y border-zinc-900">
         {
             allProjects.map((project) => {
                 const imgSource = project.data.image?.source;
                 const imgAlt = project.data.image?.alt || project.data.title;
                 
                 return (
-                    <a href={`/work/${project.slug}`} class="work-item group">
-                        <div class="image-container bg-zinc-900">
+                    <a href={`/work/${project.slug}`} class="work-item group border-zinc-900 border-r border-b">
+                        <div class="image-container bg-zinc-950">
                             {imgSource ? (
                                 <Image 
                                     src={imgSource} 
                                     alt={imgAlt}
                                     width={800}
                                     height={800}
-                                    class="project-img"
+                                    class="project-img grayscale hover:grayscale-0"
                                 />
                             ) : (
-                                <div class="flex h-full w-full items-center justify-center text-zinc-600 font-mono text-[10px]">
-                                    IMAGE_ERROR
+                                <div class="flex h-full w-full items-center justify-center text-zinc-800 font-mono text-[10px]">
+                                    NO_IMAGE_DATA
                                 </div>
                             )}
                             <div class="overlay"></div>
                         </div>
 
                         <div class="content">
-                            <span class="tag">{project.data.tags?.[0] || "Vantta Code"}</span>
+                            <span class="tag">{project.data.tags?.[0] || "Software"}</span>
                             <h3 class="title">{project.data.title}</h3>
                             <div class="line"></div>
                         </div>
@@ -55,153 +56,99 @@ const allProjects = (await getCollection("projects"))
     </div>
 </section>
 
-<style is:global>
+<style>
     .inspiro-grid {
-        display: grid !important;
-        grid-template-columns: repeat(1, 1fr) !important;
-        width: 100vw !important;
-        position: relative !important;
-        left: 50% !important;
-        right: 50% !important;
-        margin-left: -50vw !important;
-        margin-right: -50vw !important;
-        background-color: #09090b !important;
-        gap: 1px !important;
-        border-top: 1px solid #18181b !important;
-        max-width: 100vw !important;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        width: 100%;
+        background-color: #09090b;
     }
 
-    @media (min-width: 640px) {
-        .inspiro-grid { grid-template-columns: repeat(2, 1fr) !important; }
-    }
-    @media (min-width: 1024px) {
-        .inspiro-grid { grid-template-columns: repeat(4, 1fr) !important; }
-    }
+    @media (min-width: 640px) { .inspiro-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .inspiro-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .work-item {
-        position: relative !important;
-        aspect-ratio: 1 / 1 !important;
-        overflow: hidden !important;
-        display: block !important;
+        position: relative;
+        aspect-ratio: 1 / 1.1; /* Un poco más vertical para elegancia */
+        overflow: hidden;
+        display: block;
     }
 
     .image-container {
-        position: absolute !important;
-        inset: 0 !important;
+        position: absolute;
+        inset: 0;
     }
 
     .project-img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) !important;
-        filter: grayscale(1) contrast(1.1);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity: 0.6;
     }
 
     .work-item:hover .project-img {
-        transform: scale(1.05) !important;
-        filter: grayscale(0) contrast(1);
+        transform: scale(1.08);
+        opacity: 1;
+        filter: grayscale(0);
     }
 
     .overlay {
-        position: absolute !important;
-        inset: 0 !important;
-        background: radial-gradient(circle at center, rgba(9, 9, 11, 0.4) 0%, rgba(9, 9, 11, 0.95) 100%) !important;
-        opacity: 0.6 !important;
-        transition: opacity 0.5s ease !important;
-        z-index: 10 !important;
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(9, 9, 11, 0.9) 0%, transparent 60%);
+        transition: opacity 0.5s ease;
     }
 
-    .work-item:hover .overlay { opacity: 0.4 !important; }
+    .work-item:hover .overlay { opacity: 0.2; }
 
     .content {
-        position: absolute !important;
-        inset: 0 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        z-index: 20 !important;
-        padding: 2.5rem !important;
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end; /* Contenido abajo para no tapar toda la imagen */
+        z-index: 20;
+        padding-bottom: 3rem;
         text-align: center;
     }
 
     .tag {
-        font-family: monospace !important;
-        font-size: 9px !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.4em !important;
-        color: #a3e635 !important;
-        transform: translateY(15px) !important;
-        opacity: 0 !important;
-        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+        font-family: monospace;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #a3e635;
+        margin-bottom: 8px;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.4s ease;
     }
 
     .title {
-        font-weight: 800 !important;
-        text-transform: uppercase !important;
-        color: white !important;
-        font-size: 1.25rem !important;
-        letter-spacing: 0.1em !important;
-        line-height: 1.2 !important;
-        margin-top: 0.75rem !important;
-        transform: translateY(15px) !important;
-        opacity: 0 !important;
-        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: white;
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+        transform: translateY(10px);
+        opacity: 0;
+        transition: all 0.4s ease 0.1s;
     }
 
     .line {
-        height: 1px !important;
-        width: 0 !important;
-        background-color: #a3e635 !important;
-        margin-top: 1.5rem !important;
-        transition: width 0.6s ease 0.2s !important;
+        height: 1px;
+        width: 0;
+        background-color: #a3e635;
+        margin-top: 1rem;
+        transition: width 0.5s ease 0.2s;
     }
 
     .work-item:hover .tag, .work-item:hover .title {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
+        transform: translateY(0);
+        opacity: 1;
     }
 
-    .work-item:hover .line { width: 30px !important; }
+    .work-item:hover .line { width: 40px; }
 </style>
-
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    let ctx: gsap.Context;
-
-    function initWork() {
-        if (ctx) ctx.revert();
-
-        const grid = document.querySelector(".inspiro-grid");
-        if (!grid) return;
-
-        ctx = gsap.context(() => {
-            const items = gsap.utils.toArray(".work-item");
-            
-            gsap.set(items, { y: 60, opacity: 0 });
-
-            ScrollTrigger.batch(items, {
-                start: "top 85%",
-                onEnter: (batch) => {
-                    gsap.to(batch, {
-                        y: 0,
-                        opacity: 1,
-                        duration: 1.2,
-                        stagger: 0.1,
-                        ease: "expo.out",
-                        overwrite: true
-                    });
-                }
-            });
-        }, grid);
-    }
-
-    document.addEventListener("astro:page-load", initWork);
-    document.addEventListener("astro:before-swap", () => { if (ctx) ctx.revert(); });
-    initWork();
-</script>

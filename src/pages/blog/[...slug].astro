@@ -1,31 +1,30 @@
 ---
+/* src/pages/blog/[...slug].astro */
 import { getCollection } from "astro:content";
 import type { AstroSeoProps } from "@astrolib/seo";
 import MarkdownPostLayout from "../../layouts/MarkdownPostLayout.astro";
 
+// 1. GENERACIÓN DE RUTAS DINÁMICAS (Estructura Plana)
 export async function getStaticPaths() {
     const blogEntries = await getCollection("posts");
 
-    return blogEntries.map((entry) => {
-        const [lang, ...slugParts] = entry.slug.split("/");
-        const slug = slugParts.join("/");
-        return { 
-            params: { lang, slug: slug || undefined }, 
-            props: { entry } 
-        };
-    });
+    return blogEntries.map((entry) => ({
+        // El slug ahora es simplemente el nombre del archivo sin extensiones
+        params: { slug: entry.slug }, 
+        props: { entry } 
+    }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-// Construcción dinámica de SEO para Vantta Studio
+// 2. SEO TÉCNICO VANTTA code_
 const seo: AstroSeoProps = {
-    title: `${entry.data.title} | Vantta Studio`,
+    title: `${entry.data.title} // VANTTA code_`,
     description: entry.data.description,
-    canonical: `https://vantta.studio/${entry.slug}/`, // Actualizado a tu dominio
+    canonical: `https://vanttacode.cl/blog/${entry.slug}/`,
     openGraph: {
-        url: `https://vantta.studio/${entry.slug}/`,
+        url: `https://vanttacode.cl/blog/${entry.slug}/`,
         title: entry.data.title,
         description: entry.data.description,
         type: "article",
@@ -36,75 +35,101 @@ const seo: AstroSeoProps = {
         },
         images: [
             {
-                url: entry.data.image.source, // Usamos la imagen real del post
+                // Acceso directo a la propiedad de imagen procesada por Astro
+                url: entry.data.image.source.src, 
                 width: 1200,
                 height: 630,
                 alt: entry.data.title,
-                type: "image/jpeg",
             }
         ],
-        site_name: "Vantta Studio",
+        site_name: "VANTTA code_",
     },
     twitter: {
-        handle: "@vanttastudio",
-        site: "@vanttastudio",
+        handle: "@vanttacode",
         cardType: "summary_large_image",
     },
 };
 ---
 
 <MarkdownPostLayout frontmatter={entry.data} body={entry.body} seo={seo}>
-    <div class="animate-content">
-        <Content />
+    <div class="technical-reader-wrap">
+        <div class="flex items-center gap-4 mb-16 opacity-30 font-mono text-[9px] uppercase tracking-[0.6em] select-none">
+            <span class="h-2 w-2 bg-lime-400 rounded-full animate-ping"></span> 
+            START_OF_DATA_STREAM // ID: {entry.slug.toUpperCase()}
+        </div>
+
+        <div class="animate-content">
+            <Content />
+        </div>
+
+        <div class="flex items-center gap-6 mt-32 opacity-20 font-mono text-[9px] uppercase tracking-[0.5em] select-none">
+            <span class="h-px flex-1 bg-zinc-800"></span>
+            END_OF_TRANS
+            <span class="h-px flex-1 bg-zinc-800"></span>
+        </div>
     </div>
 </MarkdownPostLayout>
 
 <style is:global>
-    /* Estilos para el contenido Markdown dentro de Vantta Studio */
+    /* 1. REVELADO INDUSTRIAL (Coherente con Labs) */
     .animate-content {
-        animation: fadeInContent 1s ease-out forwards;
+        animation: revealIndustrial 1.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
     }
 
-    @keyframes fadeInContent {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+    @keyframes revealIndustrial {
+        0% { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(20px); }
+        100% { opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); }
     }
 
-    /* Estilización del contenido renderizado */
-    article prose {
-        @apply max-w-none text-zinc-300;
+    /* 2. TIPOGRAFÍA DE INGENIERÍA (Prose Customization) */
+    .prose-styles {
+        @apply max-w-none text-zinc-400;
     }
 
+    /* Encabezados Agresivos */
     article h2, article h3 {
-        @apply font-display font-black uppercase tracking-tighter text-white mt-12 mb-6;
+        @apply font-black uppercase italic tracking-tighter text-white mt-20 mb-10;
     }
+    article h2 { @apply text-4xl md:text-6xl border-l-4 border-lime-400 pl-6; }
+    article h3 { @apply text-2xl md:text-3xl text-zinc-200; }
 
     article p {
-        @apply font-display text-lg leading-relaxed text-zinc-400 mb-6;
+        @apply text-lg lg:text-xl leading-relaxed text-zinc-400 mb-10 font-light;
     }
 
+    /* Media: Grayscale by default, color on hover */
     article img {
-        @apply rounded-2xl border border-zinc-800 my-12;
+        @apply rounded-none border border-zinc-900 my-20 w-full grayscale-[0.3] hover:grayscale-0 transition-all duration-1000 ease-in-out;
     }
 
+    /* Enlaces Neón */
     article a {
-        @apply text-lime-400 no-underline hover:text-white transition-colors border-b border-lime-400/30 hover:border-white;
+        @apply text-white underline decoration-lime-400/30 underline-offset-8 hover:decoration-lime-400 hover:text-lime-400 transition-all duration-300;
     }
 
+    /* Citas de Sistema (Blockquotes) */
     article blockquote {
-        @apply border-l-4 border-lime-400 bg-zinc-900/50 p-8 italic rounded-r-xl my-10 text-xl text-white;
+        @apply border-l-0 border border-zinc-900 bg-zinc-950 p-12 my-16 relative;
+    }
+    article blockquote p {
+        @apply text-white text-2xl md:text-3xl italic leading-tight mb-0 font-medium;
+    }
+    article blockquote::after {
+        content: "QUERY_ANALYSIS_RESULT";
+        @apply absolute -top-3 left-6 bg-zinc-950 px-3 font-mono text-[9px] text-lime-400/50 uppercase tracking-widest border border-zinc-900;
     }
 
-    article ul, article ol {
-        @apply my-8 space-y-4 list-none pl-0;
-    }
-
-    article li {
-        @apply flex items-start gap-3 text-zinc-400;
-    }
-
+    /* Listas Técnicas */
+    article ul { @apply my-12 space-y-6; }
+    article li { @apply flex items-start gap-5 text-zinc-400 text-lg lg:text-xl; }
     article li::before {
-        content: "—";
-        @apply text-lime-400 font-bold;
+        content: ">>";
+        @apply text-lime-400 font-mono text-xs mt-2 opacity-50;
+    }
+
+    /* Elementos Inline */
+    article strong { @apply text-zinc-100 font-bold tracking-tight; }
+    article code:not(pre code) {
+        @apply bg-zinc-900 text-lime-400 px-2 py-1 font-mono text-sm border border-zinc-800 uppercase tracking-tighter;
     }
 </style>

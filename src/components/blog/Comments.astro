@@ -1,33 +1,69 @@
 ---
-/* * Componente de Comentarios Giscus para Vantta Studio
- * Configurado para modo oscuro permanente y carga optimizada.
- */
+/* src/components/blog/Comments.astro */
+/* * Canal de Feedback Técnico configurado para VANTTA code_
+   * Protocolo: Giscus // Theme: Transparent_Dark
+*/
 ---
 
-<section class="mx-auto w-full max-w-4xl px-6 py-20">
-    <div class="mb-20 flex items-center gap-4">
-        <span class="h-px flex-1 bg-zinc-800"></span>
-        <span class="font-mono text-xs uppercase tracking-[0.3em] text-zinc-500">Feedback / Comentarios</span>
-        <span class="h-px flex-1 bg-zinc-800"></span>
+<section class="mx-auto w-full max-w-5xl px-6 py-24 relative overflow-hidden">
+    
+    <div class="mb-16 relative">
+        <div class="flex items-center gap-6 mb-4">
+            <div class="flex items-center gap-2">
+                <span class="h-2 w-2 bg-lime-400 rounded-full animate-pulse"></span>
+                <span class="font-mono text-[10px] text-lime-400 uppercase tracking-[0.4em]">Secure_Line_Active</span>
+            </div>
+            <div class="h-px flex-1 bg-zinc-900"></div>
+        </div>
+
+        <div class="flex justify-between items-end">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white">
+                    Discussion<span class="text-lime-400">_Feed</span>
+                </h2>
+                <p class="font-mono text-[9px] text-zinc-600 uppercase tracking-widest mt-2">
+                    [ Protocol_ID: VNTT-COMMS-08 // End-to-End Encrypted Discussion ]
+                </p>
+            </div>
+            <div class="hidden md:block font-mono text-[9px] text-zinc-800 text-right">
+                NODE: SCL-SERVER-01<br/>
+                STATUS: RECEIVING_DATA
+            </div>
+        </div>
     </div>
 
-    <div
-        id="giscus-container"
-        class="giscus mx-auto min-h-[250px] w-full"
-        data-repo="majesticooss/mintaka"
-        data-repo-id="R_kgDOK_K6WQ"
-        data-category="Blog"
-        data-category-id="DIC_kwDOK_K6Wc4CcGH6"
-        data-mapping="og:title"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="dark_dimmed" 
-        data-lang="es"
-        data-loading="lazy"
-        crossorigin="anonymous"
-    >
+    <div class="relative bg-zinc-950/50 border border-zinc-900 p-8 rounded-none group">
+        <div class="absolute -top-px -left-px h-4 w-4 border-t border-l border-lime-400/50 group-hover:border-lime-400 transition-colors"></div>
+        <div class="absolute -bottom-px -right-px h-4 w-4 border-b border-r border-lime-400/50 group-hover:border-lime-400 transition-colors"></div>
+
+        <div
+            id="giscus-container"
+            class="giscus min-h-[300px] w-full"
+            data-repo="majesticooss/mintaka"
+            data-repo-id="R_kgDOK_K6WQ"
+            data-category="Blog"
+            data-category-id="DIC_kwDOK_K6Wc4CcGH6"
+            data-mapping="og:title"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="transparent_dark" 
+            data-lang="es"
+            data-loading="lazy"
+            crossorigin="anonymous"
+        >
+            <div class="flex flex-col items-center justify-center py-20 font-mono text-zinc-700 gap-4">
+                <div class="h-4 w-4 border-2 border-zinc-800 border-t-lime-400 animate-spin"></div>
+                <span class="text-[10px] tracking-[0.5em] uppercase">Initializing_Comms_Stream...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 flex justify-center">
+        <div class="font-mono text-[8px] text-zinc-800 uppercase tracking-[0.6em]">
+            // End_Transmission
+        </div>
     </div>
 </section>
 
@@ -39,27 +75,40 @@
         const script = document.createElement('script');
         script.src = 'https://giscus.app/client.js';
         
-        // Copiamos los atributos data del contenedor al script
+        // Sincronización dinámica de atributos data
         Object.keys(container.dataset).forEach(key => {
-            script.setAttribute(`data-${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`, container.dataset[key] as string);
+            const attrName = `data-${key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}`;
+            script.setAttribute(attrName, container.dataset[key] as string);
         });
 
         script.async = true;
+        
+        // Limpiamos el loader manual antes de que entre Giscus
+        script.onload = () => {
+             // Giscus inyecta su propio iframe, no necesitamos hacer más
+        };
+
         document.head.appendChild(script);
     }
 
-    // Ejecutar en carga inicial y en transiciones de Astro
+    // Compatibilidad con Astro View Transitions
     document.addEventListener('astro:page-load', loadGiscus);
     
-    // Fallback por si no usas View Transitions
+    // Fallback estándar
     if (document.readyState !== 'loading') {
         loadGiscus();
     }
 </script>
 
 <style is:global>
-    /* Ajuste para que el iframe de Giscus no rompa la estética */
+    /* Inyectamos estilos al iframe de Giscus para que encaje con VANTTA code_ */
     .giscus-frame {
-        border-radius: 12px !important;
+        border-radius: 0px !important; /* Eliminamos el redondeado para un look industrial */
+        filter: grayscale(0.2) contrast(1.1);
+    }
+
+    /* Ajuste para que la tipografía de Giscus se sienta más integrada */
+    main {
+        --giscus-main-font: 'Inter', system-ui, sans-serif;
     }
 </style>

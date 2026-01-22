@@ -1,0 +1,41 @@
+---
+/* src/pages/services.astro */
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServicesGrid from "@/components/home/ServicesGrid.tsx";
+import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
+import type { AstroSeoProps } from "@astrolib/seo";
+
+const seo: AstroSeoProps = {
+    title: "VANTTA // SERVICES_DEPLOYMENT",
+    description: "Despliegue de sistemas de alto rendimiento: Desarrollo Web, Software a Medida, Branding y Ubikapp SaaS.",
+    canonical: "https://vanttacode.cl/services/",
+};
+---
+
+<BaseLayout seo={seo}>
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20 overflow-hidden">
+        <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(163,230,53,0.01),rgba(0,0,0,0),rgba(163,230,53,0.01))] bg-[length:100%_4px,4px_100%]"></div>
+    </div>
+
+    <main class="bg-[#050505] min-h-screen relative selection:bg-lime-400 selection:text-black overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
+             style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
+        </div>
+
+        <div class="container mx-auto px-6 lg:px-12 pt-32 pb-20 relative z-10">
+            
+            <div class="relative">
+                 <ServicesGrid client:visible />
+            </div>
+
+            <div class="mt-20 lg:mt-32">
+                <UbikappPromo client:visible />
+            </div>
+
+            <div class="mt-32 flex justify-between items-center font-mono text-[8px] text-zinc-800 uppercase tracking-[0.5em] border-t border-zinc-900 pt-8">
+                <span>Integrated_Systems_v2.6</span>
+                <span>SCL_CHILE_NODE_01</span>
+            </div>
+        </div>
+    </main>
+</BaseLayout>

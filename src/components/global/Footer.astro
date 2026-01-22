@@ -7,80 +7,85 @@ import { Image } from "astro:assets";
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
+
+// Contacto
+const phoneNumber = "966877441";
+const whatsappLink = `https://wa.me/56${phoneNumber}`;
 ---
 
-<footer class="section relative w-full bg-zinc-950 text-white overflow-hidden border-t border-zinc-900">
-    <div class="mx-auto w-full max-w-[1400px] px-6 lg:px-12 py-12 lg:py-24 flex flex-col gap-20">
+<footer class="w-full bg-zinc-950 text-white pt-20 pb-10 border-t border-zinc-900 overflow-hidden">
+    <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-16 lg:gap-x-8">
             
-            <div class="lg:col-span-8 grid grid-cols-2 md:grid-cols-2 gap-10">
-                
-                <div class="flex flex-col gap-6">
-                    <p class="text-zinc-500 text-xs font-mono uppercase tracking-[0.2em]">Social</p>
-                    <div class="flex flex-col gap-3">
-                        <a href="https://twitter.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-lg font-medium">Twitter / X</a>
-                        <a href="https://www.instagram.com/vanttastudio" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-lg font-medium">Instagram</a>
-                        <a href="https://www.linkedin.com/company/vantta" target="_blank" class="hover:text-lime-400 transition-colors w-fit text-lg font-medium">Linkedin</a>
-                    </div>
-                </div>
-
-                <div class="flex flex-col gap-6">
-                    <p class="text-zinc-500 text-xs font-mono uppercase tracking-[0.2em]">Sitemap</p>
-                    <div class="flex flex-col gap-3">
-                        <a href={translatePath("/")} class="hover:text-lime-400 transition-colors w-fit text-base">Inicio</a>
-                        <a href={translatePath("/work/")} class="hover:text-lime-400 transition-colors w-fit text-base">Proyectos</a>
-                        <a href={translatePath("/blog/")} class="hover:text-lime-400 transition-colors w-fit text-base">Labs</a>
-                        <a href={translatePath("/contact/")} class="hover:text-lime-400 transition-colors w-fit text-base">{t("contacts")}</a>
-                    </div>
-                </div>
-
-                <div class="col-span-2 mt-8">
-                    <p class="text-zinc-500 text-xs font-mono uppercase tracking-[0.2em] mb-4">Contact</p>
-                    <a href="mailto:vanttastudio@gmail.com" class="text-2xl md:text-3xl lg:text-4xl font-bold hover:text-lime-400 transition-colors break-all">
-                        vanttastudio@gmail.com
+            <div class="lg:col-span-3 flex flex-col gap-8">
+                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Redes Sociales</p>
+                <div class="flex flex-col gap-4">
+                    <a href="https://www.instagram.com/vanttacode.cl" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
+                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> Instagram
+                    </a>
+                    <a href="https://www.facebook.com/Vanttacode/" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
+                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> Facebook
+                    </a>
+                    <a href="https://www.linkedin.com/company/vantta" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
+                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> LinkedIn
                     </a>
                 </div>
             </div>
 
-            <div class="lg:col-span-4 flex flex-col gap-8">
-                <div class="text-3xl lg:text-5xl font-black leading-none uppercase italic">
-                    <span class="text-lime-400 block">{t("footer.newsletter") || "Stay"}</span>
-                    <span class="block text-zinc-800">{t("footer.newsletter2") || "Updated"}</span>
+            <div class="lg:col-span-3 flex flex-col gap-8">
+                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Navegación</p>
+                <div class="grid grid-cols-1 gap-4">
+                    <a href={translatePath("/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Inicio</a>
+                    <a href={translatePath("/work/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Proyectos</a>
+                    <a href={translatePath("/blog/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Labs (Blog)</a>
+                    <a href={translatePath("/contact/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Contacto</a>
                 </div>
-                <Newsletter />
+            </div>
+
+            <div class="lg:col-span-6 flex flex-col gap-8">
+                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Hablemos</p>
+                <div class="flex flex-col gap-6">
+                    <a href="mailto:vanttastudio@gmail.com" class="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tighter hover:text-lime-400 transition-all break-words">
+                        vanttastudio@gmail.com
+                    </a>
+                    <a href={whatsappLink} class="text-xl sm:text-2xl font-mono text-lime-400 hover:text-white transition-colors flex items-center gap-3">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-lime-500"></span>
+                        </span>
+                        +56 {phoneNumber}
+                    </a>
+                </div>
+
+                <div class="mt-8 max-w-md">
+                     <p class="text-zinc-400 text-sm mb-4 font-light italic">Únete a nuestro newsletter para actualizaciones mensuales.</p>
+                     <Newsletter />
+                </div>
             </div>
         </div>
 
-        <div class="flex flex-col md:flex-row items-end justify-between gap-8 pt-8 border-t border-zinc-900">
-            
-            <div class="flex flex-col gap-6 w-full md:w-auto">
-                <div class="w-32 opacity-50 hover:opacity-100 transition-opacity duration-500">
-                    <Image 
-                        src={logovanta} 
-                        alt="Vantta Studio" 
-                        class="h-auto w-full filter brightness-0 invert" 
-                    />
+        <div class="mt-32 pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <div class="w-24 opacity-40 hover:opacity-100 transition-opacity">
+                    <Image src={logovanta} alt="Vantta Logo" class="filter brightness-0 invert" />
                 </div>
-                <div class="text-xs text-zinc-500 font-mono">
-                    <p class="uppercase tracking-widest text-zinc-300 mb-1">Vantta Studio</p>
-                    <p>© {new Date().getFullYear()} — All rights reserved.</p>
-                </div>
+                <p class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">
+                    © 2026 Vantta Studio — All Rights Reserved.
+                </p>
             </div>
 
-            <button
-                id="go-top-button"
-                aria-label="Go to Top"
-                class="group relative flex items-center justify-center w-16 h-16 rounded-full border border-zinc-800 bg-zinc-950 hover:bg-lime-400 hover:border-lime-400 transition-colors duration-300"
-                data-cursor-hover>
-                <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="24" height="24" 
-                    viewBox="0 0 24 24"
-                    class="text-white group-hover:text-black transition-colors duration-300 relative z-10"
-                >
-                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m17 11l-5-5m0 0l-5 5m5-5v12"></path>
-                </svg>
+            <button 
+                id="go-top-button" 
+                class="group relative w-16 h-16 flex items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 transition-all hover:border-lime-400"
+                data-cursor-hover
+            >
+                <div class="relative z-10 transition-transform group-hover:-translate-y-1">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div class="absolute inset-0 rounded-full bg-lime-400 scale-0 group-hover:scale-100 transition-transform duration-500 ease-out -z-0"></div>
             </button>
         </div>
     </div>
@@ -90,49 +95,30 @@ const translatePath = useTranslatedPath(lang);
     import { gsap } from "gsap";
 
     function initFooter() {
-        const goTopButton = document.getElementById("go-top-button");
+        const btn = document.getElementById("go-top-button");
+        if (!btn) return;
 
-        if (!goTopButton) return;
-
-        // 1. Lógica de Scroll usando LENIS (Importante)
-        goTopButton.onclick = (e) => {
-            e.preventDefault();
-            // Verificamos si Lenis está activo globalmente
+        // Scroll to top con Lenis
+        btn.onclick = () => {
             if (window.lenis) {
-                window.lenis.scrollTo(0, { duration: 1.5 });
+                window.lenis.scrollTo(0, { duration: 2, ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
             } else {
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         };
-        
-        // 2. Efecto Magnético (GSAP)
-        goTopButton.onmousemove = (e) => {
-            const { clientX, clientY } = e;
-            const { left, top, width, height } = goTopButton.getBoundingClientRect();
-            
-            // Calculamos la distancia desde el centro del botón
-            const x = (clientX - (left + width / 2)) * 0.4; // 0.4 es la intensidad
-            const y = (clientY - (top + height / 2)) * 0.4;
 
-            gsap.to(goTopButton, { 
-                x: x, 
-                y: y, 
-                duration: 0.3, 
-                ease: "power2.out" 
-            });
-        };
+        // Efecto Magnético
+        btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
+        });
 
-        // 3. Reset al salir del botón
-        goTopButton.onmouseleave = () => {
-            gsap.to(goTopButton, { 
-                x: 0, 
-                y: 0, 
-                duration: 0.6, 
-                ease: "elastic.out(1, 0.4)" 
-            });
-        };
+        btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+        });
     }
 
-    // Ejecutar en cada navegación de Astro
     document.addEventListener("astro:page-load", initFooter);
 </script>

@@ -1,154 +1,165 @@
 ---
+/* src/pages/web-development.astro */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import type { AstroSeoProps } from "@astrolib/seo";
-import Title from "@components/global/Title.astro";
-import Cta from "@components/landing/Cta.astro";
-
-// Componentes visuales
-import TextureOverlay from "@components/global/TextureOverlay.astro";
-import CursorFollower from "@components/global/CursorFollower.astro";
-import GrainyGradient from "@components/global/GrainyGradient.astro";
-import AnimatedBlobs from "@components/global/BlobAnimation.astro";
+import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
+import Cta from "@/components/landing/Cta.tsx";
 
 const seo: AstroSeoProps = {
-    title: "Desarrollo Web Pro | Vantta Studio",
-    description: "Ingeniería web de alto impacto. Sistemas a medida, IA con Gemini y Paneles de Gestión. Desde $199.000.",
+    title: "VANTTA // WEB_ENGINEERING",
+    description: "Ingeniería web de alto impacto. Sistemas a medida, IA con Gemini y Paneles de Gestión Propietarios.",
+    canonical: "https://vanttacode.cl/services/web-development/",
 };
 
 const solutions = [
-    { title: "Landing Pages", price: "$199.000", desc: "Optimización máxima para conversiones rápidas.", features: ["Alta Conversión", "Astro Performance", "Carga Instantánea"] },
-    { title: "E-Commerce", price: "$490.000", desc: "Tiendas escalables sin comisiones externas.", features: ["MercadoPago Nativo", "Stock Real-Time", "Venta Integral"] },
-    { title: "Sistemas Restaurantes", price: "$590.000", desc: "Flujo de pedidos digitalizado de punta a punta.", features: ["Gestión Pedidos", "Menú QR Dinámico", "Panel de Cocina"] },
-    { title: "Corporativos Pro", price: "$350.000", desc: "Presencia institucional con estándar premium.", features: ["Identidad Digital", "Multi-idioma", "SEO Avanzado"] },
-    { title: "Paneles de Gestión", price: "$650.000", desc: "Software interno para control administrativo.", features: ["Control Inventario", "Métricas User", "Dashboard Custom"] },
-    { title: "IA & Gemini Bots", price: "$290.000", desc: "Automatización inteligente con Google Gemini.", features: ["Motor Gemini Pro", "Atención 24/7", "Lead Scoring"] },
-    { title: "Inmobiliarias", price: "$450.000", desc: "Catálogos interactivos y gestión de activos.", features: ["Buscador Propiedades", "Mapa Interactivo", "CRM Integrado"] },
-    { title: "Web Apps SaaS", price: "Cotizar", desc: "Sistemas en la nube listos para escalar.", features: ["Arquitectura Cloud", "Escalabilidad", "Suscripciones"] },
-    { title: "Portafolios Galería", price: "$250.000", desc: "Exhibición visual para creativos y marcas.", features: ["Carga de Medios Pro", "Filtros Avanzados", "Diseño Minimal"] },
-    { title: "Sistemas Educativos", price: "$750.000", desc: "Plataformas LMS de gestión académica.", features: ["Gestión Alumnos", "Clases Grabadas", "Quizzes Online"] },
-    { title: "Booking & Citas", price: "$380.000", desc: "Agendamiento automático de servicios.", features: ["Calendario Integrado", "Pagos de Reserva", "Notificaciones"] },
-    { title: "Landing Campañas", price: "$150.000", desc: "Páginas de aterrizaje para eventos flash.", features: ["Single Page", "Tracking Google", "Mobile First"] }
+    { id: "WEB_01", title: "Landing Pages", price: "$199.000", desc: "Optimización máxima para conversiones rápidas.", features: ["Alta Conversión", "Astro Performance", "Carga Instantánea"] },
+    { id: "WEB_02", title: "E-Commerce", price: "$490.000", desc: "Tiendas escalables sin comisiones externas.", features: ["MercadoPago Nativo", "Stock Real-Time", "Venta Integral"] },
+    { id: "WEB_03", title: "Sistemas Restaurantes", price: "$590.000", desc: "Flujo de pedidos digitalizado de punta a punta.", features: ["Gestión Pedidos", "Menú QR Dinámico", "Panel de Cocina"] },
+    { id: "WEB_04", title: "Corporativos Pro", price: "$350.000", desc: "Presencia institucional con estándar premium.", features: ["Identidad Digital", "Multi-idioma", "SEO Avanzado"] },
+    { id: "WEB_05", title: "Paneles de Gestión", price: "$650.000", desc: "Software interno para control administrativo.", features: ["Control Inventario", "Métricas User", "Dashboard Custom"] },
+    { id: "WEB_06", title: "IA & Gemini Bots", price: "$290.000", desc: "Automatización inteligente con Google Gemini.", features: ["Motor Gemini Pro", "Atención 24/7", "Lead Scoring"] },
+    { id: "WEB_07", title: "Inmobiliarias", price: "$450.000", desc: "Catálogos interactivos y gestión de activos.", features: ["Buscador Propiedades", "Mapa Interactivo", "CRM Integrado"] },
+    { id: "WEB_08", title: "Web Apps SaaS", price: "Cotizar", desc: "Sistemas en la nube listos para escalar.", features: ["Arquitectura Cloud", "Escalabilidad", "Suscripciones"] },
 ];
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-zinc-950 text-white min-h-screen relative overflow-hidden">
+    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-lime-400 selection:text-black">
         
-        <AnimatedBlobs />
-        <GrainyGradient />
-        <TextureOverlay />
-        <CursorFollower />
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
+             style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
+        </div>
 
-        <section class="relative z-10 mx-auto px-8 pt-32 pb-24 md:px-12 2xl:max-w-7xl">
+        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 lg:max-w-7xl">
             <div class="max-w-6xl">
-                <span class="font-mono text-[10px] uppercase tracking-[0.5em] text-lime-400 mb-6 block">
-                    Vantta Engineering Core
-                </span>
-                <Title 
-                    title="DESARROLLO WEB" 
-                    class="text-6xl md:text-8xl lg:text-[11rem] font-black uppercase tracking-tighter italic leading-[0.75]" 
-                />
+                <div class="flex items-center gap-4 mb-10">
+                    <span class="h-px w-12 bg-lime-400"></span>
+                    <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em] animate-pulse">
+                        Web_Deployment_v2.6
+                    </span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
+                    DEVELOPMENT <br/> <span class="text-zinc-800">ENGINEERING_</span>
+                </h1>
+                
+                <div class="mt-12 max-w-2xl border-l border-zinc-900 pl-8">
+                    <p class="font-mono text-zinc-500 text-[11px] uppercase tracking-[0.3em] leading-relaxed">
+                        Desarrollamos ecosistemas web de alto rendimiento. <span class="text-white">Código propietario</span> optimizado para maximizar el ROI mediante arquitectura técnica de vanguardia.
+                    </p>
+                </div>
             </div>
         </section>
 
-        <section class="relative z-10 border-y border-zinc-900 bg-zinc-950/40 backdrop-blur-md">
-            <div class="mx-auto px-8 py-24 md:px-12 2xl:max-w-7xl">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-zinc-900 border border-zinc-900">
+        <section class="relative z-10 border-y border-zinc-900 bg-black/40 backdrop-blur-md">
+            <div class="mx-auto px-6 py-24 md:px-12 lg:max-w-7xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-900">
                     {solutions.map(item => (
-                        <div class="bg-zinc-950 p-10 hover:bg-zinc-900 transition-all duration-500 group flex flex-col justify-between">
+                        <div class="bg-transparent p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-500 group flex flex-col justify-between relative">
+                            {/* Technical ID */}
+                            <span class="absolute top-6 right-8 font-mono text-[9px] text-zinc-800 group-hover:text-lime-400 transition-colors uppercase tracking-widest">
+                                [ {item.id} ]
+                            </span>
+
                             <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none">{item.title}</h3>
-                                <p class="text-lime-400 font-mono text-[10px] mb-6 uppercase tracking-widest">Desde {item.price}</p>
-                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8">
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none text-white group-hover:text-lime-400 transition-colors">{item.title}</h3>
+                                <p class="text-zinc-600 font-mono text-[9px] mb-6 uppercase tracking-widest font-bold">FE_ {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
                                     {item.desc}
                                 </p>
                             </div>
-                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
+
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900/50">
                                 {item.features.map(feat => (
-                                    <li class="text-[9px] text-zinc-600 font-mono uppercase tracking-widest flex items-center gap-2">
-                                        <span class="w-1 h-1 bg-lime-400"></span> {feat}
+                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
+                                        <span class="w-1 h-1 bg-lime-400/40 group-hover:bg-lime-400 transition-colors"></span> {feat}
                                     </li>
                                 ))}
                             </ul>
+
+                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-lime-400/[0.02] to-transparent h-1/4 w-full -translate-y-full group-hover:animate-scan pointer-events-none"></div>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <section class="relative z-10 mx-auto px-8 py-32 md:px-12 2xl:max-w-7xl">
-            <div class="flex flex-col gap-4">
-                
-                <div class="group relative overflow-hidden border border-zinc-900 bg-zinc-900/10 backdrop-blur-xl p-12 hover:border-lime-400 transition-all duration-500">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-                        <div class="max-w-2xl">
-                            <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Legal & Ownership</span>
-                            <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none">PROPIEDAD TOTAL.</h2>
-                            <p class="mt-6 text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed max-w-xl group-hover:text-zinc-300 transition-colors">
-                                El código es de tu propiedad al 100%. Sin mensualidades forzosas por plataforma ni dependencias de servicios SaaS. Independencia digital absoluta.
+        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 lg:max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-2 border border-zinc-900 overflow-hidden bg-zinc-950">
+                <div class="p-12 border-b md:border-b-0 md:border-r border-zinc-900 flex flex-col justify-center relative group">
+                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ OWNERSHIP_RIGHTS ]</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8 text-white">PROPIEDAD<br/>TOTAL_</h2>
+                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
+                        El código es tuyo al 100%. Independencia digital absoluta sin mensualidades forzosas por plataforma ni dependencias de terceros.
+                    </p>
+                    <div class="text-zinc-900 font-black text-9xl italic absolute -right-4 -bottom-8 opacity-10 group-hover:text-lime-400/20 transition-colors pointer-events-none">01</div>
+                </div>
+
+                <div class="bg-lime-400 p-12 flex flex-col justify-center relative">
+                    <div class="space-y-12">
+                        <div class="border-b border-black/10 pb-8">
+                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ INFRASTRUCTURE ]</span>
+                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">GESTIÓN PRO_</h2>
+                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
+                                Paneles administrativos desarrollados sobre Supabase para control total de flujos operativos y métricas reales.
                             </p>
                         </div>
-                        <div class="text-zinc-900 font-black text-9xl italic absolute -right-4 -bottom-8 opacity-20 group-hover:text-lime-400 transition-colors">01</div>
+                        <div class="pt-4">
+                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ AUTOMATION ]</span>
+                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">IA_GEMINI_</h2>
+                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
+                                Integración nativa con Google Gemini para procesamiento autónomo de leads y atención inteligente 24/7.
+                            </p>
+                        </div>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="group relative overflow-hidden border border-zinc-900 bg-zinc-900/10 backdrop-blur-xl p-12 hover:border-lime-400 transition-all duration-500">
-                        <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Infrastructure</span>
-                        <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none mb-6">PANEL DE<br/>GESTIÓN PRO.</h2>
-                        <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
-                            Software administrativo desarrollado a medida sobre Supabase. Controla stock, métricas y usuarios con un Dashboard diseñado para tu flujo real.
-                        </p>
-                        <div class="text-zinc-900 font-black text-8xl italic absolute -right-2 -bottom-4 opacity-20 group-hover:text-lime-400 transition-colors">02</div>
-                    </div>
-
-                    <div class="group relative overflow-hidden border border-zinc-900 bg-zinc-900/10 backdrop-blur-xl p-12 hover:border-lime-400 transition-all duration-500">
-                        <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">Automation</span>
-                        <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter leading-none mb-6">IA CON<br/>GEMINI.</h2>
-                        <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
-                            Implementamos el ecosistema de Google Gemini para crear sitios que actúan de forma autónoma. Chatbots de atención y análisis de leads inteligente.
-                        </p>
-                        <div class="text-zinc-900 font-black text-8xl italic absolute -right-2 -bottom-4 opacity-20 group-hover:text-lime-400 transition-colors">03</div>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <section class="relative z-10 bg-white text-black py-24">
-            <div class="mx-auto px-8 md:px-12 2xl:max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+        <section class="relative z-10 bg-white text-black py-32 border-y border-zinc-200">
+            <div class="mx-auto px-6 md:px-12 lg:max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
                 <div>
-                    <h3 class="text-6xl font-black uppercase italic tracking-tighter leading-[0.9] mb-4">SOPORTE &<br/>INFRAESTRUCTURA</h3>
-                    <p class="text-zinc-500 uppercase font-mono text-[10px] tracking-widest">Respaldo técnico y alta disponibilidad</p>
+                    <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85]">SOPORTE<br/>SISTEMAS_</h3>
+                    <p class="text-zinc-400 uppercase font-mono text-[9px] tracking-[0.4em] mt-8 font-bold italic">NODE_WEB_MAINTENANCE</p>
                 </div>
-                <div class="grid grid-cols-1 gap-12 text-black">
-                    <div class="border-b-2 border-zinc-100 pb-8">
-                        <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-widest mb-3 italic">Continuidad de Negocio</p>
-                        <div class="flex items-baseline justify-between md:justify-start gap-4">
-                            <span class="text-4xl font-black italic uppercase">Mantenimiento</span>
-                            <span class="text-2xl font-black text-lime-500">DESDE $10.000 <span class="text-xs font-bold uppercase text-zinc-400">/ MES</span></span>
+                <div class="space-y-16">
+                    <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
+                        <div>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Continuidad de Negocio</p>
+                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Mantenimiento_</h4>
                         </div>
+                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $10.000 <span class="text-xs text-zinc-400">/ MO</span></span>
                     </div>
-                    <div class="border-b-2 border-zinc-100 pb-8">
-                        <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-widest mb-3 italic">Infraestructura Web</p>
-                        <div class="flex items-baseline justify-between md:justify-start gap-4">
-                            <span class="text-4xl font-black italic uppercase">Hosting + Dominio</span>
-                            <span class="text-2xl font-black text-lime-500">DESDE $30.000 <span class="text-xs font-bold uppercase text-zinc-400">/ AÑO</span></span>
+                    <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
+                        <div>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Infraestructura Web</p>
+                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Cloud Server_</h4>
                         </div>
+                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $30.000 <span class="text-xs text-zinc-400">/ YR</span></span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="relative z-10 py-20 bg-zinc-950">
-            <Cta />
+        <div class="relative z-10 pt-32 bg-[#050505] border-t border-zinc-900">
+            <UbikappPromo client:visible />
+            <div class="mt-20">
+                <Cta client:visible />
+            </div>
         </div>
 
     </main>
 </BaseLayout>
 
 <style is:global>
-    h1, h2, h3 {
+    @keyframes scan {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(400%); }
+    }
+    .animate-scan {
+        animation: scan 3s linear infinite;
+    }
+    h1, h2, h3, h4 {
         font-weight: 950 !important;
         letter-spacing: -0.05em;
     }
