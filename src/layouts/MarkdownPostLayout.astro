@@ -1,162 +1,52 @@
 ---
 /* src/layouts/MarkdownPostLayout.astro */
-import { Image } from "astro:assets";
-import BaseLayout from "./BaseLayout.astro"; 
-import Cta from "@/components/blog/Cta.astro";
-import Comments from "@components/blog/Comments.astro";
-import Title from "@components/global/Title.astro";
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
+import BaseLayout from "./BaseLayout.astro";
 import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
 
+const { frontmatter, seo } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
-
-const { frontmatter, body, seo } = Astro.props;
-
-// Calculadora de tiempo de lectura
-function getArticleReadingTime(content: string): number {
-    if (!content) return 0;
-    const wordsPerMinute = 183;
-    const numberOfWords = content.split(/\s/g).length;
-    const minutes = numberOfWords / wordsPerMinute;
-    return Math.ceil(minutes);
-}
-
-const readingTime = getArticleReadingTime(body);
-
-// Formateo de fecha seguro (usando el objeto Date que entrega z.coerce.date())
-const formattedDate = frontmatter.pubDate 
-    ? new Date(frontmatter.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
-    : '';
-
-// LÓGICA CORREGIDA PARA IMÁGENES (Astro Content Collections)
-// Accedemos a .source que es donde vive el objeto procesado por Sharp
-const heroImage = frontmatter.image?.source; 
-const heroAlt = frontmatter.image?.alt || frontmatter.title || "Vantta Project";
-
-// Ajuste de SEO para que la imagen de redes sociales funcione
-if (seo && seo.openGraph && heroImage) {
-    seo.openGraph.images = [{ url: heroImage.src, width: 1200, height: 630 }];
-}
 ---
 
 <BaseLayout seo={seo}>
-    <section class="bg-zinc-950 text-white min-h-screen">
-        <div class="mx-auto max-w-7xl px-8 py-12 md:px-12 lg:px-32 lg:py-32">
-            
-            <div class="flex flex-col gap-6 pt-20">
-                <Title
-                    title={frontmatter.title}
-                    subtitle={`${lang === 'es' ? 'Escrito por' : 'Written by'}: <a href="${frontmatter.author.link}" class="text-lime-400 hover:text-white transition-colors" rel="author">${frontmatter.author.name}</a> — ${formattedDate}`}
-                />
-
-                <p class="max-w-2xl text-lg text-zinc-400 leading-relaxed italic">
-                    "{frontmatter.description}"
-                </p>
-
-                {
-                    frontmatter?.link && (
-                        <a class="font-mono text-sm font-bold uppercase tracking-widest text-lime-400 hover:text-white transition-all flex items-center gap-2 w-fit" href={frontmatter?.link} target="_blank" rel="noopener noreferrer">
-                            <Icon name="iconamoon:link-external-thin" class="text-xl" /> {t("blog.gotoproject") || (lang === 'es' ? 'Ver Proyecto' : 'View Project')}
-                        </a>
-                    )
-                }
-            </div>
-
-            <div class="mt-12 w-full">
-                {heroImage ? (
-                    <Image 
-                        class="w-full rounded-2xl object-cover aspect-video border border-zinc-800 shadow-2xl" 
-                        src={heroImage} 
-                        alt={heroAlt} 
-                        width={1600}
-                        height={900}
-                        loading="eager" 
-                    />
-                ) : (
-                    <div class="w-full aspect-video bg-zinc-900 rounded-2xl border border-zinc-800 flex items-center justify-center text-zinc-700 font-mono text-sm">
-                        NO IMAGE AVAILABLE
-                    </div>
-                )}
-                
-                <div class="flex flex-col md:flex-row justify-between items-center gap-4 px-2 pt-8 font-mono text-[10px] tracking-[0.2em] text-zinc-500 uppercase">
-                    <div class="flex flex-wrap items-center gap-4">
-                        {frontmatter?.tags?.length > 0 && <span class="text-zinc-400">{lang === 'es' ? 'Etiquetas' : 'Tags'}:</span>}
-                        <ul class="flex flex-wrap gap-2">
-                            {
-                                frontmatter?.tags?.map((tag: string) => (
-                                    <li class="inline-flex items-center rounded-full border border-zinc-800 px-3 py-1 hover:border-lime-400 hover:text-lime-400 transition-colors">
-                                        <a href={translatePath(`/tags/${tag}`)}>{tag}</a>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                    <div class="flex items-center gap-2 bg-zinc-900 px-4 py-2 rounded-full border border-zinc-800">
-                        <span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
-                        <span class="text-zinc-300">~{readingTime} MIN {lang === 'es' ? 'LECTURA' : 'READ'}</span>
-                    </div>
-                </div>
-
-                <article class="prose-styles mt-16 lg:mt-24">
-                    <slot />
-                </article>
-            </div>
-
-            <div class="mt-24 border-t border-zinc-900 pt-12">
-                <Comments />
-            </div>
+    <main class="min-h-screen bg-[#050505] text-white pt-32 pb-24 relative selection:bg-white selection:text-black">
+        
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none fixed" 
+             style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
-    </section>
-    
-    <Cta />
+
+        <article class="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1440px] relative z-10">
+            
+            <nav class="mb-16 lg:mb-24 flex justify-between items-end border-b border-zinc-900 pb-8">
+                <a href={translatePath('/blog')} class="group inline-flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-600 hover:text-white transition-colors">
+                    <div class="border border-zinc-800 p-2 group-hover:border-white transition-colors bg-zinc-950">
+                        <Icon name="ic:baseline-arrow-back" class="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                    </div>
+                    [ RETURN_TO_INDEX ]
+                </a>
+
+                <div class="hidden md:block font-mono text-[9px] text-zinc-800 uppercase tracking-[0.4em] font-black">
+                    READING_MODE: ACTIVE
+                </div>
+            </nav>
+
+            <div class="max-w-5xl mx-auto">
+                <slot />
+            </div>
+
+            <footer class="max-w-5xl mx-auto mt-40 pt-12 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-8 font-mono text-[9px] uppercase tracking-[0.4em] text-zinc-600 font-bold">
+                <div class="flex items-center gap-4">
+                    <span class="w-2 h-2 bg-zinc-800"></span>
+                    <span>END_OF_FILE_STREAM</span>
+                </div>
+                
+                <a href="#" class="group flex items-center gap-3 hover:text-white transition-colors">
+                    SCROLL_TO_TOP
+                    <Icon name="ic:baseline-arrow-upward" class="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+                </a>
+            </footer>
+
+        </article>
+    </main>
 </BaseLayout>
-
-<style is:global>
-    /* Estilos para el contenido del blog (Tailwind Typography Customization) */
-    .prose-styles {
-        @apply prose prose-invert prose-lg max-w-none;
-    }
-    
-    .prose-styles p {
-        @apply text-zinc-400 leading-relaxed mb-8;
-    }
-
-    .prose-styles h2 {
-        @apply text-3xl md:text-4xl font-black uppercase tracking-tighter italic text-white mt-16 mb-8;
-        scroll-margin-top: 100px;
-    }
-
-    .prose-styles h3 {
-        @apply text-2xl font-bold text-white mt-12 mb-6;
-    }
-
-    .prose-styles img {
-        @apply rounded-xl border border-zinc-800 my-12 w-full h-auto;
-    }
-
-    .prose-styles strong {
-        @apply text-lime-400 font-semibold;
-    }
-
-    .prose-styles a {
-        @apply text-white underline decoration-lime-400 underline-offset-4 hover:text-lime-400 transition-colors;
-    }
-
-    .prose-styles ul {
-        @apply list-disc list-outside ml-6 mb-8 text-zinc-400;
-    }
-
-    .prose-styles li {
-        @apply mb-2 pl-2;
-    }
-
-    .prose-styles blockquote {
-        @apply border-l-4 border-lime-400 pl-6 py-2 my-8 bg-zinc-900/50 italic text-zinc-300;
-    }
-</style>

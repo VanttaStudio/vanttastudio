@@ -6,109 +6,94 @@ import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
 import Cta from "@/components/landing/Cta.tsx";
 
 const seo: AstroSeoProps = {
-    title: "VANTTA // WEB_ENGINEERING",
-    description: "Ingeniería web de alto impacto. Sistemas a medida, IA con Gemini y Paneles de Gestión Propietarios.",
+    title: "VANTTA // DESARROLLO_WEB",
+    description: "Páginas web rápidas y sistemas de venta online. Diseño profesional enfocado en atraer clientes.",
     canonical: "https://vanttacode.cl/services/web-development/",
 };
 
 const solutions = [
-    { id: "WEB_01", title: "Landing Pages", price: "$199.000", desc: "Optimización máxima para conversiones rápidas.", features: ["Alta Conversión", "Astro Performance", "Carga Instantánea"] },
-    { id: "WEB_02", title: "E-Commerce", price: "$490.000", desc: "Tiendas escalables sin comisiones externas.", features: ["MercadoPago Nativo", "Stock Real-Time", "Venta Integral"] },
-    { id: "WEB_03", title: "Sistemas Restaurantes", price: "$590.000", desc: "Flujo de pedidos digitalizado de punta a punta.", features: ["Gestión Pedidos", "Menú QR Dinámico", "Panel de Cocina"] },
-    { id: "WEB_04", title: "Corporativos Pro", price: "$350.000", desc: "Presencia institucional con estándar premium.", features: ["Identidad Digital", "Multi-idioma", "SEO Avanzado"] },
-    { id: "WEB_05", title: "Paneles de Gestión", price: "$650.000", desc: "Software interno para control administrativo.", features: ["Control Inventario", "Métricas User", "Dashboard Custom"] },
-    { id: "WEB_06", title: "IA & Gemini Bots", price: "$290.000", desc: "Automatización inteligente con Google Gemini.", features: ["Motor Gemini Pro", "Atención 24/7", "Lead Scoring"] },
-    { id: "WEB_07", title: "Inmobiliarias", price: "$450.000", desc: "Catálogos interactivos y gestión de activos.", features: ["Buscador Propiedades", "Mapa Interactivo", "CRM Integrado"] },
-    { id: "WEB_08", title: "Web Apps SaaS", price: "Cotizar", desc: "Sistemas en la nube listos para escalar.", features: ["Arquitectura Cloud", "Escalabilidad", "Suscripciones"] },
+    { id: "_01", title: "Páginas de Venta", price: "Desde $150.000", desc: "Diseñadas para que el cliente llegue y compre. Ideales para campañas de publicidad.", features: ["Carga instantánea", "Botón a WhatsApp", "Diseño móvil"] },
+    { id: "_02", title: "Tiendas Online", price: "Desde $350.000", desc: "Vende tus productos 24/7. Carrito de compras fácil de usar y sin comisiones extras.", features: ["Pagos con tarjetas", "Gestión de stock", "Fácil de administrar"] },
+    { id: "_03", title: "Web Empresa", price: "Desde $250.000", desc: "Presencia profesional para tu negocio. Dale confianza a tus clientes con un sitio de alto nivel.", features: ["Secciones ilimitadas", "Google Maps / SEO", "Correos corporativos"] },
+    { id: "_04", title: "Menú Digital Pro", price: "Desde $280.000", desc: "Especial para restoranes. Los clientes piden desde la mesa o desde su casa sin errores.", features: ["Código QR", "Panel de pedidos", "Cambios en tiempo real"] },
+    { id: "_05", title: "Sistemas Internos", price: "Desde $450.000", desc: "Software para organizar tu administración, inventarios o personal desde la web.", features: ["Control de acceso", "Base de datos", "Reportes en vivo"] },
+    { id: "_06", title: "Chatbots con IA", price: "Desde $180.000", desc: "Un asistente inteligente que responde dudas de tus clientes incluso cuando tú duermes.", features: ["Respuestas rápidas", "Captación de datos", "Atención 24/7"] },
+    { id: "_07", title: "Web Inmobiliaria", price: "Desde $400.000", desc: "Catálogo de propiedades profesional con buscador avanzado y fichas técnicas.", features: ["Buscador de casas", "Fotos y videos", "Contacto directo"] },
+    { id: "_08", title: "Software en Nube", price: "Cotizar", desc: "Sistemas complejos para necesidades únicas. Si lo puedes imaginar, lo programamos.", features: ["Código propio", "Seguridad total", "Escalable"] },
 ];
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-lime-400 selection:text-black">
+    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-white selection:text-black">
         
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none z-0"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
 
-        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 lg:max-w-7xl">
-            <div class="max-w-6xl">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="h-px w-12 bg-lime-400"></span>
-                    <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em] animate-pulse">
-                        Web_Deployment_v2.6
+        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 max-w-[1440px]">
+            <div class="max-w-6xl border-l-2 border-white pl-8 md:pl-12">
+                <div class="flex flex-col gap-6 mb-12">
+                    <span class="font-mono text-zinc-600 text-[10px] uppercase tracking-[0.5em] font-black">
+                        WEB_DEVELOPMENT // 2026
                     </span>
+                    <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
+                        DESARROLLO <br/> <span class="text-zinc-900 outline-text">WEB_</span>
+                    </h1>
                 </div>
-                
-                <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
-                    DEVELOPMENT <br/> <span class="text-zinc-800">ENGINEERING_</span>
-                </h1>
-                
-                <div class="mt-12 max-w-2xl border-l border-zinc-900 pl-8">
-                    <p class="font-mono text-zinc-500 text-[11px] uppercase tracking-[0.3em] leading-relaxed">
-                        Desarrollamos ecosistemas web de alto rendimiento. <span class="text-white">Código propietario</span> optimizado para maximizar el ROI mediante arquitectura técnica de vanguardia.
-                    </p>
-                </div>
+                <p class="font-mono text-zinc-500 text-[11px] md:text-sm uppercase tracking-[0.3em] leading-relaxed max-w-xl">
+                    Creamos sitios web que cargan en menos de un segundo. <span class="text-white">Sin cuotas mensuales</span> por plataforma. El código es tuyo para siempre.
+                </p>
             </div>
         </section>
 
-        <section class="relative z-10 border-y border-zinc-900 bg-black/40 backdrop-blur-md">
-            <div class="mx-auto px-6 py-24 md:px-12 lg:max-w-7xl">
+        <section class="relative z-10 border-y border-zinc-900 bg-black/20">
+            <div class="mx-auto max-w-[1440px] px-0 md:px-12 py-24">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-900">
                     {solutions.map(item => (
-                        <div class="bg-transparent p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-500 group flex flex-col justify-between relative">
-                            {/* Technical ID */}
-                            <span class="absolute top-6 right-8 font-mono text-[9px] text-zinc-800 group-hover:text-lime-400 transition-colors uppercase tracking-widest">
-                                [ {item.id} ]
-                            </span>
-
+                        <div class="p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-700 group flex flex-col justify-between relative">
+                            <span class="absolute top-6 right-8 font-mono text-[10px] text-zinc-800 group-hover:text-white transition-colors uppercase tracking-widest">{item.id}</span>
                             <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none text-white group-hover:text-lime-400 transition-colors">{item.title}</h3>
-                                <p class="text-zinc-600 font-mono text-[9px] mb-6 uppercase tracking-widest font-bold">FE_ {item.price}</p>
-                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
-                                    {item.desc}
-                                </p>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter text-white group-hover:translate-x-1 transition-transform">{item.title}</h3>
+                                <p class="text-zinc-700 font-mono text-[9px] mb-8 uppercase tracking-widest font-black">VALOR_ {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-10 group-hover:text-zinc-300 transition-colors">{item.desc}</p>
                             </div>
-
-                            <ul class="space-y-3 pt-6 border-t border-zinc-900/50">
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
                                 {item.features.map(feat => (
-                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
-                                        <span class="w-1 h-1 bg-lime-400/40 group-hover:bg-lime-400 transition-colors"></span> {feat}
+                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-3 group-hover:text-white transition-colors">
+                                        <div class="w-1 h-1 bg-zinc-800 group-hover:bg-white transition-colors"></div> {feat}
                                     </li>
                                 ))}
                             </ul>
-
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-lime-400/[0.02] to-transparent h-1/4 w-full -translate-y-full group-hover:animate-scan pointer-events-none"></div>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 lg:max-w-7xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 border border-zinc-900 overflow-hidden bg-zinc-950">
-                <div class="p-12 border-b md:border-b-0 md:border-r border-zinc-900 flex flex-col justify-center relative group">
-                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ OWNERSHIP_RIGHTS ]</span>
-                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8 text-white">PROPIEDAD<br/>TOTAL_</h2>
-                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
-                        El código es tuyo al 100%. Independencia digital absoluta sin mensualidades forzosas por plataforma ni dependencias de terceros.
+        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 max-w-[1440px]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 border border-zinc-900 overflow-hidden bg-zinc-950">
+                <div class="p-12 lg:p-24 border-b lg:border-b-0 lg:border-r border-zinc-900 flex flex-col justify-center relative group">
+                    <span class="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">PROPIEDAD_TOTAL</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8">ERES DUEÑO<br/>DEL CÓDIGO.</h2>
+                    <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed max-w-md group-hover:text-zinc-300 transition-colors">
+                        A diferencia de otras agencias, aquí no pagas arriendos mensuales por tu web. Te entregamos el código para que seas 100% independiente.
                     </p>
-                    <div class="text-zinc-900 font-black text-9xl italic absolute -right-4 -bottom-8 opacity-10 group-hover:text-lime-400/20 transition-colors pointer-events-none">01</div>
                 </div>
 
-                <div class="bg-lime-400 p-12 flex flex-col justify-center relative">
+                <div class="bg-white p-12 lg:p-24 flex flex-col justify-center relative group text-black">
                     <div class="space-y-12">
-                        <div class="border-b border-black/10 pb-8">
-                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ INFRASTRUCTURE ]</span>
-                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">GESTIÓN PRO_</h2>
-                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
-                                Paneles administrativos desarrollados sobre Supabase para control total de flujos operativos y métricas reales.
+                        <div class="border-b border-zinc-100 pb-8">
+                            <span class="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">CONTROL_PRO</span>
+                            <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none mb-4">PANELES FÁCILES_</h2>
+                            <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed font-bold">
+                                Administra tus productos y fotos sin complicaciones. Hacemos que manejar tu web sea tan simple como enviar un mensaje.
                             </p>
                         </div>
                         <div class="pt-4">
-                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ AUTOMATION ]</span>
-                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">IA_GEMINI_</h2>
-                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
-                                Integración nativa con Google Gemini para procesamiento autónomo de leads y atención inteligente 24/7.
+                            <span class="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">FUTURO_IA</span>
+                            <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none mb-4">ATENCIÓN CON IA_</h2>
+                            <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed font-bold">
+                                Integramos asistentes inteligentes que responden dudas de clientes las 24 horas del día, mejorando tus cierres de venta.
                             </p>
                         </div>
                     </div>
@@ -117,50 +102,62 @@ const solutions = [
         </section>
 
         <section class="relative z-10 bg-white text-black py-32 border-y border-zinc-200">
-            <div class="mx-auto px-6 md:px-12 lg:max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div>
-                    <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85]">SOPORTE<br/>SISTEMAS_</h3>
-                    <p class="text-zinc-400 uppercase font-mono text-[9px] tracking-[0.4em] mt-8 font-bold italic">NODE_WEB_MAINTENANCE</p>
+            <div class="mx-auto px-6 md:px-12 max-w-[1440px] grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.85]">SOPORTE<br/>WEB.</h3>
+                    <p class="text-zinc-400 uppercase font-mono text-[10px] tracking-[0.4em] mt-10 font-black italic">ESTABILIDAD_Y_VELOCIDAD</p>
                 </div>
                 <div class="space-y-16">
                     <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
                         <div>
-                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Continuidad de Negocio</p>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Cuidado mensual del sitio</p>
                             <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Mantenimiento_</h4>
                         </div>
-                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $10.000 <span class="text-xs text-zinc-400">/ MO</span></span>
+                        <span class="text-2xl font-black text-black font-mono">VALOR_ $10.000 <span class="text-xs text-zinc-400">/ MES</span></span>
                     </div>
                     <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
                         <div>
-                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Infraestructura Web</p>
-                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Cloud Server_</h4>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Hospedaje de alta velocidad</p>
+                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Servidor Cloud_</h4>
                         </div>
-                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $30.000 <span class="text-xs text-zinc-400">/ YR</span></span>
+                        <span class="text-2xl font-black text-black font-mono">VALOR_ $30.000 <span class="text-xs text-zinc-400">/ AÑO</span></span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="relative z-10 pt-32 bg-[#050505] border-t border-zinc-900">
+        <div class="relative z-10 bg-[#050505]">
             <UbikappPromo client:visible />
-            <div class="mt-20">
+            <div class="pb-20">
                 <Cta client:visible />
             </div>
         </div>
-
     </main>
 </BaseLayout>
 
 <style is:global>
+    /* Laser Scan Animation */
     @keyframes scan {
         0% { transform: translateY(-100%); }
         100% { transform: translateY(400%); }
     }
+    
     .animate-scan {
         animation: scan 3s linear infinite;
     }
+
     h1, h2, h3, h4 {
         font-weight: 950 !important;
         letter-spacing: -0.05em;
+    }
+
+    .outline-text {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        color: transparent;
+        transition: all 1s ease;
+    }
+
+    .outline-text:hover {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
     }
 </style>

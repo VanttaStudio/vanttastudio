@@ -1,4 +1,4 @@
-// src/components/forms/ContactForm.tsx
+/* src/components/forms/ContactForm.tsx */
 import React, { useState } from 'react';
 
 export default function ContactForm() {
@@ -8,112 +8,115 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('sending');
     
-    // Simulación de transmisión de datos (Uplink)
+    // Simulación de proceso industrial
     setTimeout(() => {
       setStatus('success');
     }, 2000);
   };
 
-  // PANTALLA DE ÉXITO: Sincronización Completada
+  // PANTALLA DE ÉXITO: Log de Sistema
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-center animate-reveal">
-        <div className="relative mb-10">
-          <div className="w-24 h-24 border-2 border-lime-400 flex items-center justify-center bg-lime-400/5 relative group">
-            <svg className="w-12 h-12 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="square" strokeLinejoin="square" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+      <div className="flex flex-col items-center justify-center py-32 text-center border border-zinc-900 bg-zinc-950/50 animate-in fade-in duration-700">
+        <div className="relative mb-12">
+          <div className="w-24 h-24 border border-zinc-800 flex items-center justify-center bg-zinc-900 relative">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth="1.5" d="M5 13l4 4L19 7"></path>
             </svg>
-            {/* Corner decorations */}
-            <div className="absolute -top-1 -left-1 w-2 h-2 bg-lime-400"></div>
-            <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-lime-400"></div>
+            {/* Decoración de esquinas */}
+            <div className="absolute -top-px -left-px w-2 h-2 border-t border-l border-white"></div>
+            <div className="absolute -bottom-px -right-px w-2 h-2 border-b border-r border-white"></div>
           </div>
         </div>
         
-        <h3 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white">
-          Sync_Complete<span className="text-lime-400">_</span>
+        <h3 className="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-white mb-6">
+          TRANSMISSION<br/>LOGGED<span className="text-zinc-700">_</span>
         </h3>
-        <p className="text-zinc-500 mt-4 font-mono text-[10px] uppercase tracking-[0.4em]">
-          Transmisión recibida. Procesando en nodo central.
+        <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-[0.3em] max-w-sm">
+          Los datos han sido encriptados y enviados al nodo central Magallanes. Responderemos en 24hrs.
         </p>
         
         <button 
           onClick={() => setStatus('idle')} 
-          className="mt-12 group flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
+          className="mt-16 border border-zinc-800 px-8 py-4 font-mono text-[9px] uppercase tracking-widest text-zinc-400 hover:text-black hover:bg-white transition-all duration-500"
         >
-          <span className="text-lime-400">[+]</span> Iniciar nueva transmisión
+          [ REINICIAR_PROTOCOLO ]
         </button>
       </div>
     );
   }
 
-  // FORMULARIO DE ENTRADA: Módulo de Datos
+  // FORMULARIO DE ENTRADA: Terminal Industrial
   return (
-    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-px bg-zinc-900 border border-zinc-900">
       
       {/* INPUT: NOMBRE */}
-      <div className="flex flex-col gap-3 group">
-        <label className="text-zinc-600 text-[9px] font-mono uppercase tracking-[0.3em] flex items-center gap-2 group-focus-within:text-lime-400 transition-colors">
-          <span className="opacity-0 group-focus-within:opacity-100 transition-opacity">//</span> 01_User_Identity
-        </label>
+      <div className="flex flex-col relative group bg-[#050505] p-8 focus-within:bg-zinc-950 transition-colors">
+        <div className="absolute top-4 left-4 text-zinc-700 text-[8px] font-mono uppercase tracking-[0.3em] font-black group-focus-within:text-white transition-colors">
+            [ 01 // ID_ENTITY ]
+        </div>
         <input 
           required 
           type="text" 
           name="name" 
-          placeholder="ENTER_NAME_" 
-          className="bg-black/40 border border-zinc-900 rounded-none px-6 py-5 text-sm font-mono text-white outline-none focus:border-lime-400/50 focus:bg-zinc-900/50 transition-all placeholder:text-zinc-800" 
+          placeholder="NOMBRE_O_EMPRESA_" 
+          className="mt-6 w-full bg-transparent border-b border-zinc-900 py-2 text-sm font-mono text-white outline-none focus:border-white transition-all placeholder:text-zinc-800 placeholder:tracking-widest" 
         />
       </div>
       
       {/* INPUT: EMAIL */}
-      <div className="flex flex-col gap-3 group">
-        <label className="text-zinc-600 text-[9px] font-mono uppercase tracking-[0.3em] flex items-center gap-2 group-focus-within:text-lime-400 transition-colors">
-          <span className="opacity-0 group-focus-within:opacity-100 transition-opacity">//</span> 02_Comm_Address
-        </label>
+      <div className="flex flex-col relative group bg-[#050505] p-8 focus-within:bg-zinc-950 transition-colors">
+        <div className="absolute top-4 left-4 text-zinc-700 text-[8px] font-mono uppercase tracking-[0.3em] font-black group-focus-within:text-white transition-colors">
+            [ 02 // RETURN_ADDRESS ]
+        </div>
         <input 
           required 
           type="email" 
           name="email" 
-          placeholder="USER@NETWORK.CODE" 
-          className="bg-black/40 border border-zinc-900 rounded-none px-6 py-5 text-sm font-mono text-white outline-none focus:border-lime-400/50 focus:bg-zinc-900/50 transition-all placeholder:text-zinc-800" 
+          placeholder="CORREO_CORPORATIVO_" 
+          className="mt-6 w-full bg-transparent border-b border-zinc-900 py-2 text-sm font-mono text-white outline-none focus:border-white transition-all placeholder:text-zinc-800 placeholder:tracking-widest" 
         />
       </div>
 
       {/* TEXTAREA: PROYECTO */}
-      <div className="flex flex-col gap-3 md:col-span-2 group">
-        <label className="text-zinc-600 text-[9px] font-mono uppercase tracking-[0.3em] flex items-center gap-2 group-focus-within:text-lime-400 transition-colors">
-          <span className="opacity-0 group-focus-within:opacity-100 transition-opacity">//</span> 03_Data_Payload
-        </label>
+      <div className="flex flex-col relative group bg-[#050505] p-8 md:col-span-2 focus-within:bg-zinc-950 transition-colors min-h-[200px]">
+        <div className="absolute top-4 left-4 text-zinc-700 text-[8px] font-mono uppercase tracking-[0.3em] font-black group-focus-within:text-white transition-colors">
+            [ 03 // PROJECT_SPECS ]
+        </div>
         <textarea 
           required 
           name="message" 
-          rows={6} 
-          placeholder="DESCRIBE_PROJECT_PARAMETERS..." 
-          className="bg-black/40 border border-zinc-900 rounded-none px-6 py-5 text-sm font-mono text-white outline-none focus:border-lime-400/50 focus:bg-zinc-900/50 transition-all resize-none placeholder:text-zinc-800"
+          rows={4} 
+          placeholder="DETALLES_DEL_REQUERIMIENTO_TÉCNICO..." 
+          className="mt-6 w-full bg-transparent border-l-2 border-transparent py-2 px-0 text-sm font-mono text-white outline-none focus:border-white transition-all resize-none placeholder:text-zinc-800 placeholder:tracking-widest"
         ></textarea>
       </div>
 
-      {/* BOTÓN DE ACCIÓN: EXECUTE_UPLINK */}
-      <div className="md:col-span-2 mt-6">
+      {/* BOTÓN DE ACCIÓN: EXECUTE */}
+      <div className="md:col-span-2 bg-[#050505] p-0">
         <button 
           disabled={status === 'sending'}
-          className="w-full relative group overflow-hidden bg-zinc-900 border border-zinc-800 py-6 rounded-none flex items-center justify-center gap-4 disabled:opacity-50 transition-all"
+          className="w-full relative group overflow-hidden bg-white text-black py-10 flex items-center justify-center gap-6 disabled:opacity-50 transition-all hover:bg-zinc-200"
         >
-          {/* Animación de fondo al hover */}
-          <div className="absolute inset-0 bg-lime-400 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+          {/* Texto Técnico */}
+          <span className={`font-black text-xl md:text-2xl uppercase italic tracking-tighter z-10 ${status === 'sending' ? 'animate-pulse' : ''}`}>
+            {status === 'sending' ? 'ENCRIPTANDO_DATOS...' : 'EJECUTAR_ENVÍO'}
+          </span>
           
-          <div className="relative z-10 flex items-center gap-4">
-            <span className={`font-mono text-[10px] uppercase tracking-[0.4em] font-black italic ${status === 'sending' ? 'text-lime-400' : 'text-zinc-400 group-hover:text-black'}`}>
-              {status === 'sending' ? 'Transmitting_Data...' : 'Execute_Uplink'}
-            </span>
-            <span className={`text-xl transition-transform duration-500 ${status === 'sending' ? 'animate-pulse' : 'group-hover:translate-x-2'}`}>
-              {status === 'sending' ? '...' : '→'}
-            </span>
-          </div>
+          <span className="z-10 font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300">
+             >>
+          </span>
+
+          {/* Barrido visual al enviar */}
+          {status === 'sending' && (
+             <div className="absolute inset-0 bg-zinc-300 w-full h-full animate-pulse opacity-20"></div>
+          )}
         </button>
         
-        <div className="mt-4 flex justify-between font-mono text-[8px] text-zinc-800 uppercase tracking-widest px-1">
-          <span>Protocol: HTTP/3_S</span>
-          <span>Security_Check: OK</span>
+        {/* Footer del Formulario */}
+        <div className="flex justify-between bg-zinc-950 py-3 px-4 font-mono text-[8px] text-zinc-700 uppercase tracking-[0.3em] font-black border-t border-zinc-900">
+          <span>SECURE_SOCKET_LAYER</span>
+          <span>MAGALLANES_NODE_CL</span>
         </div>
       </div>
     </form>

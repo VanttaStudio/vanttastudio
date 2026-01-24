@@ -1,131 +1,32 @@
 ---
 /* src/pages/contact.astro */
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import ContactForm from "@/components/forms/ContactForm";
-import type { AstroSeoProps } from "@astrolib/seo";
-import { Icon } from "astro-icon/components";
+import ContactForm from "@/components/forms/ContactForm.tsx"; 
 
-const seo: AstroSeoProps = {
-    title: "VANTTA // CONTACT_UPLINK",
-    description: "Establish a secure communication channel for engineering, design, and strategy.",
-    canonical: "https://vanttacode.cl/contact/",
+const seo = {
+    title: "VANTTA // CONTACT_NODE",
+    description: "Inicia el protocolo de comunicación con ingeniería Vantta.",
 };
-
-const timestamp = new Date().toLocaleTimeString('en-GB', { hour12: false });
 ---
 
 <BaseLayout seo={seo}>
-    <div class="fixed inset-0 pointer-events-none z-50 overflow-hidden opacity-20">
-        <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(163,230,53,0.01),rgba(0,0,0,0),rgba(163,230,53,0.01))] bg-[length:100%_4px,4px_100%]"></div>
-    </div>
-
-    <main class="bg-[#050505] min-h-screen relative selection:bg-lime-400 selection:text-black overflow-hidden">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" 
+    <main class="bg-[#050505] min-h-screen pt-40 relative overflow-hidden selection:bg-white selection:text-black">
+        
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
 
-        <div class="container mx-auto px-6 lg:px-12 pt-40 pb-20 relative z-10">
-            <div class="max-w-7xl mx-auto">
-                
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-                    
-                    <div class="lg:col-span-5 space-y-16">
-                        <header class="space-y-6 relative">
-                            <div class="flex items-center gap-3">
-                                <span class="h-1 w-1 bg-lime-400 animate-ping"></span>
-                                <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em]">
-                                    Link_Status: Ready
-                                </span>
-                            </div>
-
-                            <h1 class="text-7xl md:text-9xl font-black text-white uppercase italic tracking-[calc(-0.05em)] leading-[0.8] animate-reveal">
-                                Uplink<br/><span class="text-zinc-800">Direct_</span>
-                            </h1>
-
-                            <div class="pt-8 border-l-2 border-zinc-900 pl-8 space-y-4">
-                                <p class="text-zinc-500 font-light text-xl leading-snug">
-                                    Inicia una transmisión segura para discutir <span class="text-white">ingeniería de software</span>, arquitectura de marca o Minimalismo Digital.
-                                </p>
-                            </div>
-                        </header>
-
-                        <div class="space-y-10 pt-10 border-t border-zinc-900">
-                            <div class="group">
-                                <p class="text-zinc-700 font-mono text-[9px] uppercase tracking-[0.4em] mb-3 group-hover:text-lime-400 transition-colors">
-                                    [ PRIMARY_NODE // EMAIL ]
-                                </p>
-                                <a href="mailto:hello@vanttacode.cl" class="text-2xl md:text-3xl font-bold text-zinc-300 hover:text-white transition-all flex items-center gap-4 group-hover:translate-x-2 duration-500">
-                                    hello@vanttacode.cl
-                                    <Icon name="ri:arrow-right-up-line" class="w-6 h-6 text-lime-400 opacity-0 group-hover:opacity-100 transition-all" />
-                                </a>
-                            </div>
-
-                            <div class="group">
-                                <p class="text-zinc-700 font-mono text-[9px] uppercase tracking-[0.4em] mb-3 group-hover:text-lime-400 transition-colors">
-                                    [ MOBILE_UPLINK // WHATSAPP ]
-                                </p>
-                                <a href="https://wa.me/56966877441" class="text-2xl md:text-3xl font-bold text-zinc-300 hover:text-white transition-all flex items-center gap-4 group-hover:translate-x-2 duration-500">
-                                    +56 9 6687 7441
-                                    <Icon name="ri:whatsapp-line" class="w-6 h-6 text-lime-400 opacity-0 group-hover:opacity-100 transition-all" />
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="hidden lg:block font-mono text-[8px] text-zinc-800 uppercase tracking-widest leading-loose">
-                            Encryption: AES_256_RSA<br/>
-                            Session_ID: VNTT_AUTH_{timestamp.replace(/:/g, '')}<br/>
-                            Location: SANTIAGO_CL_NODE_01
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-7">
-                        <div class="relative bg-zinc-950/40 border border-zinc-900 p-8 md:p-16 shadow-[0_0_80px_rgba(0,0,0,0.5)] group">
-                            <div class="absolute -top-px -left-px h-6 w-6 border-t-2 border-l-2 border-zinc-800 group-focus-within:border-lime-400 transition-colors"></div>
-                            <div class="absolute -bottom-px -right-px h-6 w-6 border-b-2 border-r-2 border-zinc-800 group-focus-within:border-lime-400 transition-colors"></div>
-
-                            <div class="flex justify-between items-center mb-12 border-b border-zinc-900 pb-6">
-                                <div class="font-mono text-[10px] text-zinc-600 uppercase tracking-widest">
-                                    Module: INPUT_STREAM_CH01
-                                </div>
-                                <div class="font-mono text-[10px] text-lime-400/50 uppercase tracking-widest animate-pulse">
-                                    Waiting_for_input...
-                                </div>
-                            </div>
-
-                            <ContactForm client:load />
-
-                            <div class="mt-12 flex justify-center opacity-20">
-                                <span class="font-mono text-[8px] uppercase tracking-[0.8em] text-zinc-500">
-                                    // Secure_Transmission_Protocol
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+        <section class="relative z-10 container mx-auto px-6 md:px-12 max-w-5xl">
+            <div class="mb-20 border-l-2 border-white pl-8">
+                <span class="font-mono text-zinc-500 text-[10px] uppercase tracking-[0.5em] font-bold block mb-4">
+                    [ SYSTEM_READY ]
+                </span>
+                <h1 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter text-white leading-[0.8]">
+                    INICIAR <br/> <span class="text-zinc-800" style="-webkit-text-stroke: 1px rgba(255,255,255,0.3);">SOLICITUD_</span>
+                </h1>
             </div>
-        </div>
+
+            <ContactForm client:load />
+        </section>
     </main>
 </BaseLayout>
-
-<style is:global>
-    /* Revelado Industrial (Consistente con Labs) */
-    .animate-reveal {
-        clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-        animation: reveal-industrial 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-    }
-
-    @keyframes reveal-industrial {
-        to { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-    }
-
-    /* Animación de entrada para el módulo del formulario */
-    .lg\:col-span-7 {
-        animation: slideLeft 1s cubic-bezier(0.19, 1, 0.22, 1) 0.2s both;
-    }
-
-    @keyframes slideLeft {
-        from { opacity: 0; transform: translateX(30px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-</style>

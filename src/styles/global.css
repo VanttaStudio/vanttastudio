@@ -1,96 +1,55 @@
-/* src/styles/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Midnight";
-    src: url("/fonts/Midnight.woff2") format("woff2");
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
 :root {
-    /* Tipografía Base */
+    /* Tipografía Base: Inter para impacto, Mono para precisión */
     font-family: "Inter", sans-serif;
     
-    /* Variables de Astro Code (Shiki) - Estilo Dark Vantta */
+    /* Variables de Astro Code (Shiki) - Estilo Monocromo Vantta */
     --astro-code-color-text: #ffffff;
-    --astro-code-color-background: #09090b; /* zinc-950 */
-    --astro-code-token-constant: #a3e635; /* lime-400 */
+    --astro-code-color-background: #050505; 
+    --astro-code-token-constant: #8A8A8A; /* Gris de extrusión del logo */
     --astro-code-token-string: #ffffff;
-    --astro-code-token-comment: #3f3f46; /* zinc-600 */
-    --astro-code-token-keyword: #a3e635; /* lime-400 accent */
-    --astro-code-token-parameter: #ffffff;
-    --astro-code-token-function: #ffffff;
-    --astro-code-token-string-expression: #d9f99d; /* lime-200 */
-    --astro-code-token-punctuation: #71717a; /* zinc-500 */
-    --astro-code-token-link: #a3e635;
+    --astro-code-token-comment: #3f3f46; 
+    --astro-code-token-keyword: #ffffff; 
+    --astro-code-token-punctuation: #71717a; 
 
-    /* Grid & Spacing */
-    --grid-gap: 4vw;
-    --base-padding-x: max(6vw, 60px);
-    --base-padding-y: clamp(30px, 4vw, 50px);
+    /* Spacing Industrial */
+    --base-padding-x: max(6vw, 40px);
+    --base-padding-y: clamp(20px, 4vw, 40px);
 }
 
-@supports (font-variation-settings: normal) {
-    :root {
-        font-family: "Inter var", sans-serif;
-    }
-}
-
-@media (max-width: 812px) {
-    :root {
-        --base-padding-x: 25px;
-        --base-padding-y: 25px;
-    }
-}
-
-/* --- CONFIGURACIÓN DE SCROLL Y BODY --- */
+/* --- RESET ESTRUCTURAL --- */
 html {
     width: 100%;
     height: auto;
-    /* IMPORTANTE: Eliminamos 'scroll-behavior: smooth' aquí porque usamos Lenis */
+    scroll-behavior: auto !important; /* Desplazamiento nativo rápido */
 }
 
 body {
-    background-color: #09090b; /* zinc-950 */
+    background-color: #050505; /* Negro profundo del logo */
     color: white;
     width: 100%;
     margin: 0;
     padding: 0;
-    /* Prevenir scroll horizontal solo en el body */
     overflow-x: hidden;
     scrollbar-gutter: stable;
-    @apply selection:bg-lime-400 selection:text-black;
+    /* SELECCIÓN MINIMALISTA */
+    @apply selection:bg-white selection:text-black;
 }
 
-/* --- CLASES OBLIGATORIAS PARA LENIS (Evita temblores) --- */
-html.lenis, html.lenis body {
-    height: auto;
+/* --- FIX DEL MOUSE: REESTABLECER PUNTERO --- */
+/* Se eliminó la regla 'cursor: none' que causaba la invisibilidad */
+html, body, a, button {
+    cursor: auto !important;
 }
 
-.lenis.lenis-smooth {
-    scroll-behavior: auto !important; /* Fuerza al navegador a no interferir */
+a, button {
+    cursor: pointer !important;
 }
 
-.lenis.lenis-stopped {
-    overflow: hidden;
-}
-
-.lenis.lenis-scrolling iframe {
-    pointer-events: none; /* Mejora rendimiento */
-}
-
-/* --- CURSOR PERSONALIZADO (Solo Desktop) --- */
-@media (hover: hover) and (pointer: fine) {
-    html, body, a, button, input, textarea, select, [data-cursor-hover] {
-        cursor: none !important;
-    }
-}
-
-/* Custom scrollbar Minimalista */
+/* --- SCROLLBAR TÉCNICA (Bordes rectos, no redondeados) --- */
 ::-webkit-scrollbar {
     width: 4px;
     background-color: transparent;
@@ -101,87 +60,31 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-    @apply bg-zinc-800 rounded-full;
+    @apply bg-zinc-800; /* Sin rounded-full para look brutalista */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    @apply bg-lime-400;
+    @apply bg-white;
 }
 
-/* Selección Personalizada (Fallback) */
-::-moz-selection {
-    color: #000;
-    background: #a3e635;
-}
-::selection {
-    color: #000;
-    background: #a3e635;
-}
-
-.select-none {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    user-select: none;
-}
-
-/* Refinado de Estilos Prose para el Blog (Dark Mode Optimized) */
+/* --- REFINADO PROSE (BLOG INDUSTRIAL) --- */
 .prose-styles {
     @apply prose prose-invert mx-auto max-w-3xl text-zinc-400 
     prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:italic prose-headings:text-white 
-    prose-a:text-lime-400 prose-a:no-underline hover:prose-a:text-white 
-    prose-blockquote:border-l-lime-400 prose-blockquote:bg-zinc-900 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:italic
-    prose-code:text-lime-300 prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950
-    prose-li:marker:text-lime-400;
+    prose-a:text-white prose-a:underline prose-a:decoration-zinc-700 hover:prose-a:decoration-white
+    prose-blockquote:border-l-zinc-700 prose-blockquote:bg-zinc-950 prose-blockquote:py-1 prose-blockquote:px-6
+    prose-code:text-white prose-pre:border prose-pre:border-zinc-900 prose-pre:bg-zinc-950;
 }
 
+/* --- SECCIONES BRUTALISTAS --- */
 .section {
     position: relative;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--grid-gap);
-    padding: 3rem 1.5rem;
+    padding: 4rem 1.5rem;
+    border-bottom: 1px solid #18181b; /* zinc-900 */
 }
 
-@media (min-width: 768px) {
-    .section {
-        padding: var(--base-padding-y) var(--base-padding-x);
-    }
-}
-
-/* Squircles con radio suavizado para Vantta */
-.squircle {
-    --squircle-smooth: 1;
-    --squircle-radius: 24px;
-    border-radius: var(--squircle-radius);
-    mask-image: paint(squircle);
-}
-
-.squircle-bg {
-    --squircle-smooth: 1;
-    --squircle-radius: 24px;
-    @apply bg-zinc-900;
-    mask-image: paint(squircle);
-}
-
-.squircle-bg-white {
-    --squircle-smooth: 1;
-    --squircle-radius: 24px;
-    background: #fff;
-    mask-image: paint(squircle);
-}
-
-/* Optimizaciones de accesibilidad y foco */
+/* Optimizaciones de accesibilidad */
 :focus-visible {
-    @apply outline-none ring-2 ring-lime-400 ring-offset-2 ring-offset-zinc-950;
-}
-
-/* Desactivar animaciones pesadas si el usuario tiene activado 'reducir movimiento' */
-@media (prefers-reduced-motion: reduce) {
-    *, ::before, ::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+    @apply outline-none ring-1 ring-white ring-offset-2 ring-offset-black;
 }

@@ -1,114 +1,115 @@
-// src/components/services/ServicesGrid.jsx
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Code2, Cpu, Rocket, BarChart3, ArrowRight } from "lucide-react";
-import { BrandLogo } from "../global/BrandLogo";
+/* src/components/home/ServicesGrid.tsx */
+import React from 'react';
+import { ArrowUpRight, Code, Box, Layers, Cpu, Globe, Lock } from 'lucide-react';
 
 const services = [
   {
-    id: 1,
-    title: "Ingeniería Web",
-    description: "Desarrollo de sitios de alto rendimiento con Astro y React. Velocidad de carga inferior a 1s y SEO técnico avanzado.",
-    icon: <Code2 size={32} />,
-    link: "/services/web-development",
-    tags: ["Astro", "Performance", "SEO"]
+    id: "01",
+    title: "Desarrollo Web",
+    desc: "Sitios corporativos de alto rendimiento y Landing Pages optimizadas para conversión.",
+    icon: <Globe className="w-6 h-6" />,
+    tags: ["ASTRO", "REACT", "PERFORMANCE"]
   },
   {
-    id: 2,
+    id: "02",
     title: "Software a Medida",
-    description: "Sistemas complejos, CRM, ERP y automatización de procesos industriales. Arquitectura escalable y segura.",
-    icon: <Cpu size={32} />,
-    link: "/services/software",
-    tags: ["Python", "Cloud", "SaaS"]
+    desc: "Arquitectura de sistemas escalables y paneles de administración complejos.",
+    icon: <Code className="w-6 h-6" />,
+    tags: ["SaaS", "DASHBOARDS", "API REST"]
   },
   {
-    id: 3,
-    title: "Ubikapp SaaS",
-    description: "Nuestra solución estrella para comercio detallista. Tu tienda online profesional lista en 24 horas.",
-    icon: <Rocket size={32} />,
-    link: "/ubikapp",
-    tags: ["E-commerce", "Multi-tenant", "Ventas"]
+    id: "03",
+    title: "Ubikapp Integration",
+    desc: "Implementación de nuestro ecosistema de logística y control de personal.",
+    icon: <Box className="w-6 h-6" />,
+    tags: ["LOGISTICS", "REAL-TIME", "MAPS"]
   },
   {
-    id: 4,
-    title: "Estrategia Digital",
-    description: "Consultoría de crecimiento y transformación digital. Hacemos que la tecnología facture para tu negocio.",
-    icon: <BarChart3 size={32} />,
-    link: "/services/strategy",
-    tags: ["Growth", "Analytics", "Auditoría"]
+    id: "04",
+    title: "Diseño de Interfaz",
+    desc: "Sistemas de diseño industrial y experiencias de usuario (UI/UX) radicales.",
+    icon: <Layers className="w-6 h-6" />,
+    tags: ["FIGMA", "DESIGN SYSTEMS", "UX"]
+  },
+  {
+    id: "05",
+    title: "Ingeniería Backend",
+    desc: "Bases de datos robustas y lógica de servidor segura para operaciones críticas.",
+    icon: <Cpu className="w-6 h-6" />,
+    tags: ["NODE.JS", "POSTGRESQL", "CLOUD"]
+  },
+  {
+    id: "06",
+    title: "Ciberseguridad",
+    desc: "Auditoría básica y protección de infraestructuras digitales.",
+    icon: <Lock className="w-6 h-6" />,
+    tags: ["AUDIT", "SSL", "PROTECTION"]
   }
 ];
 
 export default function ServicesGrid() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
   return (
-    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 py-24">
-      
-      {/* Header de la sección */}
-      <div className="mb-20">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="h-px w-12 bg-lime-400"></div>
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-lime-400">
-            Nuestras Soluciones
-          </span>
+    <section className="w-full">
+      <div className="flex items-end justify-between mb-16 border-b border-zinc-900 pb-8">
+        <div className="flex flex-col gap-4">
+           <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-[0.4em] font-black">
+              System_Capabilities
+           </span>
+           <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter text-white leading-none">
+              Servicios<span className="text-zinc-800">_</span>
+           </h2>
         </div>
-        <h2 className="text-5xl md:text-7xl font-display font-black text-white uppercase italic tracking-tighter leading-none">
-          Ecosistema <br />
-          <BrandLogo />
-        </h2>
+        <div className="hidden md:block font-mono text-[9px] text-zinc-700 uppercase tracking-widest text-right">
+           GRID_LAYOUT: 3x2<br/>
+           AVAILABLE_NODES: {services.length}
+        </div>
       </div>
 
-      {/* Grid de Tarjetas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-        {services.map((service, idx) => (
-          <motion.a
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-900 border border-zinc-900">
+        {services.map((service) => (
+          <div 
             key={service.id}
-            href={service.link}
-            className="group relative overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/50 p-8 md:p-12 transition-colors hover:border-lime-400/50"
-            onMouseEnter={() => setHoveredIndex(idx)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
+            className="group relative bg-[#050505] p-10 h-full flex flex-col justify-between hover:bg-zinc-950 transition-colors duration-500"
           >
-            {/* Fondo con gradiente sutil al hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-lime-400/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-            <div className="relative z-10 flex flex-col h-full justify-between gap-8">
-              <div className="flex justify-between items-start">
-                <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-lime-400 group-hover:scale-110 transition-transform duration-500">
+            {/* Header del Card */}
+            <div className="flex justify-between items-start mb-8">
+               <div className="p-3 bg-zinc-900/50 text-zinc-400 group-hover:text-white group-hover:bg-white/10 transition-all border border-zinc-800 group-hover:border-white/20">
                   {service.icon}
-                </div>
-                <motion.div
-                  animate={{ x: hoveredIndex === idx ? 5 : 0 }}
-                  className="text-zinc-500 group-hover:text-lime-400 transition-colors"
-                >
-                  <ArrowRight size={28} />
-                </motion.div>
-              </div>
-
-              <div>
-                <h3 className="text-3xl font-display font-bold text-white uppercase italic tracking-tight mb-4 group-hover:text-lime-400 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-zinc-400 leading-relaxed text-lg font-medium">
-                  {service.description}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-zinc-800/50">
-                {service.tags.map((tag) => (
-                  <span key={tag} className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 rounded-full border border-zinc-800 text-zinc-500 group-hover:border-lime-400/30 group-hover:text-lime-400 transition-colors">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+               </div>
+               <span className="font-mono text-[10px] text-zinc-700 group-hover:text-zinc-500 transition-colors">
+                  ID_{service.id}
+               </span>
             </div>
-          </motion.a>
+
+            {/* Contenido */}
+            <div className="space-y-6 relative z-10">
+               <h3 className="text-2xl font-black uppercase italic tracking-tighter text-zinc-300 group-hover:text-white transition-colors">
+                  {service.title}
+               </h3>
+               <p className="font-mono text-xs leading-relaxed text-zinc-500 uppercase tracking-wide group-hover:text-zinc-400">
+                  {service.desc}
+               </p>
+               
+               {/* Tags */}
+               <div className="flex flex-wrap gap-2 pt-4">
+                  {service.tags.map(tag => (
+                     <span key={tag} className="px-2 py-1 border border-zinc-800 text-[9px] font-mono text-zinc-600 uppercase tracking-widest group-hover:border-zinc-600 group-hover:text-zinc-300 transition-colors">
+                        {tag}
+                     </span>
+                  ))}
+               </div>
+            </div>
+
+            {/* Icono Flecha Hover */}
+            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+               <ArrowUpRight className="w-5 h-5 text-white" />
+            </div>
+
+            {/* Borde Inferior Activo */}
+            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-500 ease-out group-hover:w-full"></div>
+          </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

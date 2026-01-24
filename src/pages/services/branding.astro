@@ -2,70 +2,65 @@
 /* src/pages/branding.astro */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import type { AstroSeoProps } from "@astrolib/seo";
-import ServicesGrid from "@/components/home/ServicesGrid.tsx";
 import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
-// 1. IMPORTACIÓN DEL COMPONENTE CTA
 import Cta from "@/components/landing/Cta.tsx";
 
 const seo: AstroSeoProps = {
-    title: "VANTTA // BRANDING_IDENTITY_SYSTEM",
-    description: "Ingeniería de marca y sistemas visuales de alto impacto. Identidad Core, Estrategia Digital y Despliegue Social.",
+    title: "VANTTA // DISEÑO_Y_MARCA",
+    description: "Diseño de marcas y estrategias para vender más. Logos, Redes Sociales y Publicidad.",
     canonical: "https://vanttacode.cl/branding/",
 };
 
 const brandingServices = [
-    { id: "ID_01", title: "Identidad Core", price: "$350.000", desc: "Desarrollo de marca desde cero. Manual de normas y ADN visual.", features: ["Logotipo Vectorial", "Paleta Cromática", "Tipografía Exclusiva"] },
-    { id: "ID_02", title: "Social Ads", price: "$200.000", desc: "Diseño de campañas para Meta y Google. Estética que convierte.", features: ["Flyers Digitales", "Motion Graphics", "Copywriting Directo"] },
-    { id: "ID_03", title: "Social Admin", price: "$450.000", desc: "Gestión completa de comunidades. Crecimiento orgánico y pago.", features: ["Planificación Mensual", "Atención al Cliente", "Reportes Mensuales"] },
-    { id: "ID_04", title: "Naming", price: "$150.000", desc: "Búsqueda del nombre perfecto. Fonética y disponibilidad legal.", features: ["Análisis de Mercado", "Dominio .com / .cl", "Registro de Marca"] },
-    { id: "ID_05", title: "Packaging", price: "$280.000", desc: "Diseño de producto físico. Etiquetas y empaques de alto nivel.", features: ["Troqueles Técnicos", "Renderizado 3D", "Arte Final Impresión"] },
-    { id: "ID_06", title: "Editorial", price: "$220.000", desc: "Catálogos, revistas y presentaciones corporativas potentes.", features: ["Maquetación Pro", "Infografías", "Versión Interactiva"] },
-    { id: "ID_07", title: "Re-Branding", price: "Cotizar", desc: "Evolución de marcas existentes. Modernización sin esencia.", features: ["Auditoría Visual", "Rediseño de Logo", "Transición de Marca"] },
-    { id: "ID_08", title: "Stationery", price: "$120.000", desc: "Papelería corporativa completa para un impacto profesional.", features: ["Tarjetas Pro", "Hojas Membretadas", "Firmas de Email"] },
+    { id: "_01", title: "Diseño de Logo", price: "$350.000", desc: "Creamos la imagen principal de tu empresa. Incluye logo, colores y letras para que todo se vea profesional.", features: ["Logo en todos los formatos", "Guía de colores", "Tipografías"] },
+    { id: "_02", title: "Anuncios (Ads)", price: "$200.000", desc: "Diseño de imágenes y videos para vender por Instagram, Facebook y Google. Enfocado en atraer clientes.", features: ["Imágenes para anuncios", "Videos cortos", "Textos para vender"] },
+    { id: "_03", title: "Manejo de Redes", price: "$450.000", desc: "Nos encargamos de tus redes sociales. Publicamos contenido y respondemos mensajes para que tú vendas.", features: ["Publicaciones diarias", "Respuesta a clientes", "Estrategia mensual"] },
+    { id: "_04", title: "Nombre (Naming)", price: "$150.000", desc: "Buscamos el nombre ideal para tu negocio. Que sea fácil de recordar y que el dominio esté disponible.", features: ["Búsqueda de nombres", "Dominio .cl / .com", "Revisión legal"] },
+    { id: "_05", title: "Cajas y Empaques", price: "$280.000", desc: "Diseñamos el envoltorio de tus productos. Desde etiquetas hasta cajas que destaquen en la repisa.", features: ["Diseño de etiquetas", "Cajas a medida", "Manual de impresión"] },
+    { id: "_06", title: "Catálogos Pro", price: "$220.000", desc: "Revistas y presentaciones digitales para mostrar tus productos de forma ordenada y atractiva.", features: ["Catálogo digital", "Fichas técnicas", "PDF interactivo"] },
+    { id: "_07", title: "Nueva Imagen", price: "Cotizar", desc: "¿Tu logo quedó viejo? Lo actualizamos para que se vea moderno sin perder la confianza de tus clientes.", features: ["Auditoría de imagen", "Rediseño de logo", "Actualización total"] },
+    { id: "_08", title: "Papelería", price: "$120.000", desc: "Todo lo necesario para el día a día: tarjetas de presentación, hojas con logo y firmas para tu email.", features: ["Tarjetas", "Hojas membrete", "Firma de correo"] },
 ];
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-lime-400 selection:text-black">
+    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-white selection:text-black">
         
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
 
-        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 lg:max-w-7xl">
-            <div class="max-w-6xl">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="h-px w-12 bg-lime-400"></span>
-                    <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em] animate-pulse">
-                        Identity_Deployment_v2.0
+        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 max-w-[1440px]">
+            <div class="max-w-6xl border-l-2 border-white pl-8 md:pl-12">
+                <div class="flex flex-col gap-6 mb-12">
+                    <span class="font-mono text-zinc-600 text-[10px] uppercase tracking-[0.5em] font-black">
+                        DISEÑO // VENTAS // 2026
                     </span>
+                    <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
+                        MARCAS QUE <br/> <span class="text-zinc-900 outline-text">VENDEN_</span>
+                    </h1>
                 </div>
-                <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
-                    BRANDING <br/> <span class="text-zinc-800">SYSTEMS_</span>
-                </h1>
-                <div class="mt-12 max-w-2xl border-l border-zinc-900 pl-8">
-                    <p class="font-mono text-zinc-500 text-[11px] uppercase tracking-[0.3em] leading-relaxed">
-                        Construimos <span class="text-white">sistemas visuales</span> de grado industrial diseñados para perdurar y escalar en entornos de alto tráfico.
-                    </p>
-                </div>
+                <p class="font-mono text-zinc-500 text-[11px] md:text-sm uppercase tracking-[0.3em] leading-relaxed max-w-xl">
+                    No solo hacemos dibujos bonitos. Creamos la <span class="text-white">identidad visual</span> que tu negocio necesita para atraer clientes y ganar confianza.
+                </p>
             </div>
         </section>
 
-        <section class="relative z-10 border-y border-zinc-900 bg-black/40 backdrop-blur-md">
-            <div class="mx-auto px-6 py-24 md:px-12 lg:max-w-7xl">
+        <section class="relative z-10 border-y border-zinc-900 bg-black/20">
+            <div class="mx-auto max-w-[1440px] px-0 md:px-12 py-24">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-900">
                     {brandingServices.map(item => (
-                        <div class="bg-transparent p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-500 group flex flex-col justify-between relative">
-                            <span class="absolute top-6 right-8 font-mono text-[9px] text-zinc-800 group-hover:text-lime-400 transition-colors uppercase tracking-widest">[ {item.id} ]</span>
+                        <div class="p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-700 group flex flex-col justify-between relative">
+                            <span class="absolute top-6 right-8 font-mono text-[10px] text-zinc-800 group-hover:text-white transition-colors uppercase tracking-widest">{item.id}</span>
                             <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none text-white group-hover:text-lime-400 transition-colors">{item.title}</h3>
-                                <p class="text-zinc-600 font-mono text-[9px] mb-6 uppercase tracking-widest font-bold">FE_ {item.price}</p>
-                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">{item.desc}</p>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter text-white group-hover:translate-x-1 transition-transform">{item.title}</h3>
+                                <p class="text-zinc-700 font-mono text-[9px] mb-8 uppercase tracking-widest font-black">VALOR_ {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-10 group-hover:text-zinc-300 transition-colors">{item.desc}</p>
                             </div>
-                            <ul class="space-y-3 pt-6 border-t border-zinc-900/50">
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
                                 {item.features.map(feat => (
-                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
-                                        <span class="w-1 h-1 bg-lime-400/40 group-hover:bg-lime-400 transition-colors"></span> {feat}
+                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-3 group-hover:text-white transition-colors">
+                                        <div class="w-1 h-1 bg-zinc-800 group-hover:bg-white transition-colors"></div> {feat}
                                     </li>
                                 ))}
                             </ul>
@@ -75,40 +70,46 @@ const brandingServices = [
             </div>
         </section>
 
-        <section class="relative z-10 py-24 bg-white text-black border-y border-zinc-200">
-            <div class="mx-auto px-6 md:px-12 lg:max-w-7xl">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                    <div>
-                        <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8]">SOCIAL<br/>GROWTH_</h3>
-                        <p class="text-zinc-400 uppercase font-mono text-[9px] tracking-[0.4em] mt-6 font-bold">PROTOCOLO_ADMIN_MENSUAL</p>
+        <section class="relative z-10 py-32 bg-white text-black">
+            <div class="mx-auto px-6 md:px-12 max-w-[1440px]">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-24 gap-12">
+                    <div class="border-l-4 border-black pl-8">
+                        <h3 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.8]">CRECE EN<br/>REDES.</h3>
+                        <p class="text-zinc-400 uppercase font-mono text-[10px] tracking-[0.4em] mt-8 font-black">ADMINISTRACIÓN_MENSUAL_DE_REDES</p>
                     </div>
-                    <div class="bg-zinc-50 p-8 border-l-8 border-lime-400">
-                        <p class="text-[9px] font-mono uppercase tracking-widest text-zinc-400 mb-2">FEE_INVESTMENT</p>
-                        <p class="text-5xl font-black italic tracking-tighter">$450.000 <span class="text-sm font-mono opacity-40">/ MO</span></p>
+                    <div class="bg-black text-white p-10 md:p-14">
+                        <p class="text-[10px] font-mono uppercase tracking-[0.4em] text-zinc-500 mb-4">INVERSIÓN_MENSUAL</p>
+                        <p class="text-5xl md:text-7xl font-black italic tracking-tighter">$450.000 <span class="text-sm font-mono opacity-30">/ MES</span></p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 border-t border-zinc-100 pt-16">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24 border-t border-zinc-100 pt-20">
                     {[
-                        { num: "01", title: "CONTENT_ENGINE", desc: "Producción de 12-15 activos mensuales optimizados para algoritmos de alta retención." },
-                        { num: "02", title: "ADS_OPTIMIZATION", desc: "Gestión de pauta en Meta Business Suite enfocada en retorno de inversión real (ROI)." },
-                        { num: "03", title: "ANALYTICS_REPORT", desc: "Reportes técnicos de métricas. Sin vanidad, solo datos que escalan el negocio." }
+                        { num: "01", title: "CONTENIDO", desc: "Creamos fotos y videos reales para que tus redes no parezcan vacías y atraigan gente." },
+                        { num: "02", title: "PUBLICIDAD", desc: "Invertimos tu presupuesto en anuncios para que lleguen personas interesadas en comprar." },
+                        { num: "03", title: "RESULTADOS", desc: "Te mostramos cuánta gente llegó y qué funcionó. Menos charla, más ventas." }
                     ].map(step => (
                         <div class="group">
-                            <span class="text-lime-500 font-black text-3xl italic block mb-4 group-hover:translate-x-2 transition-transform">[{step.num}] {step.title}_</span>
-                            <p class="text-[11px] font-mono uppercase tracking-widest text-zinc-500 leading-loose border-l border-zinc-200 pl-6">{step.desc}</p>
+                            <span class="text-black font-black text-3xl md:text-4xl italic block mb-6 group-hover:translate-x-2 transition-transform">{step.num} // {step.title}</span>
+                            <p class="text-[11px] font-mono uppercase tracking-widest text-zinc-500 leading-loose border-l border-zinc-200 pl-8">{step.desc}</p>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <div class="relative z-10 pt-32 bg-[#050505] border-t border-zinc-900">
+        <div class="relative z-10 bg-[#050505]">
             <UbikappPromo client:visible />
-            
-            <div class="mt-20">
+            <div class="pb-20">
                 <Cta client:visible />
             </div>
         </div>
 
     </main>
+
+    <style is:global>
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+    </style>
 </BaseLayout>

@@ -1,156 +1,143 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Terminal, ArrowRight, Activity, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Play } from "lucide-react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
-// Secuencia corregida: Estética de Documentación Técnica
-const terminalSequence = [
-  { text: "> initializing vantta_industrial_kernel", delay: 0 },
-  { text: "AUTH: SCL_NODE_ESTABLISHED", delay: 600, color: "text-zinc-500" },
-  { text: "> module: brutalist_framework_v3.0", delay: 1200 },
-  { text: "STATUS: HIGH_FIDELITY_ACTIVE", delay: 1800, color: "text-zinc-400" },
-  { text: "> precision: 0.0001ms", delay: 2400, color: "text-white" },
-  { text: "> architecture: monolithic_logic", delay: 3500, color: "text-zinc-600" }
+// NOMBRES EXACTOS DE TUS ARCHIVOS
+const logos = [
+  "/logos/React-icon.svg.png",
+  "/logos/Astro.png",
+  "/logos/Vue.js_Logo_2.svg.png",
+  "/logos/supabase-logo-icon.png",
+  "/logos/Gemini.png",
+  "/logos/google.png",
+  "/logos/Vercel-Logo-500x281.png",
+  "/logos/Adobe_Illustrator_CC_icon.svg.png",
+  "/logos/Adobe_After_Effects_cts_CC_icon.svg.png",
+  "/logos/Adobe_Photoshop_CC_icon.svg.png",
+  "/logos/Adobe_Premiere_Pro_CC_icon.svg.png"
 ];
 
-interface TypewriterProps {
-  text: string;
-  color?: string;
-  startDelay: number;
-}
-
-const TypewriterLine = ({ text, color = "text-zinc-300", startDelay }: TypewriterProps) => {
-  const [displayedText, setDisplayedText] = useState("");
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    const startTimeout = setTimeout(() => setStarted(true), startDelay);
-    return () => clearTimeout(startTimeout);
-  }, [startDelay, text]);
-
-  useEffect(() => {
-    if (!started) return;
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setDisplayedText(text.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 25);
-    return () => {
-        clearInterval(interval);
-        setDisplayedText("");
-    };
-  }, [started, text]);
-
-  if (!started) return null;
-  return <div className={`font-mono text-[10px] mb-1.5 uppercase tracking-wider ${color}`}>{displayedText}</div>;
-};
+const words = ["WEBS", "MARCAS", "SISTEMAS", "SOLUCIONES"];
 
 export default function Hero() {
-  const [iteration, setIteration] = useState(0);
+  const [init, setInit] = useState(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIteration(prev => prev + 1);
-    }, 8000);
-    return () => clearInterval(timer);
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => setInit(true));
+
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % words.length);
+    }, 2500);
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050505] pt-20 selection:bg-white selection:text-black">
+    <section className="relative min-h-screen flex flex-col items-center justify-center bg-[#050505] pt-48 pb-20 overflow-hidden selection:bg-white selection:text-black">
       
-      {/* BACKGROUND: Blueprint Grid */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-      </div>
+      {init && (
+        <Particles id="tsparticles" className="absolute inset-0 z-0" options={{
+          fpsLimit: 120,
+          particles: {
+            color: { value: "#ffffff" },
+            links: { color: "#ffffff", distance: 150, enable: true, opacity: 0.02, width: 1 },
+            move: { enable: true, speed: 0.3 },
+            number: { value: 40, density: { enable: true } },
+            opacity: { value: 0.1 },
+            size: { value: { min: 1, max: 2 } },
+          },
+          detectRetina: true,
+        }} />
+      )}
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
         
-        <div className="lg:col-span-7 flex flex-col justify-center text-left">
-          {/* Badge de Sistema */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-3 mb-8 px-4 py-1.5 border border-zinc-900 bg-zinc-950 w-fit"
-          >
-            <span className="font-mono text-[9px] text-zinc-500 tracking-[0.4em] uppercase font-bold flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-white animate-pulse"></span>
-              CORE_SYSTEM // VERSION_2026
-            </span>
-          </motion.div>
-
-          {/* TÍTULO: Brutalismo Puro */}
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase italic leading-[0.8] tracking-tighter text-white mb-10">
-            Ingeniería <br />
-            <span className="text-zinc-800 transition-colors duration-700 hover:text-white">Digital_</span>
+        {/* TÍTULO DINÁMICO */}
+        <div className="flex flex-col items-center mb-8">
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black text-white leading-[0.8] tracking-tighter uppercase italic">
+            CREAMOS <br />
+            <div className="h-[1.1em] flex items-center justify-center overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={words[index]}
+                  initial={{ y: 60, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -60, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "circOut" }}
+                  className="text-zinc-800"
+                >
+                  {words[index]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
           </h1>
-
-          <div className="flex gap-10 items-start border-l border-zinc-900 pl-8 mb-12">
-            <p className="font-mono text-zinc-500 text-sm md:text-base max-w-lg leading-relaxed uppercase tracking-widest">
-              <span className="block mb-2 text-white font-bold">Arquitectura de Software</span>
-              <span className="block mb-2">Sistemas de Alta Disponibilidad</span>
-              <span className="block text-zinc-700 italic">Despliegue Industrial de Producto</span>
-            </p>
-          </div>
-
-          {/* BOTONES: Diseño de Bloque Sólido */}
-          <div className="flex flex-col sm:flex-row gap-0 border border-zinc-900 w-fit">
-            <a href="/contact" className="group relative px-12 py-6 bg-white text-black font-black uppercase italic tracking-widest overflow-hidden transition-all text-center">
-              <span className="relative z-10 flex items-center justify-center gap-3 text-sm">
-                INICIAR_PROYECTO <ChevronRight size={18} strokeWidth={3} />
-              </span>
-            </a>
-            <a href="/work" className="px-12 py-6 border-l border-zinc-900 bg-transparent text-zinc-500 font-mono text-xs uppercase tracking-[0.3em] hover:text-white transition-all text-center flex items-center">
-              / ARCHIVO_PROYECTOS
-            </a>
-          </div>
         </div>
 
-        {/* TERMINAL: Consola de Monitoreo */}
-        <div className="lg:col-span-5 relative hidden lg:block">
-          <div className="relative border border-zinc-900 bg-zinc-950/50 backdrop-blur-sm p-1">
-            {/* Esquinas Técnicas */}
-            <div className="absolute -top-px -left-px h-3 w-3 border-t border-l border-zinc-700"></div>
-            <div className="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-zinc-700"></div>
+        {/* SUBTÍTULO INDUSTRIAL */}
+        <motion.p 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-zinc-500 text-sm md:text-xl max-w-4xl mb-16 font-medium tracking-tight leading-relaxed uppercase"
+        >
+          Arquitectura digital de alto rendimiento. Diseñamos sistemas y plataformas <br className="hidden md:block" /> 
+          creadas para escalar la operativa e impacto de tu negocio.
+        </motion.p>
 
-            <div className="bg-zinc-950 px-5 py-3 border-b border-zinc-900 flex items-center justify-between">
-              <div className="flex items-center gap-3 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em]">
-                <Activity size={10} className="text-white" />
-                VANTTA_MAINFRAME_LIVE
-              </div>
-            </div>
+        {/* BOTONES CON FLECHAS REACTIVAS */}
+        <motion.div className="flex flex-wrap justify-center gap-6 mb-44">
+          <a href="/contact" className="group h-14 flex items-center px-10 rounded-full bg-white text-black font-display text-xs font-black uppercase italic tracking-widest hover:bg-zinc-200 transition-all shadow-[0_0_50px_rgba(255,255,255,0.1)]">
+            COTIZAR 
+            <ArrowRight size={18} className="ml-0 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-2 group-hover:ml-2 transition-all duration-300" />
+          </a>
+          <a href="/work" className="group h-14 flex items-center px-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-white font-display text-xs font-black uppercase italic tracking-widest hover:bg-white hover:text-black transition-all">
+            PORTAFOLIO 
+            <Play size={14} className="ml-0 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-1 group-hover:ml-3 fill-current transition-all duration-300" />
+          </a>
+        </motion.div>
 
-            <div key={iteration} className="p-8 h-[340px] font-mono overflow-hidden relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent h-[20%] w-full animate-scan pointer-events-none opacity-50"></div>
-              
-              {terminalSequence.map((line, index) => (
-                <TypewriterLine 
-                  key={`${iteration}-${index}`} 
-                  text={line.text} 
-                  color={line.color} 
-                  startDelay={line.delay}
+        {/* CARROUSEL: TRIPLE-CHECK PARA ELIMINAR EL HUECO */}
+        <div className="w-full max-w-[1400px] overflow-hidden relative">
+          {/* Degradados laterales para suavizar entrada/salida */}
+          <div className="absolute inset-0 z-10 pointer-events-none before:absolute before:left-0 before:top-0 before:h-full before:w-40 before:bg-gradient-to-r before:from-[#050505] after:absolute after:right-0 after:top-0 after:h-full after:w-40 after:bg-gradient-to-l after:from-[#050505]"></div>
+          
+          <div className="flex w-fit">
+            {/* Animamos dos bloques idénticos: cuando el 1 termina, el 2 está en su lugar exacto */}
+            <div className="flex animate-infinite-scroll gap-24 items-center whitespace-nowrap px-12 shrink-0">
+              {logos.map((path, idx) => (
+                <img 
+                  key={`a-${idx}`}
+                  src={path} 
+                  alt="Tech" 
+                  className={`h-10 md:h-12 w-auto object-contain grayscale brightness-125 hover:grayscale-0 hover:brightness-100 transition-all duration-300 ${path.includes('google') ? 'scale-150 mx-6' : ''}`}
                 />
               ))}
-              
-              <div className="flex items-center gap-2 mt-6">
-                <span className="text-white text-xs animate-pulse underline underline-offset-4 font-black italic tracking-tighter">VANTTA.code</span>
-                <span className="w-2 h-4 bg-white animate-pulse"></span>
-              </div>
+            </div>
+            <div className="flex animate-infinite-scroll gap-24 items-center whitespace-nowrap px-12 shrink-0">
+              {logos.map((path, idx) => (
+                <img 
+                  key={`b-${idx}`}
+                  src={path} 
+                  alt="Tech" 
+                  className={`h-10 md:h-12 w-auto object-contain grayscale brightness-125 hover:grayscale-0 hover:brightness-100 transition-all duration-300 ${path.includes('google') ? 'scale-150 mx-6' : ''}`}
+                />
+              ))}
             </div>
           </div>
         </div>
-
       </div>
 
       <style>{`
-        @keyframes scan {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(500%); }
+        @keyframes infinite-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-100%); }
         }
-        .animate-scan {
-          animation: scan 5s linear infinite;
+        .animate-infinite-scroll {
+          animation: infinite-scroll 35s linear infinite;
         }
       `}</style>
     </section>

@@ -5,72 +5,61 @@ import { Image } from "astro:assets";
 
 const { class: className } = Astro.props;
 
-// Filtramos y ordenamos los archivos del sistema
+// Cargamos los 8 proyectos solicitados
 const allProjects = (await getCollection("projects"))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 8); 
 ---
 
-<section id="work-preview-section" class:list={["w-full bg-[#050505] pt-32", className]}>
-    <div class="max-w-7xl mx-auto px-6 pb-16 md:px-12 w-full text-white">
-        <div class="flex flex-col gap-4 border-l border-zinc-800 pl-8">
-            <div class="flex items-center gap-3">
-                <span class="h-1.5 w-1.5 bg-white animate-pulse"></span>
-                <span class="font-mono text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold">
-                    [ PROJECT_ARCHIVE_DEPLOYMENT ]
-                </span>
-            </div>
-            <h2 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8]">
-                Proyectos<span class="text-zinc-800 transition-colors hover:text-white">_</span>
+<section id="work-preview-section" class:list={["w-full bg-[#050505] pt-40 pb-20", className]}>
+    <div class="max-w-[1440px] mx-auto px-6 md:px-12 mb-20">
+        <div class="flex flex-col gap-6 border-l border-white pl-10">
+            <span class="font-mono text-zinc-600 text-[10px] tracking-[0.5em] uppercase font-bold">
+                Portfolio // 2026
+            </span>
+            <h2 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.8] text-white">
+                PROYECTOS <br/>
+                <span class="text-zinc-800 hover:text-white transition-colors duration-700">DESTACADOS.</span>
             </h2>
         </div>
     </div>
 
-    <div class="inspiro-grid border-y border-zinc-900">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full border-t border-zinc-900">
         {
             allProjects.map((project, index) => {
                 const imgSource = project.data.image?.source;
                 const imgAlt = project.data.image?.alt || project.data.title;
-                const projectId = `ID_0${index + 1}`;
+                const projectId = `_0${index + 1}`;
                 
                 return (
-                    <a href={`/work/${project.slug}`} class="work-item group border-zinc-900 border-r border-b bg-zinc-950">
-                        <div class="absolute top-0 left-0 h-3 w-3 border-t border-l border-zinc-800 group-hover:border-white transition-colors z-30" />
-                        <div class="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-zinc-800 group-hover:border-white transition-colors z-30" />
-                        
-                        <div class="absolute top-6 left-6 z-30 font-mono text-[9px] text-zinc-700 group-hover:text-white transition-colors">
-                            // {projectId}
+                    <a href={`/work/${project.slug}`} class="group relative aspect-[3/4] overflow-hidden border-r border-b border-zinc-900 bg-zinc-950 block">
+                        <div class="absolute top-6 left-6 z-30 font-mono text-[10px] text-zinc-700 group-hover:text-white transition-colors">
+                            {projectId}
                         </div>
 
-                        <div class="image-container overflow-hidden">
+                        <div class="absolute inset-0 z-10 overflow-hidden">
                             {imgSource ? (
                                 <Image 
                                     src={imgSource} 
                                     alt={imgAlt}
-                                    width={800}
-                                    height={1000}
-                                    class="project-img grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                                    width={600}
+                                    height={800}
+                                    class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000 ease-in-out"
                                 />
                             ) : (
-                                <div class="flex h-full w-full items-center justify-center text-zinc-900 font-mono text-[10px] tracking-widest">
-                                    DATA_NOT_FOUND
-                                </div>
+                                <div class="w-full h-full bg-zinc-900 flex items-center justify-center font-mono text-[10px] text-zinc-800">DATA_EMPTY</div>
                             )}
-                            <div class="overlay bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 group-hover:opacity-30 transition-opacity" />
                         </div>
 
-                        <div class="content p-8 md:p-10 flex flex-col justify-end items-start h-full">
-                            <span class="tag font-mono text-[9px] uppercase tracking-[0.4em] text-zinc-500 mb-2 group-hover:text-white transition-colors">
-                                &lt;{project.data.tags?.[0] || "SYSTEM"}/&gt;
-                            </span>
-                            <h3 class="title font-display text-2xl md:text-3xl font-black uppercase italic tracking-tighter leading-none text-white transition-transform duration-500 group-hover:translate-x-2">
+                        <div class="relative z-20 h-full p-8 md:p-10 flex flex-col justify-end items-start translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                            <p class="font-mono text-[9px] text-zinc-500 uppercase tracking-widest mb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                {project.data.category || "Development"}
+                            </p>
+                            <h3 class="text-3xl font-black uppercase italic tracking-tighter text-white leading-none">
                                 {project.data.title}
                             </h3>
-                            <div class="mt-4 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-700 shadow-[0_0_10px_white]" />
-                        </div>
-
-                        <div class="absolute inset-0 bg-white/[0.02] h-full w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" 
-                             style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100% 4px;">
+                            <div class="mt-4 h-px w-0 bg-white group-hover:w-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
                         </div>
                     </a>
                 )
@@ -78,60 +67,3 @@ const allProjects = (await getCollection("projects"))
         }
     </div>
 </section>
-
-<style>
-    .inspiro-grid {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        width: 100%;
-        background-color: #050505;
-    }
-
-    /* Responsividad Pro: Escalamiento fluido de rejilla */
-    @media (min-width: 640px) { .inspiro-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1280px) { .inspiro-grid { grid-template-columns: repeat(4, 1fr); } }
-
-    .work-item {
-        position: relative;
-        aspect-ratio: 1 / 1.2;
-        overflow: hidden;
-        display: block;
-        transition: background-color 0.5s ease;
-    }
-
-    .image-container {
-        position: absolute;
-        inset: 0;
-        z-index: 10;
-    }
-
-    .project-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0.4;
-    }
-
-    .overlay {
-        position: absolute;
-        inset: 0;
-        z-index: 15;
-    }
-
-    .content {
-        position: relative;
-        z-index: 20;
-    }
-
-    /* Animación de entrada de metadata */
-    .work-item .tag, .work-item .title {
-        transform: translateY(10px);
-        opacity: 0.8;
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .work-item:hover .tag, .work-item:hover .title {
-        transform: translateY(0);
-        opacity: 1;
-    }
-</style>

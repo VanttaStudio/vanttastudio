@@ -6,108 +6,94 @@ import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
 import Cta from "@/components/landing/Cta.tsx";
 
 const seo: AstroSeoProps = {
-    title: "VANTTA // SOFTWARE_ENGINEERING",
-    description: "Desarrollo de software industrial con Python. CRM, ERP, Automatización y Sistemas de Inteligencia de Datos.",
+    title: "VANTTA // SOFTWARE_A_MEDIDA",
+    description: "Desarrollo de sistemas propios para empresas. Ahorra tiempo y organiza tu negocio con software a medida.",
     canonical: "https://vanttacode.cl/services/software-solutions/",
 };
 
 const softwareSolutions = [
-    { id: "SYS_01", title: "CRM Custom", price: "$850.000", desc: "Gestión de relaciones diseñada para tu embudo de ventas único.", features: ["Pipeline Visual", "Automatización de Leads", "Integración WhatsApp"] },
-    { id: "SYS_02", title: "ERP Industrial", price: "Cotizar", desc: "Control total de recursos, stock y finanzas en una sola suite.", features: ["Módulos Contables", "Gestión de Inventario", "Reportes en Tiempo Real"] },
-    { id: "SYS_03", title: "Bots de Trading", price: "$600.000", desc: "Algoritmos ejecutados en Python para mercados financieros.", features: ["Análisis Técnico Auto", "Conexión API Exchange", "Gestión de Riesgo"] },
-    { id: "SYS_04", title: "Sistemas de Turnos", price: "$450.000", desc: "Optimización de agendas complejas para clínicas o servicios.", features: ["Sincronización Cloud", "Recordatorios SMS/Mail", "Panel de Profesionales"] },
-    { id: "SYS_05", title: "Data Scraping", price: "$300.000", desc: "Extracción automatizada de datos para inteligencia de mercado.", features: ["Minería de Datos", "Exportación a SQL/Excel", "Monitoreo de Precios"] },
-    { id: "SYS_06", title: "Software Logístico", price: "$750.000", desc: "Control de flotas y optimización de rutas de entrega.", features: ["Tracking en Vivo", "Gestión de Despachos", "Optimización de Carga"] },
-    { id: "SYS_07", title: "Analítica con IA", price: "$950.000", desc: "Modelos predictivos basados en tus datos históricos.", features: ["Machine Learning", "Predicción de Ventas", "Clasificación de Clientes"] },
-    { id: "SYS_08", title: "Dashboards BI", price: "$400.000", desc: "Visualización masiva de datos para toma de decisiones.", features: ["Gráficos Interactivos", "Multi-fuente de Datos", "Alertas Críticas"] },
+    { id: "_01", title: "Gestión de Clientes", price: "Desde $450.000", desc: "Un sistema para organizar tus ventas y contactos. No pierdas más clientes por falta de seguimiento.", features: ["Fichas de clientes", "Aviso de tareas", "WhatsApp integrado"] },
+    { id: "_02", title: "Control de Stock", price: "Desde $380.000", desc: "Saber qué tienes y qué falta en tu bodega en tiempo real desde tu celular.", features: ["Inventario fácil", "Aviso de stock bajo", "Entradas y salidas"] },
+    { id: "_03", title: "Reserva de Horas", price: "Desde $280.000", desc: "Tu agenda online para que los clientes reserven 24/7 sin que tengas que contestar el teléfono.", features: ["Calendario web", "Aviso automático", "Panel de control"] },
+    { id: "_04", title: "Lectura de Datos", price: "Desde $150.000", desc: "Obtenemos información de otras webs (precios de competencia) de forma automática.", features: ["Listados Excel", "Actualización diaria", "Ahorro de digitación"] },
+    { id: "_05", title: "Control de Envíos", price: "Cotizar", desc: "Si tienes despacho propio, este sistema organiza las rutas para que gastes menos bencina.", features: ["Rutas en mapa", "Estado de entrega", "App para choferes"] },
+    { id: "_06", title: "Tableros de Mando", price: "Desde $120.000", desc: "Tus ventas y gastos en un gráfico simple. Mira cómo va tu negocio en un segundo.", features: ["Gráficos en vivo", "Metas de mes", "Acceso móvil"] },
+    { id: "_07", title: "Software a Medida", price: "Cotizar", desc: "¿Tienes una idea única? La programamos desde cero solo para tu necesidad específica.", features: ["Lógica propia", "Escalable", "Propiedad del código"] },
+    { id: "_08", title: "App de Ventas", price: "Desde $550.000", desc: "Tu propio sistema de ventas para que tus vendedores tomen pedidos en terreno.", features: ["Modo offline", "Impresión de boleta", "Sincronización central"] },
 ];
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-lime-400 selection:text-black">
+    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-white selection:text-black">
         
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none z-0"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
 
-        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 lg:max-w-7xl">
-            <div class="max-w-6xl">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="h-px w-12 bg-lime-400"></span>
-                    <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em] animate-pulse">
-                        Logic_Deployment_v2.6
+        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 max-w-[1440px]">
+            <div class="max-w-6xl border-l-2 border-white pl-8 md:pl-12">
+                <div class="flex flex-col gap-6 mb-12">
+                    <span class="font-mono text-zinc-600 text-[10px] uppercase tracking-[0.5em] font-black">
+                        SISTEMAS // EFICIENCIA // 2026
                     </span>
+                    <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
+                        SOFTWARE A <br/> <span class="text-zinc-900 outline-text">MEDIDA_</span>
+                    </h1>
                 </div>
-                
-                <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
-                    SOFTWARE <br/> <span class="text-zinc-800">MEDIDA_</span>
-                </h1>
-                
-                <div class="mt-12 max-w-2xl border-l border-zinc-900 pl-8">
-                    <p class="font-mono text-zinc-500 text-[11px] uppercase tracking-[0.3em] leading-relaxed">
-                        Desarrollamos lógica de negocio robusta en <span class="text-white">Python</span>. Sistemas escalables que resuelven problemas específicos mediante <span class="text-white">ingeniería propietaria</span>.
-                    </p>
-                </div>
+                <p class="font-mono text-zinc-500 text-[11px] md:text-sm uppercase tracking-[0.3em] leading-relaxed max-w-xl">
+                    Creamos herramientas que <span class="text-white">facilitan tu trabajo</span>. Sistemas propios, fáciles de usar y diseñados para que tu negocio funcione con orden.
+                </p>
             </div>
         </section>
 
-        <section class="relative z-10 border-y border-zinc-900 bg-black/40 backdrop-blur-md">
-            <div class="mx-auto px-6 py-24 md:px-12 lg:max-w-7xl">
+        <section class="relative z-10 border-y border-zinc-900 bg-black/20">
+            <div class="mx-auto max-w-[1440px] px-0 md:px-12 py-24">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-900">
                     {softwareSolutions.map(item => (
-                        <div class="bg-transparent p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-500 group flex flex-col justify-between relative">
-                            <span class="absolute top-6 right-8 font-mono text-[9px] text-zinc-800 group-hover:text-lime-400 transition-colors uppercase tracking-widest">
-                                [ {item.id} ]
-                            </span>
-
+                        <div class="p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-700 group flex flex-col justify-between relative">
+                            <span class="absolute top-6 right-8 font-mono text-[10px] text-zinc-800 group-hover:text-white transition-colors uppercase tracking-widest">{item.id}</span>
                             <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none text-white group-hover:text-lime-400 transition-colors">{item.title}</h3>
-                                <p class="text-zinc-600 font-mono text-[9px] mb-6 uppercase tracking-widest font-bold">FE_ {item.price}</p>
-                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
-                                    {item.desc}
-                                </p>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter text-white group-hover:translate-x-1 transition-transform">{item.title}</h3>
+                                <p class="text-zinc-700 font-mono text-[9px] mb-8 uppercase tracking-widest font-black">VALOR_ {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-10 group-hover:text-zinc-300 transition-colors">{item.desc}</p>
                             </div>
-
-                            <ul class="space-y-3 pt-6 border-t border-zinc-900/50">
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
                                 {item.features.map(feat => (
-                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
-                                        <span class="w-1 h-1 bg-lime-400/40 group-hover:bg-lime-400 transition-colors"></span> {feat}
+                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-3 group-hover:text-white transition-colors">
+                                        <div class="w-1 h-1 bg-zinc-800 group-hover:bg-white transition-colors"></div> {feat}
                                     </li>
                                 ))}
                             </ul>
-
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-lime-400/[0.02] to-transparent h-1/4 w-full -translate-y-full group-hover:animate-scan pointer-events-none"></div>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 lg:max-w-7xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 border border-zinc-900 overflow-hidden bg-zinc-950">
-                <div class="p-12 border-b md:border-b-0 md:border-r border-zinc-900 flex flex-col justify-center relative group">
-                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ CORE_TECHNOLOGY ]</span>
-                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-6">PYTHON ENGINE_</h2>
-                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
-                        Utilizamos el lenguaje líder en procesamiento de datos e IA. Construimos backends potentes y sistemas de cálculo de alta precisión.
+        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 max-w-[1440px]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 border border-zinc-900 overflow-hidden bg-zinc-950">
+                <div class="p-12 lg:p-24 border-b lg:border-b-0 lg:border-r border-zinc-900 flex flex-col justify-center relative group">
+                    <span class="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">TECNOLOGÍA_PROPIA</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8">SISTEMAS QUE<br/>CRECEN.</h2>
+                    <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed max-w-md group-hover:text-zinc-300 transition-colors">
+                        Usamos herramientas de primer nivel para que tu sistema sea rápido y seguro. Un software bien hecho es una inversión que dura años.
                     </p>
-                    <div class="text-zinc-900 font-black text-9xl italic absolute -right-4 -bottom-8 opacity-10 group-hover:text-lime-400/20 transition-colors pointer-events-none">01</div>
                 </div>
 
-                <div class="bg-lime-400 p-12 flex flex-col justify-center relative">
-                    <div className="space-y-12">
-                        <div class="border-b border-black/10 pb-8">
-                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ SCALABILITY ]</span>
-                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">NATIVO & NUBE_</h2>
-                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
-                                Arquitecturas modulares preparadas para crecer sin romper la estructura principal del sistema.
+                <div class="bg-white p-12 lg:p-24 flex flex-col justify-center relative group text-black">
+                    <div class="space-y-12">
+                        <div class="border-b border-zinc-100 pb-8">
+                            <span class="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">SEGURIDAD_TOTAL</span>
+                            <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none mb-4">DATOS PROTEGIDOS_</h2>
+                            <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed font-bold">
+                                Tu información es solo tuya. Usamos protocolos de seguridad para que todo esté siempre respaldado y seguro.
                             </p>
                         </div>
                         <div class="pt-4">
-                            <span class="text-black font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ DATA_SECURITY ]</span>
-                            <h2 class="text-4xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-4">INTEGRIDAD_DATOS_</h2>
-                            <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.1em] leading-relaxed font-bold">
-                                Encriptación de nivel industrial y protocolos de respaldo automáticos para garantizar la continuidad.
+                            <span class="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">ESCALABILIDAD</span>
+                            <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter leading-none mb-4">SIN LÍMITES_</h2>
+                            <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed font-bold">
+                                Si tu empresa crece, tu sistema crece con ella. Podemos agregar funciones nuevas cuando las necesites.
                             </p>
                         </div>
                     </div>
@@ -116,50 +102,43 @@ const softwareSolutions = [
         </section>
 
         <section class="relative z-10 bg-white text-black py-32 border-y border-zinc-200">
-            <div class="mx-auto px-6 md:px-12 lg:max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div>
-                    <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85]">SOPORTE<br/>SISTEMAS_</h3>
-                    <p class="text-zinc-400 uppercase font-mono text-[9px] tracking-[0.4em] mt-8 font-bold italic">NODE_MAINTENANCE_OPS</p>
+            <div class="mx-auto px-6 md:px-12 max-w-[1440px] grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.85]">SOPORTE<br/>SISTEMAS.</h3>
+                    <p class="text-zinc-400 uppercase font-mono text-[10px] tracking-[0.4em] mt-10 font-black italic">MANTENCIÓN_Y_HOSPEDAJE</p>
                 </div>
                 <div class="space-y-16">
                     <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
                         <div>
-                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Mantenimiento de Código</p>
-                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Upgrade_</h4>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Cuidado del sistema</p>
+                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Actualizaciones_</h4>
                         </div>
-                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $25.000 <span class="text-xs text-zinc-400">/ MO</span></span>
+                        <span class="text-2xl font-black text-black font-mono">VALOR_ $25.000 <span class="text-xs text-zinc-400">/ MES</span></span>
                     </div>
                     <div class="group border-b border-zinc-100 pb-10 flex justify-between items-end">
                         <div>
-                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Infraestructura Server</p>
-                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Hosting Cloud_</h4>
+                            <p class="font-mono text-[11px] text-zinc-400 uppercase tracking-[0.2em] mb-4 italic">Hospedaje en la nube</p>
+                            <h4 class="text-4xl font-black italic uppercase tracking-tighter group-hover:translate-x-2 transition-transform">Servidor Cloud_</h4>
                         </div>
-                        <span class="text-2xl font-black text-lime-500 font-mono">FE_ $50.000 <span class="text-xs text-zinc-400">/ YR</span></span>
+                        <span class="text-2xl font-black text-black font-mono">VALOR_ $50.000 <span class="text-xs text-zinc-400">/ AÑO</span></span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div class="relative z-10 pt-32 bg-[#050505] border-t border-zinc-900">
+        <div class="relative z-10 bg-[#050505]">
             <UbikappPromo client:visible />
-            <div class="mt-20">
+            <div class="pb-20">
                 <Cta client:visible />
             </div>
         </div>
 
     </main>
-</BaseLayout>
 
-<style is:global>
-    @keyframes scan {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(400%); }
-    }
-    .animate-scan {
-        animation: scan 3s linear infinite;
-    }
-    h1, h2, h3, h4 {
-        font-weight: 950 !important;
-        letter-spacing: -0.05em;
-    }
-</style>
+    <style is:global>
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+    </style>
+</BaseLayout>

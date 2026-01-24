@@ -1,124 +1,35 @@
 ---
-import Newsletter from "@components/blog/Newsletter.astro";
-import { getLangFromUrl, useTranslatedPath, useTranslations } from "@i18n/utils";
-import logovanta from "@/assets/images/logovanta.png";
-import { Image } from "astro:assets";
-
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
-
-// Contacto
-const phoneNumber = "966877441";
-const whatsappLink = `https://wa.me/56${phoneNumber}`;
+/* src/components/global/Footer.astro */
 ---
 
-<footer class="w-full bg-zinc-950 text-white pt-20 pb-10 border-t border-zinc-900 overflow-hidden">
-    <div class="mx-auto max-w-[1400px] px-6 lg:px-12">
+<footer class="w-full bg-[#050505] pt-32 pb-20 border-t border-zinc-900/30">
+    <div class="max-w-[1440px] mx-auto px-6 flex flex-col items-center text-center">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-16 lg:gap-x-8">
+        <div class="flex items-center gap-8 mb-10">
+            <a href="https://instagram.com/vanttacode.cl" target="_blank" class="text-zinc-600 hover:text-white transition-colors" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://facebook.com/Vanttacode" target="_blank" class="text-zinc-600 hover:text-white transition-colors" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <p class="font-mono text-[10px] md:text-xs text-zinc-600 uppercase tracking-[0.2em]">
+                © 2026 VANTTA.CODE // PUNTA ARENAS, CHILE.
+            </p>
             
-            <div class="lg:col-span-3 flex flex-col gap-8">
-                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Redes Sociales</p>
-                <div class="flex flex-col gap-4">
-                    <a href="https://www.instagram.com/vanttacode.cl" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
-                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> Instagram
-                    </a>
-                    <a href="https://www.facebook.com/Vanttacode/" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
-                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> Facebook
-                    </a>
-                    <a href="https://www.linkedin.com/company/vantta" target="_blank" class="text-lg font-medium hover:text-lime-400 transition-all duration-300 w-fit flex items-center group">
-                        <span class="mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span> LinkedIn
-                    </a>
-                </div>
-            </div>
-
-            <div class="lg:col-span-3 flex flex-col gap-8">
-                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Navegación</p>
-                <div class="grid grid-cols-1 gap-4">
-                    <a href={translatePath("/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Inicio</a>
-                    <a href={translatePath("/work/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Proyectos</a>
-                    <a href={translatePath("/blog/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Labs (Blog)</a>
-                    <a href={translatePath("/contact/")} class="text-lg hover:text-lime-400 transition-colors w-fit">Contacto</a>
-                </div>
-            </div>
-
-            <div class="lg:col-span-6 flex flex-col gap-8">
-                <p class="text-zinc-500 text-[10px] font-mono uppercase tracking-[0.3em]">Hablemos</p>
-                <div class="flex flex-col gap-6">
-                    <a href="mailto:vanttastudio@gmail.com" class="text-2xl sm:text-3xl lg:text-5xl font-bold tracking-tighter hover:text-lime-400 transition-all break-words">
-                        vanttastudio@gmail.com
-                    </a>
-                    <a href={whatsappLink} class="text-xl sm:text-2xl font-mono text-lime-400 hover:text-white transition-colors flex items-center gap-3">
-                        <span class="relative flex h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-lime-500"></span>
-                        </span>
-                        +56 {phoneNumber}
-                    </a>
-                </div>
-
-                <div class="mt-8 max-w-md">
-                     <p class="text-zinc-400 text-sm mb-4 font-light italic">Únete a nuestro newsletter para actualizaciones mensuales.</p>
-                     <Newsletter />
-                </div>
-            </div>
+            <p class="font-mono text-[10px] md:text-xs text-zinc-700 uppercase tracking-[0.1em]">
+                Designed by <span class="text-white font-bold italic tracking-tighter">VANTTA.CODE</span>
+            </p>
         </div>
 
-        <div class="mt-32 pt-10 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div class="flex flex-col items-center md:items-start gap-4">
-                <div class="w-24 opacity-40 hover:opacity-100 transition-opacity">
-                    <Image src={logovanta} alt="Vantta Logo" class="filter brightness-0 invert" />
-                </div>
-                <p class="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">
-                    © 2026 Vantta Studio — All Rights Reserved.
-                </p>
-            </div>
-
-            <button 
-                id="go-top-button" 
-                class="group relative w-16 h-16 flex items-center justify-center rounded-full border border-zinc-800 bg-zinc-950 transition-all hover:border-lime-400"
-                data-cursor-hover
-            >
-                <div class="relative z-10 transition-transform group-hover:-translate-y-1">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 16V4M10 4L4 10M10 4L16 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-                <div class="absolute inset-0 rounded-full bg-lime-400 scale-0 group-hover:scale-100 transition-transform duration-500 ease-out -z-0"></div>
-            </button>
-        </div>
     </div>
 </footer>
 
-<script>
-    import { gsap } from "gsap";
-
-    function initFooter() {
-        const btn = document.getElementById("go-top-button");
-        if (!btn) return;
-
-        // Scroll to top con Lenis
-        btn.onclick = () => {
-            if (window.lenis) {
-                window.lenis.scrollTo(0, { duration: 2, ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        };
-
-        // Efecto Magnético
-        btn.addEventListener("mousemove", (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3 });
-        });
-
-        btn.addEventListener("mouseleave", () => {
-            gsap.to(btn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
-        });
+<style>
+    footer {
+        /* Eliminamos cualquier comportamiento de cursor especial para mantenerlo nativo */
+        cursor: auto !important;
     }
-
-    document.addEventListener("astro:page-load", initFooter);
-</script>
+</style>

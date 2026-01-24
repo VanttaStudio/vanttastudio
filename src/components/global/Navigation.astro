@@ -1,106 +1,41 @@
 ---
 /* src/components/global/Navigation.astro */
-import { getLangFromUrl, useTranslatedPath } from "@i18n/utils";
-
-const lang = getLangFromUrl(Astro.url);
-const translatePath = useTranslatedPath(lang);
-
 const pages = [
-    { title: "HOME", url: "/" },
-    { title: "SERVICES", url: "/servicios/" }, 
+    { title: "INICIO", url: "/" },
+    { title: "SERVICIOS", url: "/servicios/" }, 
     { title: "PORTAFOLIO", url: "/work/" },
-    { title: "LABS", url: "/blog/" },
-    { title: "CONTACTO", url: "/contact/" },
+    { title: "CONTACTO", url: "/contact/", isCTA: true },
 ];
-
 const { pathname } = Astro.url;
 ---
 
-<header class="fixed top-0 left-0 w-full z-[100] bg-transparent selection:bg-lime-400 selection:text-black">
-    <div class="container-fluid px-6 md:px-12 h-16 md:h-20 flex items-center justify-between border-b border-white/5">
+<header class="fixed top-6 left-0 w-full z-[100] flex justify-center px-4">
+    <div class="flex items-center justify-between w-full max-w-4xl h-12 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-1.5 shadow-2xl shadow-black/50">
         
-        <a href="/" class="flex items-center gap-2 group/logo min-w-fit" data-cursor-hover>
-            <span class="text-lime-400 font-mono font-bold text-xs md:text-sm" id="prompt-symbol">></span>
-            <div id="logo-text" class="text-white text-lg md:text-xl font-black uppercase tracking-tighter italic glitch-target">
-                VANTTA.CODE
-            </div>
+        <a href="/" class="flex items-center justify-center w-9 h-9 ml-1 hover:opacity-70 transition-opacity">
+            <svg viewBox="0 0 1122 1122" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                <polygon points="387.74 782.48 462.31 856.78 587.82 856.78 513.64 782.75 387.74 782.48" fill="#707070"/>
+                <polygon points="513.64 782.97 832.08 190.85 906.52 265.29 587.82 857.07 513.64 782.97" fill="#c6c6c6"/>
+                <polygon points="404.01 190.85 478.45 265.29 555.52 683.22 481.08 608.77 404.01 190.85" fill="#707070"/>
+                <path d="M387.87,783,278.24,190.84H404l77.07,417.92L706.31,190.84H832.08L513.64,783Z" fill="#fff"/>
+            </svg>
         </a>
 
-        <nav class="hidden md:flex items-center gap-4 lg:gap-8">
+        <nav class="hidden md:flex items-center gap-1">
             {pages.map((page) => {
-                const isActive = pathname === page.url || pathname === translatePath(page.url);
+                const isActive = pathname === page.url;
+                if (page.isCTA) return (
+                    <a href={page.url} class="h-9 flex items-center px-6 rounded-full bg-white text-black font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-200 transition-all ml-4">
+                        {page.title}
+                    </a>
+                );
                 return (
-                    <a 
-                        href={translatePath(page.url)} 
-                        class={`glitch-target group relative font-mono font-bold tracking-[0.2em] text-[9px] lg:text-[10px] transition-all duration-300 ${isActive ? 'text-lime-400' : 'text-zinc-500 hover:text-white'}`}
-                        data-cursor-hover
-                    >
-                        <span class="opacity-30 group-hover:opacity-100 transition-opacity">&lt;</span>
-                        <span class="px-1">{page.title}</span>
-                        <span class="opacity-30 group-hover:opacity-100 transition-opacity">/&gt;</span>
-                        
-                        {isActive && (
-                            <div class="absolute -bottom-1 left-0 w-full h-[1px] bg-lime-400/50 shadow-[0_0_8px_#a3e635]"></div>
-                        )}
+                    <a href={page.url} class={`h-9 flex items-center px-4 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${isActive ? 'bg-white/10 text-white' : 'text-zinc-400 hover:text-white'}`}>
+                        {page.title}
                     </a>
                 );
             })}
         </nav>
 
-        <div x-data="{ open: false }" class="md:hidden">
-            <button @click="open = !open" class="text-lime-400 font-mono text-[9px] border border-white/10 px-3 py-1 bg-black/50">
-                [ MENU ]
-            </button>
-            <div x-show="open" x-cloak class="fixed inset-0 bg-black pt-24 px-8 z-[110] flex flex-col gap-6">
-                <button @click="open = false" class="absolute top-6 right-6 text-zinc-600 font-mono text-[10px]">[ CLOSE ]</button>
-                {pages.map((page) => (
-                    <a href={translatePath(page.url)} class="text-3xl font-black italic text-white uppercase tracking-tighter group">
-                       <span class="text-lime-400 group-hover:mr-2 transition-all">&lt;</span> {page.title} <span class="text-lime-400">/&gt;</span>
-                    </a>
-                ))}
-            </div>
-        </div>
-    </div>
+        <div class="md:hidden w-10"></div> </div>
 </header>
-
-<style is:global>
-    [x-cloak] { display: none !important; }
-    
-    /* Cursor de terminal intermitente */
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-    #cursor { animation: blink 1s step-end infinite; }
-
-    /* Espaciado superior para evitar solapamiento del contenido */
-    main {
-        padding-top: 5rem;
-    }
-</style>
-
-<script>
-    import { gsap } from "gsap";
-
-    function initNavigation() {
-        const targets = document.querySelectorAll(".glitch-target");
-        
-        targets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                // Efecto glitch aleatorio controlado para no ser pesado
-                gsap.to(target, { 
-                    skewX: () => (Math.random() - 0.5) * 15,
-                    x: () => (Math.random() - 0.5) * 4,
-                    duration: 0.08,
-                    repeat: 3,
-                    yoyo: true,
-                    ease: "power1.inOut",
-                    onComplete: () => {
-                        gsap.to(target, { skewX: 0, x: 0, duration: 0.1 });
-                    }
-                });
-            });
-        });
-    }
-
-    // Ejecutar en cada carga de página (soporta View Transitions de Astro)
-    document.addEventListener("astro:page-load", initNavigation);
-    initNavigation();
-</script>

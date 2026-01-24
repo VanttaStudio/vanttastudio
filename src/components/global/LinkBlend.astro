@@ -1,11 +1,11 @@
 ---
-// Definimos las props para que TypeScript no se queje
+/* src/components/global/LinkBlend.astro */
 interface Props {
     class?: string;
     isButton?: boolean;
     href?: string;
     type?: "button" | "submit" | "reset";
-    [x: string]: any; // Para capturar el resto de atributos como target, id, etc.
+    [x: string]: any; 
 }
 
 const { class: className, isButton, ...rest } = Astro.props;
@@ -13,53 +13,79 @@ const { class: className, isButton, ...rest } = Astro.props;
 
 {
     isButton ? (
-        <button class:list={["custom-element", className]} {...rest}>
-            <slot />
+        <button class:list={["link-blend-element", className]} {...rest}>
+            <span class="content-wrapper"><slot /></span>
         </button>
     ) : (
-        <a class:list={["custom-element", className]} {...rest}>
-            <slot />
+        <a class:list={["link-blend-element", className]} {...rest}>
+            <span class="content-wrapper"><slot /></span>
         </a>
     )
 }
 
 <style>
-    .custom-element {
-        cursor: pointer;
-        display: inline-flex; /* Cambiado a inline-flex para mejor alineación de slots */
-        align-items: center;
-        color: inherit; /* Que herede el color del padre para ser más versátil */
-        text-decoration: none;
+    .link-blend-element {
         position: relative;
-        transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 28px;
+        overflow: hidden;
+        cursor: pointer;
+        
+        /* Tipografía Industrial */
+        font-family: 'Inter', sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.05em;
+        font-size: 14px;
+        text-decoration: none;
+        
+        /* Colores Base */
+        color: #FFFFFF;
         background: transparent;
-        border: none;
-        padding: 4px 8px; /* Un poco de respiro para el efecto de fondo */
+        border: 1px solid #27272a; /* Zinc-800 */
+        transition: color 0.2s ease, border-color 0.2s ease;
     }
 
-    /* La línea del subrayado */
-    .custom-element::after {
+    /* Bloque de Fondo Sólido (Efecto de Inversión) */
+    .link-blend-element::before {
         content: "";
-        background: #a3e635; /* Usando tu verde lima de la config */
-        width: calc(100% + 4px);
-        height: 1px;
         position: absolute;
-        bottom: 0;
-        left: -2px;
-        transition: all 0.25s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-        z-index: -1;
-    }
-
-    /* Estado Hover: La línea crece y se vuelve el fondo */
-    .custom-element:hover {
-        color: #131313; /* Tu color 'black' de la config para contraste sobre el verde */
-    }
-
-    .custom-element:hover::after {
-        height: 100%;
-        width: 100%;
+        top: 0;
         left: 0;
-        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: #FFFFFF;
+        transform: translateY(101%); /* Inicia oculto abajo */
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1;
+    }
+
+    .content-wrapper {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* ESTADO HOVER: Inversión instantánea */
+    .link-blend-element:hover {
+        color: #050505; /* Negro sobre Blanco */
+        border-color: #FFFFFF;
+    }
+
+    .link-blend-element:hover::before {
+        transform: translateY(0);
+    }
+
+    /* Soporte para Mobile (Touch) */
+    @media (max-width: 768px) {
+        .link-blend-element {
+            padding: 10px 20px;
+            font-size: 12px;
+        }
     }
 </style>

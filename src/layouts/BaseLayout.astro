@@ -1,32 +1,19 @@
 ---
+/* src/layouts/BaseLayout.astro */
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/global/Footer.astro";
 import Navigation from "@components/global/Navigation.astro";
 
-// Componentes de Efectos
-import CursorFollower from "@components/global/CursorFollower.astro";
-import SmoothScroll from "@components/global/SmoothScroll.astro";
-
-// Simplificamos a un solo idioma según tu preferencia
 const { seo } = Astro.props;
-const lang = "es"; 
 ---
 
-<html lang={lang} class="scroll-smooth">
+<html lang="es">
     <head>
         <BaseHead {...seo} />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,900;1,900&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@1,900&family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
     </head>
     
     <body class="bg-[#050505] text-white selection:bg-white selection:text-black w-full min-h-screen flex flex-col antialiased">
-        
-        {/* Capa de grano sutil para textura industrial */}
-        <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999] bg-[url('/grain.png')]"></div>
-
-        <SmoothScroll />
-
-        <CursorFollower />
-
         <div class="relative z-50">
             <Navigation />
         </div>
@@ -35,74 +22,39 @@ const lang = "es";
             <slot />
         </main>
         
-        <div class="relative z-10">
+        <div class="relative z-10 border-t border-zinc-900">
             <Footer />
         </div>
 
         <style is:global>
             :root {
-                --accent-white: #FFFFFF;
-                --bg-black: #050505;
-                --gray-extrusion: #8A8A8A; /* Inspirado en las sombras de la V 3D */
+                --white: #FFFFFF;
+                --black: #050505;
             }
 
-            /* --- RESET & ESTRUCTURA --- */
             html, body {
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                overflow-x: hidden;
-                background-color: var(--bg-black);
+                background-color: var(--black);
+                font-family: 'JetBrains Mono', monospace;
+                cursor: auto !important; /* Mouse siempre visible */
             }
 
-            /* --- TIPOGRAFÍA BRUTALISTA --- */
             h1, h2, h3, .font-display {
                 font-family: 'Inter', sans-serif;
                 font-weight: 900 !important;
                 text-transform: uppercase;
-                letter-spacing: -0.04em;
-                line-height: 0.85;
-                font-style: italic; /* Siguiendo la agresividad del logo */
-            }
-
-            code, .font-mono {
-                font-family: 'JetBrains Mono', monospace;
-                font-weight: 300;
-                letter-spacing: 0.05em;
-                text-transform: none;
-            }
-
-            /* --- CONFIGURACIÓN LENIS --- */
-            html.lenis, html.lenis body {
-                height: auto;
-            }
-            .lenis.lenis-smooth {
-                scroll-behavior: auto !important;
-            }
-            .lenis.lenis-stopped {
-                overflow: hidden;
-            }
-
-            /* --- ELEMENTOS DE INTERFAZ --- */
-            ::selection {
-                background: var(--accent-white);
-                color: var(--bg-black);
+                letter-spacing: -0.05em;
+                line-height: 0.8;
+                font-style: italic;
             }
 
             /* Scrollbar Industrial */
-            ::-webkit-scrollbar {
-                width: 4px;
-            }
-            ::-webkit-scrollbar-track {
-                background: var(--bg-black);
-            }
-            ::-webkit-scrollbar-thumb {
-                background: #333;
-                border-radius: 0px;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-                background: var(--accent-white);
-            }
+            ::-webkit-scrollbar { width: 4px; }
+            ::-webkit-scrollbar-track { background: var(--black); }
+            ::-webkit-scrollbar-thumb { background: #27272A; }
+            ::-webkit-scrollbar-thumb:hover { background: var(--white); }
         </style>
     </body>
 </html>

@@ -1,56 +1,51 @@
 ---
-// src/pages/index.astro
+/* src/pages/index.astro */
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
-// React Components
-import Hero from "@components/landing/Hero.tsx";
-import AllInOne from "@components/landing/AllInOne.tsx";
-import UbikappPromo from "@components/ubikapp/UbikappPromo.tsx";
-import Testimonials from "@components/landing/Testimonials.jsx";
-import Tagline from "@components/landing/Tagline.tsx";
-import Faq from "@components/landing/Faq.jsx";
-import Cta from "@components/landing/Cta.jsx";
+/** * IMPORTACIONES DE INGENIERÍA
+ * Todos los componentes React (.tsx) requieren directivas client: para activarse.
+ */
+import Hero from "@/components/landing/Hero.tsx";
+import Tagline from "@/components/landing/Tagline.tsx";
+import AllInOne from "@/components/landing/AllInOne.tsx";
+import ServicesGrid from "@/components/landing/Services.astro";
 
-// Astro Components (Originales)
-import WorkPreview from "@components/landing/WorkPreview.astro";
-import Services from "@components/landing/Services.astro";
+// WorkPreview es un componente Astro, no requiere directiva client:
+import WorkPreview from "@/components/landing/WorkPreview.astro";
+
+import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
+import Cta from "@/components/landing/Cta.tsx";
 
 const seo = {
-    title: "VANTTA code_ | Ingeniería de Software & Estrategia",
-    description: "Estudio de ingeniería digital especializado en desarrollo web...",
+    title: "VANTTA // SISTEMAS_PROPIETARIOS",
+    description: "Ingeniería de software y despliegue de infraestructura lógica de alto rendimiento.",
 };
 ---
 
 <BaseLayout seo={seo}>
-    <div class="relative bg-zinc-950 w-full overflow-hidden">
+    <main class="bg-[#050505] selection:bg-lime-400 selection:text-black">
         
-        <div class="relative min-h-screen w-full border-b border-zinc-900">
-             <Hero client:load />
-        </div>
+        <Hero client:load />
 
-        <div class="relative z-20 bg-zinc-950">
-            <WorkPreview class="!pt-20 pb-20 lg:!pt-36 lg:pb-40" />
-        </div>
+        <WorkPreview />
+        
+        <ServicesGrid client:visible />
 
-        <div class="relative z-10 bg-zinc-950">
-            <Services />
-        </div>
-
-        <AllInOne client:visible />
-
-        <div class="relative z-10 bg-zinc-950 border-t border-zinc-900">
+        <div class="py-20 lg:py-32">
             <UbikappPromo client:visible />
         </div>
-
-        <Testimonials client:visible />
-
+        
+        <AllInOne client:visible />
+        
+        
+        
         <Tagline client:visible />
-
-        <div class="relative z-10 bg-zinc-950 py-20 border-t border-zinc-900">
-            <Faq client:visible />
+        
+        
+        
+        <div class="pb-20">
+            <Cta client:visible />
         </div>
 
-        <Cta client:visible />
-        
-    </div>
+    </main>
 </BaseLayout>

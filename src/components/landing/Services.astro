@@ -9,73 +9,74 @@ const { class: className } = Astro.props;
 
 const points = [
     {
-        tag: "01. Digital Experience",
-        title: "Desarrollo Web",
-        content: "Interfaces de alto rendimiento con <strong>Astro y React</strong>. No solo hacemos webs; construimos herramientas de conversión optimizadas en SEO y velocidad crítica.",
+        tag: "01 // E-COMMERCE & WEB",
+        title: "DESARROLLO WEB",
+        content: "Interfaces de alto rendimiento. No solo hacemos webs; construimos herramientas de conversión optimizadas en SEO y velocidad crítica.",
         image: websiteSvg,
         link: "/services/web-development"
     },
     {
-        tag: "02. Operations & Scale",
-        title: "Software a Medida",
-        content: "Desarrollamos ecosistemas robustos: <strong>Sistemas ERP y CRM</strong> diseñados para centralizar tu operativa y automatizar procesos que hoy te quitan tiempo.",
+        tag: "02 // OPERATIONS & SCALE",
+        title: "SOFTWARE A MEDIDA",
+        content: "Desarrollamos ecosistemas robustos: Sistemas ERP y CRM diseñados para centralizar tu operativa y automatizar procesos.",
         image: mobileSvg,
         link: "/services/software-solutions"
     },
     {
-        tag: "03. Visual Identity",
-        title: "Branding y Diseño",
-        content: "Creamos identidades que imponen respeto. Desde el concepto hasta el <strong>Diseño Gráfico avanzado</strong>, alineamos tu estética con el valor real de tu negocio.",
+        tag: "03 // VISUAL IDENTITY",
+        title: "BRANDING Y DISEÑO",
+        content: "Creamos identidades que imponen respeto. Alineamos tu estética con el valor real y la ambición de tu negocio.",
         image: designSvg,
         link: "/services/branding"
     },
     {
-        tag: "04. Revenue Growth",
-        title: "Estrategias de Venta",
-        content: "Optimizamos tu flujo comercial. Implementamos <strong>metodologías de prospección y cierre</strong> para transformar leads en revenue constante y escalable.",
+        tag: "04 // REVENUE GROWTH",
+        title: "ESTRATEGIA DIGITAL",
+        content: "Optimizamos tu flujo comercial. Implementamos metodologías para transformar leads en revenue constante y escalable.",
         image: seoSvg,
         link: "/services/sales-strategy"
     },
 ];
 ---
 
-<section id="services-scroll" class:list={["relative bg-zinc-950 text-white overflow-hidden", className]}>
+<section id="services-scroll" class:list={["relative bg-[#050505] text-white overflow-hidden border-t border-zinc-900", className]}>
     <div class="wrapper h-screen w-full flex items-center justify-center overflow-hidden">
         
-        <div class="indicators absolute left-6 md:left-12 top-1/2 -translate-y-1/2 hidden h-[240px] w-[1px] flex-col justify-between gap-2 z-50">
-            {points.map(() => <div class="indicator-bar w-full grow bg-zinc-900 transition-all duration-500" />)}
+        <div class="indicators absolute left-6 md:left-12 top-1/2 -translate-y-1/2 hidden h-[240px] w-[2px] flex-col justify-between gap-3 z-50">
+            {points.map(() => <div class="indicator-bar w-full grow bg-zinc-900 transition-all duration-700" />)}
         </div>
 
-        <div class="container-inner relative h-full w-full max-w-7xl mx-auto px-8 md:px-12">
+        <div class="container-inner relative h-full w-full max-w-[1440px] mx-auto px-8 md:px-12">
             {
                 points.map((point) => (
-                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-24">
+                    <div class="point-slide absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-16 lg:gap-32">
                         
-                        <div class="illustration hidden lg:block w-1/3 opacity-20 transition-all duration-700">
+                        <div class="illustration hidden lg:block w-5/12 opacity-10 grayscale invert brightness-200 transition-all duration-1000">
                             <Fragment set:html={point.image} />
                         </div>
 
-                        <article class="content-box flex flex-col gap-10 md:w-2/3 items-start translate-y-10">
-                            <div class="flex items-center gap-6">
-                                <span class="h-[1px] w-16 bg-lime-400/50"></span>
-                                <span class="font-mono text-[11px] uppercase tracking-[0.5em] text-lime-400 font-bold">
+                        <article class="content-box flex flex-col gap-12 md:w-7/12 items-start">
+                            <div class="flex items-center gap-4">
+                                <span class="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-500 font-bold">
                                     {point.tag}
                                 </span>
                             </div>
                             
-                            <div class="space-y-6">
-                                <h3 class="title-text text-6xl md:text-9xl font-black uppercase tracking-tighter leading-[0.8] text-white">
+                            <div class="space-y-8">
+                                <h3 class="title-text text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.8] text-white">
                                     {point.title.split(' ')[0]} <br/>
-                                    <span class="text-zinc-800 outline-text">{point.title.split(' ').slice(1).join(' ')}</span>
+                                    <span class="text-zinc-900 outline-text">{point.title.split(' ').slice(1).join(' ')}</span>
                                 </h3>
-                                <p class="description-text text-xl md:text-2xl text-zinc-400 font-light max-w-xl leading-snug" set:html={point.content} />
+                                <p class="description-text text-xl md:text-2xl text-zinc-500 font-medium max-w-xl leading-snug uppercase tracking-tight">
+                                    {point.content}
+                                </p>
                             </div>
 
-                            <a href={point.link} class="group/btn relative inline-flex items-center gap-5 px-0 py-2 overflow-hidden transition-all">
-                                <span class="font-mono text-[10px] uppercase tracking-[0.4em] text-zinc-100 group-hover/btn:text-lime-400 transition-colors">
-                                    Explorar Servicio
+                            <a href={point.link} class="group/btn relative inline-flex items-center gap-6 py-4 overflow-hidden transition-all">
+                                <span class="font-mono text-[11px] uppercase tracking-[0.5em] text-white">
+                                    VER DETALLES
                                 </span>
-                                <div class="w-10 h-[1px] bg-zinc-800 group-hover/btn:w-20 group-hover/btn:bg-lime-400 transition-all duration-500"></div>
+                                <div class="w-12 h-[1px] bg-zinc-800 group-hover/btn:w-24 group-hover/btn:bg-white transition-all duration-700"></div>
                             </a>
                         </article>
                     </div>
@@ -86,33 +87,26 @@ const points = [
 </section>
 
 <style is:global>
-    /* Estilos de Texto y Gráfica Mejorados */
     #services-scroll .outline-text {
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
         color: transparent;
-        transition: all 0.8s ease;
+        transition: all 1s ease;
     }
     
     #services-scroll .point-slide[style*="opacity: 1"] .outline-text {
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.02);
-    }
-
-    #services-scroll .point-slide[style*="opacity: 1"] .illustration {
-        opacity: 1;
-        transform: scale(1.1);
+        color: rgba(255, 255, 255, 0.03);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
     }
 
     #services-scroll .illustration svg {
         width: 100%;
         height: auto;
-        filter: grayscale(1) invert(1) brightness(0.7);
-        mix-blend-mode: screen;
+        filter: grayscale(1) opacity(0.2);
     }
 
-    #services-scroll article p strong {
-        color: #fff;
-        font-weight: 600;
+    /* Ajuste de GSAP para mayor suavidad industrial */
+    .point-slide {
+        will-change: transform, opacity;
     }
 </style>
 
@@ -140,44 +134,39 @@ const points = [
                     start: "top top",
                     end: `+=${slides.length * 100}%`,
                     pin: true,
-                    scrub: 1.2,
+                    scrub: 1, // Más directo, menos "elástico"
                     invalidateOnRefresh: true 
                 }
             });
 
             slides.forEach((slide, i) => {
-                // Seteo inicial
-                gsap.set(slide, { autoAlpha: (i === 0 ? 1 : 0), y: (i === 0 ? 0 : 50) });
-                if (i === 0) gsap.set(indicators[0], { backgroundColor: "#a3e635" });
+                gsap.set(slide, { autoAlpha: (i === 0 ? 1 : 0), y: (i === 0 ? 0 : 80) });
+                if (i === 0) gsap.set(indicators[0], { backgroundColor: "#ffffff" });
 
                 if (i > 0) {
-                    // Entrada del slide
                     tl.to(slide, { 
                         autoAlpha: 1, 
                         y: 0, 
                         duration: 1,
-                        ease: "expo.out"
+                        ease: "power4.out"
                     }, i);
                     
                     tl.to(indicators[i], { 
-                        backgroundColor: "#a3e635", 
-                        height: "140%", // Efecto de estiramiento
+                        backgroundColor: "#ffffff", 
                         duration: 0.5 
                     }, i);
                 }
 
                 if (i < slides.length - 1) {
-                    // Salida del slide
                     tl.to(slide, { 
                         autoAlpha: 0, 
-                        y: -50, 
+                        y: -80, 
                         duration: 1,
-                        ease: "expo.in"
+                        ease: "power4.in"
                     }, i + 0.6);
                     
                     tl.to(indicators[i], { 
                         backgroundColor: "#18181b", 
-                        height: "100%",
                         duration: 0.5 
                     }, i + 0.6);
                 }

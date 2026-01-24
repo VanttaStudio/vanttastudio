@@ -6,126 +6,110 @@ import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
 import Cta from "@/components/landing/Cta.tsx";
 
 const seo: AstroSeoProps = {
-    title: "VANTTA // PERFORMANCE_SYSTEMS",
-    description: "Protocolos de alto rendimiento: Entrenamiento en ventas, psicología organizacional y estrategias de escalamiento real.",
+    title: "VANTTA // ESTRATEGIA_DE_VENTAS",
+    description: "Entrenamiento y estrategias directas para aumentar las ventas de tu empresa.",
     canonical: "https://vanttacode.cl/services/sales-strategy/",
 };
 
 const performanceServices = [
-    { id: "PERF_01", title: "Sales Mastery", price: "$450.000", desc: "Curso intensivo de cierre de ventas y manejo de objeciones.", features: ["Técnicas de Persuasión", "Roleplay en Vivo", "Psicología del Comprador"] },
-    { id: "PERF_02", title: "Charlas Equipo", price: "$300.000", desc: "Sesiones de alto impacto para alinear objetivos comerciales.", features: ["Motivación Realista", "Sinergia de Grupo", "Cultura de Ganadores"] },
-    { id: "PERF_03", title: "Retiro High Performance", price: "Cotizar", desc: "Jornada inmersiva fuera de la oficina con psicólogos expertos.", features: ["Outdoor Training", "Gestión de Estrés", "Cohesión de Liderazgo"] },
-    { id: "PERF_04", title: "Marketing Estratégico", price: "$500.000", desc: "Plan de ataque para posicionar tu producto por encima del resto.", features: ["Análisis de Nicho", "Funnel de Conversión", "Branding de Ventas"] },
-    { id: "PERF_05", title: "Psicología Org.", price: "$350.000", desc: "Optimización del clima laboral para aumentar la productividad.", features: ["Diagnóstico de Equipo", "Resolución Conflictos", "Eficiencia Mental"] },
-    { id: "PERF_06", title: "Consultoría 1 a 1", price: "$120.000", desc: "Sesión privada para desbloquear cuellos de botella.", features: ["Análisis de Métricas", "Estrategia Directa", "Roadmap de Crecimiento"] },
-    { id: "PERF_07", title: "Optimización Work", price: "$250.000", desc: "Sistemas para trabajar menos pero producir mucho más.", features: ["Gestión del Tiempo", "Automatización Humana", "Deep Work Method"] },
-    { id: "PERF_08", title: "Venta Consultiva", price: "$400.000", desc: "Estrategias para B2B y servicios de alto ticket.", features: ["Ciclos de Venta Largos", "Nurturing de Leads", "Cierre Corporativo"] },
+    { id: "_01", title: "Taller de Cierre", price: "$450.000", desc: "Entrenamiento práctico para que tu equipo aprenda a cerrar ventas y manejar objeciones sin miedo.", features: ["Técnicas de cierre", "Práctica real", "Manejo de objeciones"] },
+    { id: "_02", title: "Charlas de Equipo", price: "$300.000", desc: "Sesiones motivacionales y técnicas para alinear a todos con las metas de venta de la empresa.", features: ["Motivación grupal", "Metas claras", "Cultura de trabajo"] },
+    { id: "_03", title: "Retiro de Ventas", price: "Cotizar", desc: "Jornada intensiva fuera de la oficina para planificar el año y fortalecer la unión del equipo.", features: ["Plan de trabajo", "Liderazgo", "Unión de equipo"] },
+    { id: "_04", title: "Plan de Marketing", price: "$500.000", desc: "Armamos la estrategia completa para que tu marca se vea mejor que la competencia y venda más.", features: ["Análisis de mercado", "Plan de anuncios", "Imagen de marca"] },
+    { id: "_05", title: "Gestión de Personal", price: "$350.000", desc: "Ayudamos a mejorar el ambiente de trabajo para que tus vendedores sean más felices y produzcan más.", features: ["Clima laboral", "Solución de problemas", "Productividad"] },
+    { id: "_06", title: "Asesoría Directa", price: "$120.000", desc: "Reunión privada para revisar tu negocio, encontrar errores y darte soluciones inmediatas para crecer.", features: ["Revisión de números", "Plan de acción", "Consultas directas"] },
+    { id: "_07", title: "Productividad", price: "$250.000", desc: "Sistemas y consejos prácticos para que tu equipo trabaje mejor, pierda menos tiempo y logre más.", features: ["Uso del tiempo", "Herramientas digitales", "Orden de trabajo"] },
+    { id: "_08", title: "Ventas a Empresas", price: "$400.000", desc: "Estrategias específicas para vender productos caros o servicios a otras empresas (B2B).", features: ["Ventas grandes", "Captación de clientes", "Cierre corporativo"] },
 ];
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-lime-400 selection:text-black">
+    <main class="bg-[#050505] text-white min-h-screen relative overflow-hidden selection:bg-white selection:text-black">
         
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0"
+        <div class="absolute inset-0 opacity-[0.02] pointer-events-none z-0"
              style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;">
         </div>
 
-        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 lg:max-w-7xl">
-            <div class="max-w-6xl">
-                <div class="flex items-center gap-4 mb-10">
-                    <span class="h-px w-12 bg-lime-400"></span>
-                    <span class="font-mono text-lime-400 text-[10px] uppercase tracking-[0.5em] animate-pulse">
-                        Performance_Protocol_v2.6
+        <section class="relative z-10 mx-auto px-6 pt-40 pb-24 md:px-12 max-w-[1440px]">
+            <div class="max-w-6xl border-l-2 border-white pl-8 md:pl-12">
+                <div class="flex flex-col gap-6 mb-12">
+                    <span class="font-mono text-zinc-600 text-[10px] uppercase tracking-[0.5em] font-black">
+                        VENTAS // RESULTADOS // 2026
                     </span>
+                    <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
+                        SISTEMAS PARA <br/> <span class="text-zinc-900 outline-text">VENDER MÁS_</span>
+                    </h1>
                 </div>
-                
-                <h1 class="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase tracking-tighter italic leading-[0.75] text-white">
-                    VENDE MÁS <br/> <span class="text-zinc-800">MEJOR_</span>
-                </h1>
-                
-                <div class="mt-12 max-w-2xl border-l border-zinc-900 pl-8">
-                    <p class="font-mono text-zinc-500 text-[11px] uppercase tracking-[0.3em] leading-relaxed">
-                        Optimizamos la <span class="text-white">psicología y la estrategia</span> de tu equipo. Ingeniería de procesos comerciales para dominar el mercado sin aumentar las horas de trabajo.
-                    </p>
-                </div>
+                <p class="font-mono text-zinc-500 text-[11px] md:text-sm uppercase tracking-[0.3em] leading-relaxed max-w-xl">
+                    Entrenamos a tu equipo y optimizamos tus procesos para <span class="text-white">aumentar tus ingresos reales</span>. Menos teoría y más resultados para tu negocio.
+                </p>
             </div>
         </section>
 
-        <section class="relative z-10 border-y border-zinc-900 bg-black/40 backdrop-blur-md">
-            <div class="mx-auto px-6 py-24 md:px-12 lg:max-w-7xl">
+        <section class="relative z-10 border-y border-zinc-900 bg-black/20">
+            <div class="mx-auto max-w-[1440px] px-0 md:px-12 py-24">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-zinc-900">
                     {performanceServices.map(item => (
-                        <div class="bg-transparent p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-500 group flex flex-col justify-between relative">
-                            <span class="absolute top-6 right-8 font-mono text-[9px] text-zinc-800 group-hover:text-lime-400 transition-colors uppercase tracking-widest">
-                                [ {item.id} ]
-                            </span>
-
+                        <div class="p-10 border-r border-b border-zinc-900 hover:bg-zinc-950 transition-all duration-700 group flex flex-col justify-between relative">
+                            <span class="absolute top-6 right-8 font-mono text-[10px] text-zinc-800 group-hover:text-white transition-colors uppercase tracking-widest">{item.id}</span>
                             <div>
-                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter leading-none text-white group-hover:text-lime-400 transition-colors">{item.title}</h3>
-                                <p class="text-lime-400 font-mono text-[9px] mb-6 uppercase tracking-widest font-bold">FE_ {item.price}</p>
-                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-8 group-hover:text-zinc-400 transition-colors">
-                                    {item.desc}
-                                </p>
+                                <h3 class="text-2xl font-black uppercase italic mb-1 tracking-tighter text-white group-hover:translate-x-1 transition-transform">{item.title}</h3>
+                                <p class="text-zinc-700 font-mono text-[9px] mb-8 uppercase tracking-widest font-black">VALOR_ {item.price}</p>
+                                <p class="text-zinc-500 text-[10px] uppercase font-mono leading-relaxed mb-10 group-hover:text-zinc-300 transition-colors">{item.desc}</p>
                             </div>
-
-                            <ul class="space-y-3 pt-6 border-t border-zinc-900/50">
+                            <ul class="space-y-3 pt-6 border-t border-zinc-900">
                                 {item.features.map(feat => (
-                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-2 group-hover:text-zinc-300">
-                                        <span class="w-1 h-1 bg-lime-400/40 group-hover:bg-lime-400 transition-colors"></span> {feat}
+                                    <li class="text-[9px] text-zinc-700 font-mono uppercase tracking-widest flex items-center gap-3 group-hover:text-white transition-colors">
+                                        <div class="w-1 h-1 bg-zinc-800 group-hover:bg-white transition-colors"></div> {feat}
                                     </li>
                                 ))}
                             </ul>
-
-                            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-lime-400/[0.02] to-transparent h-1/4 w-full -translate-y-full group-hover:animate-scan pointer-events-none"></div>
                         </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 lg:max-w-7xl">
-            <div class="grid grid-cols-1 md:grid-cols-2 border border-zinc-900 overflow-hidden">
-                <div class="group relative overflow-hidden bg-zinc-950 p-12 border-b md:border-b-0 md:border-r border-zinc-900">
-                    <span class="text-lime-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ ORG_HEALTH ]</span>
-                    <h2 class="text-5xl font-black uppercase italic tracking-tighter leading-none mb-6">MENTALIDAD<br/>INDUSTRIAL_</h2>
-                    <p class="text-zinc-500 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed group-hover:text-zinc-300 transition-colors">
-                        Implementamos dinámicas dirigidas por psicólogos para eliminar cuellos de botella emocionales. Un equipo optimizado es un equipo que escala.
+        <section class="relative z-10 mx-auto px-6 py-32 md:px-12 max-w-[1440px]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 border border-zinc-900 overflow-hidden">
+                <div class="group relative overflow-hidden bg-[#050505] p-12 lg:p-24 border-b lg:border-b-0 lg:border-r border-zinc-900">
+                    <span class="text-zinc-600 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">EQUIPO_Y_VENTAS</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8">EQUIPOS QUE<br/>PRODUCEN.</h2>
+                    <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed max-w-md group-hover:text-zinc-300 transition-colors">
+                        Ayudamos a tus vendedores a eliminar bloqueos y trabajar con una meta clara. Un equipo bien organizado vende mucho más.
                     </p>
-                    <div class="text-zinc-900 font-black text-8xl italic absolute -right-4 -bottom-4 opacity-10 group-hover:text-lime-400/20 transition-colors pointer-events-none">PSIC</div>
                 </div>
 
-                <div class="bg-lime-400 p-12 flex flex-col justify-center relative group">
-                    <span class="text-zinc-950 font-mono text-[10px] uppercase tracking-[0.5em] mb-4 block">[ TEAM_OFFSITES ]</span>
-                    <h2 class="text-5xl font-black uppercase italic tracking-tighter leading-none text-zinc-950 mb-6">RETIROS<br/>DE ALTO NIVEL_</h2>
-                    <p class="text-zinc-900 font-mono text-[11px] uppercase tracking-[0.2em] leading-relaxed font-bold">
-                        Jornadas de estrategia y entrenamiento físico/mental fuera de la zona de confort. Diseñado para forjar líderes.
+                <div class="bg-white p-12 lg:p-24 flex flex-col justify-center relative group text-black">
+                    <span class="text-zinc-400 font-mono text-[10px] uppercase tracking-[0.5em] mb-6 block">ENTRENAMIENTO_VANTTA</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase italic tracking-tighter leading-none mb-8">TALLERES DE<br/>ALTO NIVEL_</h2>
+                    <p class="text-zinc-500 font-mono text-sm uppercase tracking-tight leading-relaxed font-bold mb-12">
+                        Sesiones de trabajo real para dueños de empresas y equipos comerciales que quieren dominar su mercado.
                     </p>
-                    <div class="mt-8">
-                        <a href="https://wa.me/56966877441" class="inline-block border-2 border-zinc-950 px-8 py-3 text-[10px] font-mono uppercase tracking-[0.3em] font-black hover:bg-zinc-950 hover:text-white transition-all">
-                           RESERVAR_FECHA
-                        </a>
-                    </div>
+                    <a href="https://wa.me/56966877441" class="inline-block border-2 border-black px-10 py-4 text-[11px] font-mono uppercase tracking-[0.3em] font-black hover:bg-black hover:text-white transition-all text-center">
+                        SOLICITAR_REUNIÓN
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="relative z-10 bg-white text-black py-32 border-y border-zinc-200">
-            <div class="mx-auto px-6 md:px-12 lg:max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div>
-                    <h3 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.85]">SISTEMA<br/>GANADOR_</h3>
-                    <p class="text-zinc-400 uppercase font-mono text-[9px] tracking-[0.4em] mt-8 font-bold italic">OPTIMIZACIÓN_WORK_PERFORMANCE</p>
+            <div class="mx-auto px-6 md:px-12 max-w-[1440px] grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="border-l-4 border-black pl-8">
+                    <h3 class="text-6xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.85]">TU PLAN<br/>DE VENTA.</h3>
+                    <p class="text-zinc-400 uppercase font-mono text-[10px] tracking-[0.4em] mt-10 font-black italic">AUMENTA_TUS_INGRESOS_REALES</p>
                 </div>
-                <div class="space-y-16">
+                <div class="space-y-20">
                     {[
-                        { num: "01", title: "Auditoría de Procesos", desc: "Localizamos fugas de capital y tiempo mediante análisis de métricas crudas." },
-                        { num: "02", title: "Inyección de Estrategia", desc: "Capacitación técnica en persuasión moderna y herramientas digitales de cierre." },
-                        { num: "03", title: "Escalamiento Real", desc: "Medición, iteración y multiplicación de resultados bajo estándares industriales." }
+                        { num: "01", title: "Auditoría de Ventas", desc: "Revisamos cómo estás vendiendo hoy para encontrar los puntos donde estás perdiendo dinero." },
+                        { num: "02", title: "Plan de Acción", desc: "Creamos la estrategia y entrenamos a tu equipo en técnicas de persuasión y cierre de negocios." },
+                        { num: "03", title: "Resultados Reales", desc: "Medimos el crecimiento y ajustamos el plan para que tus ventas sigan subiendo constantemente." }
                     ].map(step => (
-                        <div class="flex gap-8 items-start group">
-                            <span class="text-5xl font-black italic text-lime-500 group-hover:translate-x-2 transition-transform">{step.num}</span>
-                            <div class="border-l border-zinc-100 pl-8">
-                                <h4 class="font-black uppercase text-2xl italic tracking-tighter">{step.title}_</h4>
-                                <p class="text-[11px] font-mono text-zinc-500 uppercase tracking-[0.2em] mt-3 leading-relaxed">{step.desc}</p>
+                        <div class="flex gap-10 items-start group">
+                            <span class="text-6xl font-black italic text-zinc-100 group-hover:text-black transition-colors">{step.num}</span>
+                            <div class="border-l border-zinc-200 pl-10">
+                                <h4 class="font-black uppercase text-3xl italic tracking-tighter">{step.title}_</h4>
+                                <p class="text-[11px] font-mono text-zinc-500 uppercase tracking-[0.2em] mt-4 leading-relaxed">{step.desc}</p>
                             </div>
                         </div>
                     ))}
@@ -133,26 +117,19 @@ const performanceServices = [
             </div>
         </section>
 
-        <div class="relative z-10 pt-32 bg-[#050505] border-t border-zinc-900">
+        <div class="relative z-10 bg-[#050505]">
             <UbikappPromo client:visible />
-            <div class="mt-20">
+            <div class="pb-20">
                 <Cta client:visible />
             </div>
         </div>
 
     </main>
-</BaseLayout>
 
-<style is:global>
-    @keyframes scan {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(400%); }
-    }
-    .animate-scan {
-        animation: scan 3s linear infinite;
-    }
-    h1, h2, h3, h4 {
-        font-weight: 950 !important;
-        letter-spacing: -0.05em;
-    }
-</style>
+    <style is:global>
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+            color: transparent;
+        }
+    </style>
+</BaseLayout>
