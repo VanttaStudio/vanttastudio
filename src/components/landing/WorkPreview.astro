@@ -1,53 +1,76 @@
 ---
+/* src/components/landing/WorkPreview.astro */
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
 const { class: className } = Astro.props;
 
+// Filtramos y ordenamos los archivos del sistema
 const allProjects = (await getCollection("projects"))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 8); 
 ---
 
-<section id="work-preview-section" class:list={["w-full bg-zinc-950 pt-20", className]}>
-    <div class="max-w-7xl mx-auto px-8 pb-12 md:px-12 w-full text-white">
-        <div class="flex flex-col gap-2 border-l border-lime-400/30 pl-6">
-            <span class="font-mono text-lime-400 text-xs tracking-[0.3em] uppercase">Portafolio Seleccionado</span>
-            <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-none">
-                Proyectos<span class="text-lime-400">_</span>
+<section id="work-preview-section" class:list={["w-full bg-[#050505] pt-32", className]}>
+    <div class="max-w-7xl mx-auto px-6 pb-16 md:px-12 w-full text-white">
+        <div class="flex flex-col gap-4 border-l border-zinc-800 pl-8">
+            <div class="flex items-center gap-3">
+                <span class="h-1.5 w-1.5 bg-white animate-pulse"></span>
+                <span class="font-mono text-zinc-500 text-[10px] tracking-[0.4em] uppercase font-bold">
+                    [ PROJECT_ARCHIVE_DEPLOYMENT ]
+                </span>
+            </div>
+            <h2 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-[0.8]">
+                Proyectos<span class="text-zinc-800 transition-colors hover:text-white">_</span>
             </h2>
         </div>
     </div>
 
     <div class="inspiro-grid border-y border-zinc-900">
         {
-            allProjects.map((project) => {
+            allProjects.map((project, index) => {
                 const imgSource = project.data.image?.source;
                 const imgAlt = project.data.image?.alt || project.data.title;
+                const projectId = `ID_0${index + 1}`;
                 
                 return (
-                    <a href={`/work/${project.slug}`} class="work-item group border-zinc-900 border-r border-b">
-                        <div class="image-container bg-zinc-950">
+                    <a href={`/work/${project.slug}`} class="work-item group border-zinc-900 border-r border-b bg-zinc-950">
+                        <div class="absolute top-0 left-0 h-3 w-3 border-t border-l border-zinc-800 group-hover:border-white transition-colors z-30" />
+                        <div class="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-zinc-800 group-hover:border-white transition-colors z-30" />
+                        
+                        <div class="absolute top-6 left-6 z-30 font-mono text-[9px] text-zinc-700 group-hover:text-white transition-colors">
+                            // {projectId}
+                        </div>
+
+                        <div class="image-container overflow-hidden">
                             {imgSource ? (
                                 <Image 
                                     src={imgSource} 
                                     alt={imgAlt}
                                     width={800}
-                                    height={800}
-                                    class="project-img grayscale hover:grayscale-0"
+                                    height={1000}
+                                    class="project-img grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
                                 />
                             ) : (
-                                <div class="flex h-full w-full items-center justify-center text-zinc-800 font-mono text-[10px]">
-                                    NO_IMAGE_DATA
+                                <div class="flex h-full w-full items-center justify-center text-zinc-900 font-mono text-[10px] tracking-widest">
+                                    DATA_NOT_FOUND
                                 </div>
                             )}
-                            <div class="overlay"></div>
+                            <div class="overlay bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-700" />
                         </div>
 
-                        <div class="content">
-                            <span class="tag">{project.data.tags?.[0] || "Software"}</span>
-                            <h3 class="title">{project.data.title}</h3>
-                            <div class="line"></div>
+                        <div class="content p-8 md:p-10 flex flex-col justify-end items-start h-full">
+                            <span class="tag font-mono text-[9px] uppercase tracking-[0.4em] text-zinc-500 mb-2 group-hover:text-white transition-colors">
+                                &lt;{project.data.tags?.[0] || "SYSTEM"}/&gt;
+                            </span>
+                            <h3 class="title font-display text-2xl md:text-3xl font-black uppercase italic tracking-tighter leading-none text-white transition-transform duration-500 group-hover:translate-x-2">
+                                {project.data.title}
+                            </h3>
+                            <div class="mt-4 h-[1px] w-0 bg-white group-hover:w-full transition-all duration-700 shadow-[0_0_10px_white]" />
+                        </div>
+
+                        <div class="absolute inset-0 bg-white/[0.02] h-full w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" 
+                             style="background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100% 4px;">
                         </div>
                     </a>
                 )
@@ -61,94 +84,54 @@ const allProjects = (await getCollection("projects"))
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         width: 100%;
-        background-color: #09090b;
+        background-color: #050505;
     }
 
+    /* Responsividad Pro: Escalamiento fluido de rejilla */
     @media (min-width: 640px) { .inspiro-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .inspiro-grid { grid-template-columns: repeat(4, 1fr); } }
+    @media (min-width: 1280px) { .inspiro-grid { grid-template-columns: repeat(4, 1fr); } }
 
     .work-item {
         position: relative;
-        aspect-ratio: 1 / 1.1; /* Un poco más vertical para elegancia */
+        aspect-ratio: 1 / 1.2;
         overflow: hidden;
         display: block;
+        transition: background-color 0.5s ease;
     }
 
     .image-container {
         position: absolute;
         inset: 0;
+        z-index: 10;
     }
 
     .project-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        opacity: 0.6;
-    }
-
-    .work-item:hover .project-img {
-        transform: scale(1.08);
-        opacity: 1;
-        filter: grayscale(0);
+        opacity: 0.4;
     }
 
     .overlay {
         position: absolute;
         inset: 0;
-        background: linear-gradient(to top, rgba(9, 9, 11, 0.9) 0%, transparent 60%);
-        transition: opacity 0.5s ease;
+        z-index: 15;
     }
-
-    .work-item:hover .overlay { opacity: 0.2; }
 
     .content {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end; /* Contenido abajo para no tapar toda la imagen */
+        position: relative;
         z-index: 20;
-        padding-bottom: 3rem;
-        text-align: center;
     }
 
-    .tag {
-        font-family: monospace;
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.3em;
-        color: #a3e635;
-        margin-bottom: 8px;
+    /* Animación de entrada de metadata */
+    .work-item .tag, .work-item .title {
         transform: translateY(10px);
-        opacity: 0;
-        transition: all 0.4s ease;
-    }
-
-    .title {
-        font-weight: 700;
-        text-transform: uppercase;
-        color: white;
-        font-size: 1.1rem;
-        letter-spacing: 0.05em;
-        transform: translateY(10px);
-        opacity: 0;
-        transition: all 0.4s ease 0.1s;
-    }
-
-    .line {
-        height: 1px;
-        width: 0;
-        background-color: #a3e635;
-        margin-top: 1rem;
-        transition: width 0.5s ease 0.2s;
+        opacity: 0.8;
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .work-item:hover .tag, .work-item:hover .title {
         transform: translateY(0);
         opacity: 1;
     }
-
-    .work-item:hover .line { width: 40px; }
 </style>

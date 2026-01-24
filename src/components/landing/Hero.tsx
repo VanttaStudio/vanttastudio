@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Terminal, ArrowRight, Activity } from "lucide-react";
+import { motion } from "framer-motion";
+import { Terminal, ArrowRight, Activity, ChevronRight } from "lucide-react";
 
-// Secuencia de comandos que se repetirá infinitamente
+// Secuencia corregida: Estética de Documentación Técnica
 const terminalSequence = [
-  { text: "> init vantta_core --v2.6", delay: 0 },
-  { text: "PRTCL: SECURE_UPLINK_ESTABLISHED", delay: 600, color: "text-zinc-500" },
-  { text: "> loading_modules [digital_brutalism]", delay: 1200 },
-  { text: "DEP: 127.0.0.1:VNTT_SCL_NODE", delay: 1800, color: "text-lime-400/60" },
-  { text: "> status: [OPTIMIZED]", delay: 2400, color: "text-lime-400" },
-  { text: "> flushing_logs...", delay: 3500, color: "text-zinc-700" }
+  { text: "> initializing vantta_industrial_kernel", delay: 0 },
+  { text: "AUTH: SCL_NODE_ESTABLISHED", delay: 600, color: "text-zinc-500" },
+  { text: "> module: brutalist_framework_v3.0", delay: 1200 },
+  { text: "STATUS: HIGH_FIDELITY_ACTIVE", delay: 1800, color: "text-zinc-400" },
+  { text: "> precision: 0.0001ms", delay: 2400, color: "text-white" },
+  { text: "> architecture: monolithic_logic", delay: 3500, color: "text-zinc-600" }
 ];
 
 interface TypewriterProps {
@@ -25,7 +25,7 @@ const TypewriterLine = ({ text, color = "text-zinc-300", startDelay }: Typewrite
   useEffect(() => {
     const startTimeout = setTimeout(() => setStarted(true), startDelay);
     return () => clearTimeout(startTimeout);
-  }, [startDelay, text]); // Reinicia si el texto cambia
+  }, [startDelay, text]);
 
   useEffect(() => {
     if (!started) return;
@@ -37,10 +37,10 @@ const TypewriterLine = ({ text, color = "text-zinc-300", startDelay }: Typewrite
       } else {
         clearInterval(interval);
       }
-    }, 20 + Math.random() * 30);
+    }, 25);
     return () => {
         clearInterval(interval);
-        setDisplayedText(""); // Limpia al desmontar
+        setDisplayedText("");
     };
   }, [started, text]);
 
@@ -51,92 +51,79 @@ const TypewriterLine = ({ text, color = "text-zinc-300", startDelay }: Typewrite
 export default function Hero() {
   const [iteration, setIteration] = useState(0);
 
-  // Efecto para reiniciar la terminal cada 6 segundos
   useEffect(() => {
     const timer = setInterval(() => {
       setIteration(prev => prev + 1);
-    }, 6500);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#030303] pt-20">
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050505] pt-20 selection:bg-white selection:text-black">
       
       {/* BACKGROUND: Blueprint Grid */}
-      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-        <div className="absolute left-1/4 top-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-lime-400 opacity-[0.04] blur-[120px]"></div>
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         
         <div className="lg:col-span-7 flex flex-col justify-center text-left">
+          {/* Badge de Sistema */}
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-3 mb-8 px-4 py-1.5 border border-zinc-900 bg-zinc-950 w-fit"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-lime-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 bg-lime-400"></span>
-            </span>
-            <span className="font-mono text-[9px] text-zinc-400 tracking-[0.4em] uppercase font-bold">
-              System_Active // SCL_Node_01
+            <span className="font-mono text-[9px] text-zinc-500 tracking-[0.4em] uppercase font-bold flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-white animate-pulse"></span>
+              CORE_SYSTEM // VERSION_2026
             </span>
           </motion.div>
 
-          {/* TÍTULO CORREGIDO: Sin pérdida de brillo */}
-          <h1 className="text-6xl md:text-8xl lg:text-[8.5rem] font-black uppercase italic leading-[0.8] tracking-[calc(-0.06em)] text-white mb-10">
-            Servicios <br />
-            <span className="text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">Informaticos_</span>
+          {/* TÍTULO: Brutalismo Puro */}
+          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-black uppercase italic leading-[0.8] tracking-tighter text-white mb-10">
+            Ingeniería <br />
+            <span className="text-zinc-800 transition-colors duration-700 hover:text-white">Digital_</span>
           </h1>
 
-          <div className="flex gap-10 items-start border-l border-zinc-800 pl-8 mb-12">
-  <p className="font-mono text-zinc-500 text-sm md:text-base max-w-lg leading-relaxed uppercase tracking-widest">
-    {/* Línea 1: Especialidad técnica */}
-    <span className="block mb-1">
-      Desarrollo Web <span className="text-zinc-700">/</span> Astro & React
-    </span>
+          <div className="flex gap-10 items-start border-l border-zinc-900 pl-8 mb-12">
+            <p className="font-mono text-zinc-500 text-sm md:text-base max-w-lg leading-relaxed uppercase tracking-widest">
+              <span className="block mb-2 text-white font-bold">Arquitectura de Software</span>
+              <span className="block mb-2">Sistemas de Alta Disponibilidad</span>
+              <span className="block text-zinc-700 italic">Despliegue Industrial de Producto</span>
+            </p>
+          </div>
 
-    {/* Línea 2: Producto (Resaltado en blanco como en la imagen) */}
-    <span className="block text-zinc-100 mb-1">
-      Sistemas (ERP - CRM)
-    </span>
-
-    {/* Línea 3: Diseño */}
-    <span className="block">
-      Branding y Diseño
-    </span>
-  </p>
-</div>
-
-          <div className="flex flex-col sm:flex-row gap-0">
-            <a href="/contact" className="group relative px-10 py-5 bg-lime-400 text-black font-black uppercase italic tracking-widest overflow-hidden hover:bg-white transition-all text-center">
+          {/* BOTONES: Diseño de Bloque Sólido */}
+          <div className="flex flex-col sm:flex-row gap-0 border border-zinc-900 w-fit">
+            <a href="/contact" className="group relative px-12 py-6 bg-white text-black font-black uppercase italic tracking-widest overflow-hidden transition-all text-center">
               <span className="relative z-10 flex items-center justify-center gap-3 text-sm">
-                Iniciar Proyecto <ArrowRight size={18} strokeWidth={3} />
+                INICIAR_PROYECTO <ChevronRight size={18} strokeWidth={3} />
               </span>
             </a>
-            <a href="/work" className="px-10 py-5 border border-zinc-900 bg-zinc-950/50 text-zinc-500 font-mono text-xs uppercase tracking-[0.3em] hover:text-white hover:border-lime-400 transition-all text-center">
-              / Portafolio
+            <a href="/work" className="px-12 py-6 border-l border-zinc-900 bg-transparent text-zinc-500 font-mono text-xs uppercase tracking-[0.3em] hover:text-white transition-all text-center flex items-center">
+              / ARCHIVO_PROYECTOS
             </a>
           </div>
         </div>
 
-        {/* TERMINAL INFINITA: Utiliza la llave 'iteration' para reiniciar el ciclo */}
+        {/* TERMINAL: Consola de Monitoreo */}
         <div className="lg:col-span-5 relative hidden lg:block">
-          <div className="relative bg-[#050505] border border-zinc-900 p-1">
-            <div className="absolute -top-px -left-px h-4 w-4 border-t border-l border-lime-400/50"></div>
-            <div className="absolute -bottom-px -right-px h-4 w-4 border-b border-r border-lime-400/50"></div>
+          <div className="relative border border-zinc-900 bg-zinc-950/50 backdrop-blur-sm p-1">
+            {/* Esquinas Técnicas */}
+            <div className="absolute -top-px -left-px h-3 w-3 border-t border-l border-zinc-700"></div>
+            <div className="absolute -bottom-px -right-px h-3 w-3 border-b border-r border-zinc-700"></div>
 
             <div className="bg-zinc-950 px-5 py-3 border-b border-zinc-900 flex items-center justify-between">
-              <div className="flex items-center gap-3 font-mono text-[8px] text-zinc-600 uppercase tracking-widest">
-                <Activity size={10} className="text-lime-400" />
-                VNTT_LIVE_KERNEL
+              <div className="flex items-center gap-3 font-mono text-[8px] text-zinc-600 uppercase tracking-[0.4em]">
+                <Activity size={10} className="text-white" />
+                VANTTA_MAINFRAME_LIVE
               </div>
             </div>
 
-            <div key={iteration} className="p-8 h-[340px] font-mono overflow-hidden relative bg-black/40">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-lime-400/5 to-transparent h-[15%] w-full animate-scan pointer-events-none opacity-40"></div>
+            <div key={iteration} className="p-8 h-[340px] font-mono overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.02] to-transparent h-[20%] w-full animate-scan pointer-events-none opacity-50"></div>
               
               {terminalSequence.map((line, index) => (
                 <TypewriterLine 
@@ -147,9 +134,9 @@ export default function Hero() {
                 />
               ))}
               
-              <div className="flex items-center gap-2 mt-4">
-                <span className="text-lime-400 text-xs">{">"}</span>
-                <span className="w-2.5 h-4 bg-lime-400 animate-pulse"></span>
+              <div className="flex items-center gap-2 mt-6">
+                <span className="text-white text-xs animate-pulse underline underline-offset-4 font-black italic tracking-tighter">VANTTA.code</span>
+                <span className="w-2 h-4 bg-white animate-pulse"></span>
               </div>
             </div>
           </div>
@@ -160,10 +147,10 @@ export default function Hero() {
       <style>{`
         @keyframes scan {
           0% { transform: translateY(-100%); }
-          100% { transform: translateY(600%); }
+          100% { transform: translateY(500%); }
         }
         .animate-scan {
-          animation: scan 4s linear infinite;
+          animation: scan 5s linear infinite;
         }
       `}</style>
     </section>

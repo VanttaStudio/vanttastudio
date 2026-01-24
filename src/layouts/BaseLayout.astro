@@ -1,27 +1,28 @@
 ---
-// src/layouts/BaseLayout.astro
 import BaseHead from "@components/BaseHead.astro";
 import Footer from "@components/global/Footer.astro";
 import Navigation from "@components/global/Navigation.astro";
-import { getLangFromUrl } from "../i18n/utils";
 
-// Componentes de Efectos (Cursor y Scroll)
+// Componentes de Efectos
 import CursorFollower from "@components/global/CursorFollower.astro";
 import SmoothScroll from "@components/global/SmoothScroll.astro";
 
-const lang = getLangFromUrl(Astro.url);
-
-// Recibimos las props de SEO desde las páginas
+// Simplificamos a un solo idioma según tu preferencia
 const { seo } = Astro.props;
+const lang = "es"; 
 ---
 
-<html lang={lang}>
+<html lang={lang} class="scroll-smooth">
     <head>
         <BaseHead {...seo} />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,900;1,900&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
     </head>
     
-    <body class="bg-zinc-950 text-white selection:bg-lime-400 selection:text-black w-full min-h-screen flex flex-col">
+    <body class="bg-[#050505] text-white selection:bg-white selection:text-black w-full min-h-screen flex flex-col antialiased">
         
+        {/* Capa de grano sutil para textura industrial */}
+        <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999] bg-[url('/grain.png')]"></div>
+
         <SmoothScroll />
 
         <CursorFollower />
@@ -39,43 +40,68 @@ const { seo } = Astro.props;
         </div>
 
         <style is:global>
-            /* --- CONFIGURACIÓN CRÍTICA PARA LENIS SCROLL --- */
-            
-            html {
-                height: auto;
-                width: 100%;
+            :root {
+                --accent-white: #FFFFFF;
+                --bg-black: #050505;
+                --gray-extrusion: #8A8A8A; /* Inspirado en las sombras de la V 3D */
             }
 
-            body {
+            /* --- RESET & ESTRUCTURA --- */
+            html, body {
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                /* Solo ocultamos el scroll horizontal en el body */
-                overflow-x: hidden; 
+                overflow-x: hidden;
+                background-color: var(--bg-black);
             }
 
-            /* Clases inyectadas por Lenis */
+            /* --- TIPOGRAFÍA BRUTALISTA --- */
+            h1, h2, h3, .font-display {
+                font-family: 'Inter', sans-serif;
+                font-weight: 900 !important;
+                text-transform: uppercase;
+                letter-spacing: -0.04em;
+                line-height: 0.85;
+                font-style: italic; /* Siguiendo la agresividad del logo */
+            }
+
+            code, .font-mono {
+                font-family: 'JetBrains Mono', monospace;
+                font-weight: 300;
+                letter-spacing: 0.05em;
+                text-transform: none;
+            }
+
+            /* --- CONFIGURACIÓN LENIS --- */
             html.lenis, html.lenis body {
                 height: auto;
             }
-
             .lenis.lenis-smooth {
-                scroll-behavior: auto !important; /* Desactiva el scroll nativo para que no pelee */
+                scroll-behavior: auto !important;
             }
-
             .lenis.lenis-stopped {
                 overflow: hidden;
             }
 
-            .lenis.lenis-scrolling iframe {
-                pointer-events: none; /* Mejora rendimiento al hacer scroll sobre iframes */
+            /* --- ELEMENTOS DE INTERFAZ --- */
+            ::selection {
+                background: var(--accent-white);
+                color: var(--bg-black);
             }
 
-            /* Tipografía Global */
-            h1, h2, h3, h4, .font-bold, .uppercase {
-                font-weight: 900 !important;
-                -webkit-font-smoothing: antialiased;
-                text-rendering: optimizeLegibility;
+            /* Scrollbar Industrial */
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+            ::-webkit-scrollbar-track {
+                background: var(--bg-black);
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #333;
+                border-radius: 0px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--accent-white);
             }
         </style>
     </body>
