@@ -104,7 +104,7 @@ export default function ContactForm() {
           </span>
           
           <span className="z-10 font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 duration-300">
-             >>
+             {'>>'} {/* CORREGIDO AQUÍ */}
           </span>
 
           {/* Barrido visual al enviar */}

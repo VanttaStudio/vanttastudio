@@ -3,14 +3,17 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 /** * IMPORTACIONES DE INGENIERÍA
- * Todos los componentes React (.tsx) requieren directivas client: para activarse.
+ * Componentes React (.tsx) -> Requieren client:visible
  */
 import Hero from "@/components/landing/Hero.tsx";
 import Tagline from "@/components/landing/Tagline.tsx";
 import AllInOne from "@/components/landing/AllInOne.tsx";
-import ServicesGrid from "@/components/landing/Services.astro";
 
-// WorkPreview es un componente Astro, no requiere directiva client:
+// CORRECCIÓN CRÍTICA: Cambiamos de .astro a .tsx para permitir client:visible
+// Asegúrate de que la ruta apunte al nuevo componente React que creamos
+import ServicesGrid from "@/components/home/ServicesGrid.tsx"; 
+
+// Componentes Astro (.astro) -> HTML Estático, NO llevan client:
 import WorkPreview from "@/components/landing/WorkPreview.astro";
 
 import UbikappPromo from "@/components/ubikapp/UbikappPromo.tsx";
@@ -23,7 +26,7 @@ const seo = {
 ---
 
 <BaseLayout seo={seo}>
-    <main class="bg-[#050505] selection:bg-lime-400 selection:text-black">
+    <main class="bg-[#050505] selection:bg-white selection:text-black">
         
         <Hero client:load />
 
@@ -37,11 +40,7 @@ const seo = {
         
         <AllInOne client:visible />
         
-        
-        
         <Tagline client:visible />
-        
-        
         
         <div class="pb-20">
             <Cta client:visible />
