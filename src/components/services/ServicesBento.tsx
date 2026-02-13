@@ -1,167 +1,190 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { 
-  Globe, 
-  Cpu, 
-  Bot, 
-  FolderOpen, 
-  ArrowUpRight, 
-  Lock,
-  Sparkles
+  Monitor, Cpu, UserCircle, GraduationCap, Store, ArrowUpRight, MessageSquare, Rocket, Sparkles, Code2
 } from "lucide-react";
-
-const items = [
-  {
-    id: "web",
-    title: "Desarrollo Web",
-    subtitle: "Workover & Ingeniería",
-    desc: "Rescate de sitios, optimización extrema y experiencias digitales de alto impacto.",
-    icon: Globe,
-    colSpan: "md:col-span-2",
-    rowSpan: "md:row-span-1",
-    href: "/web", // Enlace a web.astro
-    status: "active",
-    gradient: "from-emerald-500/20 via-teal-500/5 to-transparent",
-    borderGlow: "group-hover:border-emerald-500/50",
-    textGlow: "group-hover:text-emerald-400",
-    bgBase: "bg-[#050a05]"
-  },
-  {
-    id: "ia",
-    title: "Inteligencia Artificial",
-    subtitle: "Automatización & Agentes",
-    desc: "El cerebro digital de tu empresa. Chatbots RAG, automatización de procesos y futuros agentes autónomos.",
-    icon: Bot,
-    colSpan: "md:col-span-1",
-    rowSpan: "md:row-span-2",
-    href: "#",
-    status: "soon", // Próximamente
-    gradient: "from-violet-600/20 via-purple-500/5 to-transparent",
-    borderGlow: "group-hover:border-violet-500/50",
-    textGlow: "group-hover:text-violet-400",
-    bgBase: "bg-[#0a0510]"
-  },
-  {
-    id: "software",
-    title: "Software a Medida",
-    subtitle: "SaaS & Arquitectura",
-    desc: "Sistemas complejos para problemas complejos. Ingeniería de software pura.",
-    icon: Cpu,
-    colSpan: "md:col-span-2",
-    rowSpan: "md:row-span-1",
-    href: "#",
-    status: "soon", // Próximamente
-    gradient: "from-rose-600/20 via-red-500/5 to-transparent",
-    borderGlow: "group-hover:border-rose-500/50",
-    textGlow: "group-hover:text-rose-400",
-    bgBase: "bg-[#0f0505]"
-  },
-  {
-    id: "portafolio",
-    title: "Portafolio",
-    subtitle: "Casos de Éxito",
-    desc: "Resultados reales. Explora cómo hemos transformado otras empresas con nuestra tecnología.",
-    icon: FolderOpen,
-    colSpan: "md:col-span-3",
-    rowSpan: "md:row-span-1",
-    href: "/portafolio", // Enlace a portafolio.astro
-    status: "active",
-    gradient: "from-white/10 via-gray-500/5 to-transparent",
-    borderGlow: "group-hover:border-white/50",
-    textGlow: "group-hover:text-white",
-    bgBase: "bg-[#0a0a0a]"
-  }
-];
 
 export const ServicesBento = () => {
   return (
-    <div className="w-full h-full min-h-[85vh] grid grid-cols-1 md:grid-cols-3 gap-4 p-4 md:p-6 auto-rows-[minmax(250px,1fr)]">
-      {items.map((item, i) => (
-        <BentoCard key={item.id} item={item} index={i} />
-      ))}
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[220px]">
+      
+      {/* 1. DESARROLLO WEB (Grande) */}
+      <BentoItem 
+        colSpan="md:col-span-2 lg:col-span-2" 
+        rowSpan="md:row-span-2"
+        href="/cotizador"
+        theme="cyan"
+      >
+        <div className="flex flex-col h-full justify-between relative z-10">
+           <div className="flex justify-between items-start">
+              <div className="p-3 bg-cyan-950/50 rounded-xl text-cyan-400 border border-cyan-500/20"><Monitor size={32} /></div>
+              <ArrowUpRight className="text-cyan-700 group-hover:text-cyan-400 transition-colors" />
+           </div>
+           <div>
+              <h3 className="text-3xl font-black text-white uppercase mb-2">Web Development</h3>
+              <p className="text-gray-400 text-sm leading-relaxed max-w-sm font-medium">
+                 Sitios corporativos y sistemas a medida. 
+                 <span className="text-cyan-400 block mt-2 font-bold">Ver opciones: Modular vs Workover.</span>
+              </p>
+           </div>
+        </div>
+      </BentoItem>
+
+      {/* 2. VANTTA RIG (Mediano) */}
+      <BentoItem 
+        colSpan="md:col-span-1" 
+        rowSpan="md:row-span-2"
+        href="/vanttarig"
+        theme="red"
+      >
+        <div className="flex flex-col h-full justify-between relative z-10">
+           <div className="p-3 bg-red-950/50 rounded-xl text-red-400 w-fit border border-red-500/20"><Cpu size={28} /></div>
+           <div className="mt-4">
+              <h3 className="text-2xl font-black text-white uppercase mb-2">Vantta Rig</h3>
+              <p className="text-gray-400 text-xs leading-relaxed font-medium">
+                 Sistemas Operativos Autónomos con IA.
+              </p>
+              <div className="mt-4 flex gap-2 items-center px-3 py-1.5 bg-red-950/30 rounded-full w-fit border border-red-900/50">
+                 <span className="h-1.5 w-1.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_red]"></span>
+                 <span className="text-[9px] text-red-300 uppercase font-bold tracking-widest">Online System</span>
+              </div>
+           </div>
+        </div>
+      </BentoItem>
+
+      {/* 3. VANTTA BIO (Mediano) */}
+      <BentoItem 
+        colSpan="md:col-span-1" 
+        rowSpan="md:row-span-1"
+        href="/linkbio"
+        theme="purple"
+      >
+         <div className="flex items-center justify-between mb-4 relative z-10">
+            <div className="p-2 bg-purple-900/50 rounded-lg text-purple-400 border border-purple-500/20"><UserCircle size={24} /></div>
+            <span className="text-[9px] font-bold bg-purple-500/20 px-2 py-0.5 rounded text-purple-300 uppercase flex items-center gap-1">
+               <Sparkles size={10} /> Hot
+            </span>
+         </div>
+         <h3 className="text-xl font-bold text-white uppercase leading-none relative z-10">Vantta Bio</h3>
+         <p className="text-gray-400 text-xs mt-2 font-medium relative z-10">Tu imperio digital en un link.</p>
+      </BentoItem>
+
+      {/* 4. ACADEMY (Mediano) */}
+      <BentoItem 
+        colSpan="md:col-span-1" 
+        rowSpan="md:row-span-1"
+        href="https://academy.vanttacode.cl/"
+        external
+        theme="blue"
+      >
+         <div className="flex items-center gap-3 mb-3 relative z-10">
+            <div className="p-2 bg-blue-900/50 rounded-lg text-blue-400 border border-blue-500/20"><GraduationCap size={24} /></div>
+         </div>
+         <h3 className="text-lg font-bold text-white uppercase relative z-10">Academy</h3>
+         <p className="text-gray-400 text-xs font-medium relative z-10">Aprende a programar de verdad.</p>
+      </BentoItem>
+
+      {/* 5. UBIKAPP (Largo) */}
+      <BentoItem 
+        colSpan="md:col-span-2 lg:col-span-2" 
+        rowSpan="md:row-span-1"
+        href="https://ubikapp.cl/"
+        external
+        theme="orange"
+      >
+         <div className="flex items-center h-full gap-6 relative z-10">
+            <div className="p-4 bg-orange-900/50 rounded-2xl text-orange-400 shrink-0 border border-orange-500/20">
+               <Store size={32} />
+            </div>
+            <div>
+               <h3 className="text-2xl font-black text-white uppercase mb-1">UbikApp</h3>
+               <p className="text-gray-400 text-xs md:text-sm font-medium">
+                  Punto de Venta + Ecommerce + Inventario. Sin comisiones.
+               </p>
+            </div>
+         </div>
+      </BentoItem>
+
+      {/* 6. LAB (Pequeño) */}
+      <BentoItem 
+        colSpan="md:col-span-1" 
+        rowSpan="md:row-span-1"
+        href="/lab"
+        theme="gray"
+      >
+         <div className="flex flex-col justify-center h-full items-center text-center relative z-10">
+            <Rocket size={24} className="text-gray-500 mb-2 group-hover:text-white group-hover:-translate-y-1 transition-all" />
+            <h3 className="text-sm font-bold text-white uppercase tracking-widest">Vantta Lab</h3>
+            <span className="text-[9px] text-gray-600 uppercase mt-1 tracking-[0.2em]">Experimental</span>
+         </div>
+      </BentoItem>
+
+      {/* 7. CONTACTO (Verde) */}
+      <BentoItem 
+        colSpan="md:col-span-1 lg:col-span-1" 
+        rowSpan="md:row-span-1"
+        href="https://wa.me/56937766334"
+        external
+        theme="green"
+      >
+         <div className="flex flex-col h-full justify-between relative z-10">
+            <div className="flex justify-between opacity-50 group-hover:opacity-100 transition-opacity">
+               <Code2 size={20} className="text-green-300" />
+               <MessageSquare size={20} className="text-green-400" />
+            </div>
+            <div>
+               <h3 className="text-lg font-bold text-white uppercase">Hablemos</h3>
+               <p className="text-green-400 text-xs mt-1 font-bold">Cotiza tu proyecto hoy &rarr;</p>
+            </div>
+         </div>
+      </BentoItem>
+
     </div>
   );
 };
 
-const BentoCard = ({ item, index }: { item: any; index: number }) => {
-  const isLocked = item.status === "soon";
+// --- CONFIGURACIÓN DE COLORES ---
+// Usamos clases completas para evitar que Tailwind las borre (PurgeCSS)
+const themes: Record<string, { border: string, bgHover: string, glow: string }> = {
+    cyan:   { border: "group-hover:border-cyan-500/50", bgHover: "group-hover:bg-cyan-950/30", glow: "shadow-cyan-500/20" },
+    red:    { border: "group-hover:border-red-500/50", bgHover: "group-hover:bg-red-950/30", glow: "shadow-red-500/20" },
+    purple: { border: "group-hover:border-purple-500/50", bgHover: "group-hover:bg-purple-950/30", glow: "shadow-purple-500/20" },
+    blue:   { border: "group-hover:border-blue-500/50", bgHover: "group-hover:bg-blue-950/30", glow: "shadow-blue-500/20" },
+    orange: { border: "group-hover:border-orange-500/50", bgHover: "group-hover:bg-orange-950/30", glow: "shadow-orange-500/20" },
+    green:  { border: "group-hover:border-green-500/50", bgHover: "group-hover:bg-green-950/30", glow: "shadow-green-500/20" },
+    gray:   { border: "group-hover:border-white/20", bgHover: "group-hover:bg-white/5", glow: "shadow-white/5" },
+};
 
-  const Content = () => (
-    <>
-      {/* Background Gradient Animation */}
-      <div 
-        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br ${item.gradient}`} 
-      />
-      
-      {/* Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+// --- COMPONENTE TARJETA ---
+const BentoItem = ({ children, colSpan, rowSpan, href, theme = "gray", external }: any) => {
+   const styles = themes[theme];
 
-      {/* Main Content Container */}
-      <div className="relative z-10 flex flex-col justify-between h-full p-8 md:p-10">
-        
-        {/* Header: Icon & Status */}
-        <div className="flex justify-between items-start">
-          <div className={`p-3 rounded-2xl border border-white/5 bg-white/5 backdrop-blur-sm transition-colors duration-300 ${isLocked ? 'grayscale opacity-50' : 'group-hover:bg-white/10'}`}>
-            <item.icon size={32} className={isLocked ? "text-gray-500" : "text-white"} />
-          </div>
-          
-          {isLocked ? (
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-gray-500">
-              <Lock size={12} /> Próximamente
-            </div>
-          ) : (
-            <div className={`p-2 rounded-full border border-white/5 text-gray-500 transition-all duration-300 group-hover:text-white group-hover:rotate-45 group-hover:bg-white/10`}>
-              <ArrowUpRight size={24} />
-            </div>
-          )}
-        </div>
-
-        {/* Text Content */}
-        <div>
-          <h3 className={`text-sm font-mono font-bold uppercase tracking-widest mb-2 text-gray-500 transition-colors ${item.textGlow}`}>
-            {item.subtitle}
-          </h3>
-          <h2 className={`text-3xl md:text-5xl font-black uppercase mb-4 text-white leading-[0.9] tracking-tight transition-transform duration-500 ${isLocked ? '' : 'group-hover:-translate-y-1'}`}>
-            {item.title}
-          </h2>
-          <p className="text-gray-400 text-sm md:text-base leading-relaxed max-w-xl">
-            {item.desc}
-          </p>
-        </div>
-      </div>
-    </>
-  );
-
-  // Wrapper Logic (Link vs Div)
-  const containerClasses = `
-    group relative overflow-hidden rounded-[2rem] border border-white/5 
-    transition-all duration-500 ${item.colSpan} ${item.rowSpan} ${item.bgBase}
-    ${isLocked ? 'cursor-not-allowed opacity-80' : 'hover:border-white/20 hover:shadow-2xl cursor-pointer'}
-    ${item.borderGlow}
-  `;
-
-  if (isLocked) {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.1 }}
-        className={containerClasses}
+   return (
+      <motion.a
+         href={href}
+         target={external ? "_blank" : undefined}
+         rel={external ? "noopener noreferrer" : undefined}
+         className={`group relative rounded-[2rem] p-6 overflow-hidden border border-white/5 bg-[#080808] transition-all duration-500 hover:shadow-2xl ${colSpan} ${rowSpan} ${styles.border}`}
+         whileHover={{ y: -4 }}
       >
-        <Content />
-      </motion.div>
-    );
-  }
+         {/* 1. FONDO CON REACCIÓN AL HOVER */}
+         <div className={`absolute inset-0 transition-colors duration-500 ${styles.bgHover}`}></div>
 
-  return (
-    <motion.a
-      href={item.href}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1 }}
-      className={containerClasses}
-    >
-      <Content />
-    </motion.a>
-  );
+         {/* 2. PATRÓN DE PUNTOS CSS (Sin SVG para evitar errores) */}
+         <div className="absolute inset-0 opacity-[0.15] group-hover:opacity-[0.25] transition-opacity duration-500 pointer-events-none"
+              style={{
+                  backgroundImage: 'radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)',
+                  backgroundSize: '20px 20px'
+              }}>
+         </div>
+
+         {/* 3. GLOW DE ESQUINA (Ambiental) */}
+         <div className={`absolute -top-20 -right-20 w-64 h-64 rounded-full blur-[100px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-br from-white/10 to-transparent pointer-events-none`}></div>
+
+         {/* CONTENIDO */}
+         <div className="relative z-10 h-full">
+            {children}
+         </div>
+      </motion.a>
+   );
 };

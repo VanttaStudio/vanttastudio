@@ -1,0 +1,102 @@
+---
+import { Search, Map, Zap, Rocket, CheckCircle2 } from "lucide-react";
+
+const steps = [
+  {
+    id: "01",
+    title: "Diagnóstico Express",
+    desc: "Revisamos estado actual, stack, analytics y riesgos. Definimos si Workover es viable para tu caso.",
+    icon: Search,
+    color: "text-purple-400",
+    bg: "bg-purple-900/10",
+    border: "border-purple-500/20"
+  },
+  {
+    id: "02",
+    title: "Plan de Reconstrucción",
+    desc: "Alcance cerrado y checklist de accesos. Definimos exactamente qué se migra y qué se descarta para optimizar.",
+    icon: Map,
+    color: "text-blue-400",
+    bg: "bg-blue-900/10",
+    border: "border-blue-500/20"
+  },
+  {
+    id: "03",
+    title: "Ejecución & Sprints",
+    desc: "Trabajo en entorno privado (Staging). Vas viendo el progreso en tiempo real, sin sorpresas al final.",
+    icon: Zap,
+    color: "text-yellow-400",
+    bg: "bg-yellow-900/10",
+    border: "border-yellow-500/20"
+  },
+  {
+    id: "04",
+    title: "Go-Live & Entrega",
+    desc: "Publicación final, verificación de tracking y entrega de llaves. Tu web nueva toma el control total.",
+    icon: Rocket,
+    color: "text-green-400",
+    bg: "bg-green-900/10",
+    border: "border-green-500/20"
+  }
+];
+---
+
+<section id="proceso" class="py-32 bg-[#050505] relative overflow-hidden border-t border-white/5">
+  
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    
+    <div class="text-center mb-20">
+      <span class="text-purple-500 font-bold uppercase tracking-widest text-xs mb-2 block animate-pulse">
+         Roadmap
+      </span>
+      <h2 class="text-4xl font-black uppercase mb-4 text-white">Proceso de Ejecución</h2>
+      <p class="text-gray-400">Ordenado. Sin sorpresas. Validado en cada paso.</p>
+    </div>
+
+    <div class="relative ml-4 md:ml-12 space-y-16">
+      
+      {/* Línea de conexión de fondo */}
+      <div class="absolute left-[19px] md:left-[27px] top-4 bottom-12 w-[2px] bg-gradient-to-b from-purple-500 via-white/10 to-green-500 opacity-30"></div>
+
+      {steps.map((step, index) => (
+        <div class="relative pl-16 md:pl-24 group">
+          
+          {/* PUNTO DE CONTROL (Dot) */}
+          <div class={`absolute left-[14px] md:left-[22px] top-0 w-3 h-3 rounded-full bg-[#050505] border-2 border-white/20 group-hover:border-white group-hover:scale-125 transition-all duration-500 z-10 shadow-[0_0_0_4px_#050505]`}>
+             <div class={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white shadow-[0_0_15px_rgba(255,255,255,0.8)]`}></div>
+          </div>
+          
+          <div class="flex flex-col md:flex-row gap-6 items-start transition-all duration-500 group-hover:-translate-y-1">
+            
+            {/* ICONO / NÚMERO */}
+            <div class={`w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border transition-all duration-500 group-hover:shadow-2xl ${step.bg} ${step.border} ${step.color}`}>
+               <step.icon size={24} strokeWidth={1.5} />
+            </div>
+            
+            <div class="pt-1">
+              <span class={`font-mono text-xs font-bold uppercase tracking-widest mb-1 block opacity-50 group-hover:opacity-100 transition-opacity ${step.color}`}>
+                 Fase {step.id}
+              </span>
+              <h3 class="text-2xl font-black text-white mb-3 uppercase leading-none group-hover:text-white transition-colors">
+                 {step.title}
+              </h3>
+              <p class="text-gray-400 text-sm leading-relaxed max-w-lg group-hover:text-gray-300 transition-colors font-medium">
+                {step.desc}
+              </p>
+            </div>
+
+          </div>
+        </div>
+      ))}
+
+      {/* CHECK FINAL */}
+      <div class="relative pl-16 md:pl-24 opacity-50">
+         <div class="absolute left-[11px] md:left-[19px] top-0 w-4 h-4 rounded-full bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.5)] flex items-center justify-center text-black z-10">
+            <CheckCircle2 size={10} strokeWidth={4} />
+         </div>
+         <p class="text-xs font-mono text-green-500 uppercase tracking-widest pt-0.5">Misión Completada</p>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -2,38 +2,81 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/global/Footer.astro";
 
-// Importamos los componentes modulares
+// --- Componentes Visuales (Astro) ---
 import Hero from "../components/workover/Hero.astro";
-import Problem from "../components/workover/Problem.astro";
-import TechStack from "../components/workover/TechStack.astro";
-import Timeline from "../components/workover/Timeline.astro";
-import FAQ from "../components/workover/FAQ.astro";
+import Problems from "../components/workover/Problem.astro"; // El de los códigos de error
+import TechStack from "../components/workover/TechStack.astro"; // El marquee de SVGs
+import Process from "../components/workover/Process.astro"; // El roadmap con iconos
+import Table from "../components/workover/Table.astro"; // La comparativa técnica detallada
+import FAQ from "../components/workover/FAQ.astro"; // El acordeón animado
 
-// Componentes Interactivos (React)
-import { PricingInteractive } from "../components/workover/PricingInteractive.tsx";
+// --- Componentes Interactivos (React) ---
 import { Comparison } from "../components/workover/Comparison"; 
+import { PricingInteractive } from "../components/workover/PricingInteractive";
 ---
 
-<BaseLayout title="Web Workover | Reingeniería Digital - VanttaCode">
+<BaseLayout title="Web Workover | Reingeniería Digital de Alto Nivel">
   
-  <main class="bg-black min-h-screen text-white overflow-x-hidden">
+  <main class="bg-[#030303] min-h-screen text-white overflow-x-hidden selection:bg-purple-500/30">
     
+    {/* 1. IMPACTO INICIAL */}
     <Hero />
     
-    <Problem />
+    {/* 2. AGITAR EL PROBLEMA (Diagnóstico de fallos) */}
+    <Problems />
     
-    <Comparison client:visible />
+    {/* 3. CONTRASTE VISUAL (Antes vs Después interactivo) */}
+    <div class="relative">
+       {/* Glow lateral para dar profundidad a la comparación */}
+       <div class="absolute top-1/2 left-0 w-64 h-64 bg-red-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+       <div class="absolute top-1/2 right-0 w-64 h-64 bg-green-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+       <Comparison client:visible />
+    </div>
     
+    {/* 4. PRUEBA TÉCNICA (Nuestra infraestructura) */}
     <TechStack />
     
-    <Timeline />
+    {/* 5. CÓMO LO HACEMOS (El camino ordenado) */}
+    <Process />
 
-    <PricingInteractive client:visible />
+    {/* 6. LA OFERTA (Planes con modal de WhatsApp) */}
+    <div class="relative">
+       {/* Luz púrpura central para enfocar los precios */}
+       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none -z-10"></div>
+       <PricingInteractive client:visible />
+    </div>
+
+    {/* 7. DETALLE GRANULAR (Para el cliente que lee todo) */}
+    <Table />
     
+    {/* 8. CIERRE DE DUDAS */}
     <FAQ />
+
+    {/* CTA FINAL DE PIE DE PÁGINA (Opcional) */}
+    <section class="py-24 text-center border-t border-white/5 relative overflow-hidden">
+       <div class="max-w-3xl mx-auto px-6 relative z-10">
+          <h2 class="text-3xl md:text-5xl font-black uppercase mb-8">¿Listo para el <span class="text-purple-500">trasplante?</span></h2>
+          <p class="text-gray-400 mb-10 text-lg">No dejes que una web mediocre siga saboteando tus anuncios y tu reputación.</p>
+          <a href="#pricing" class="inline-flex items-center gap-2 text-white font-bold border-b-2 border-purple-500 pb-1 hover:text-purple-400 transition-colors uppercase tracking-widest text-sm">
+             Elegir un plan ahora &rarr;
+          </a>
+       </div>
+    </section>
 
   </main>
 
   <Footer />
 
 </BaseLayout>
+
+<style is:global>
+  /* Aseguramos scroll suave para los anclajes (#pricing, etc) */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Animaciones base que pueden usarse en toda la página */
+  .mask-gradient {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+</style>

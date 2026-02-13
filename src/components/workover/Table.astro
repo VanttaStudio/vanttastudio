@@ -1,75 +1,84 @@
 ---
-import { Check, Minus } from "lucide-react";
+import { Check, Minus, Zap, Database, ShoppingBag } from "lucide-react";
+
+// Definimos los datos aquí para mapearlos abajo
+const infrastructureFeatures = [
+  { label: "Reconstrucción Código Moderno", lite: true, full: true, comm: true },
+  { label: "Réplica Visual (Pixel Perfect)", lite: true, full: true, comm: true },
+  { label: "Hosting Vercel Global CDN", lite: true, full: true, comm: true },
+  { label: "Certificado SSL (https)", lite: true, full: true, comm: true },
+];
+
+const seoFeatures = [
+  { label: "SEO Técnico Base", lite: true, full: true, comm: true },
+  { label: "Migración de Textos/Fotos", lite: false, full: true, comm: true },
+  { label: "Panel Autoadministrable (CMS)", lite: false, full: true, comm: true },
+  { label: "Blog / Sistema de Noticias", lite: false, full: true, comm: true },
+  { label: "Redirecciones 301 (Anti-404)", lite: false, full: true, comm: true, highlight: true },
+];
+
+const commerceFeatures = [
+  { label: "Pasarela de Pagos (Webpay/MercadoPago)", lite: false, full: false, comm: true },
+  { label: "Gestión de Pedidos & Stock", lite: false, full: false, comm: true },
+  { label: "Correos Transaccionales", lite: false, full: false, comm: true },
+  { label: "Cuentas de Cliente", lite: false, full: false, comm: true },
+];
 ---
 
-<section class="py-20 bg-[#050505] border-t border-white/5">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="text-center mb-12">
-      <h3 class="text-xl font-bold text-white uppercase tracking-wide">Comparativa Técnica</h3>
+<section class="py-24 bg-[#030303] border-t border-white/5 relative">
+  <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-[0.03] pointer-events-none"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="text-center mb-16">
+      <span class="text-purple-500 font-bold uppercase tracking-widest text-xs mb-2 block">Especificaciones</span>
+      <h3 class="text-3xl font-black text-white uppercase tracking-tight">Comparativa Técnica</h3>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="w-full text-left border-collapse">
+    <div class="overflow-x-auto rounded-3xl border border-white/10 bg-[#080808]">
+      <table class="w-full text-left border-collapse min-w-[600px]">
         <thead>
-          <tr class="border-b border-white/10 text-xs font-bold text-gray-500 uppercase tracking-widest">
-            <th class="py-4 px-4">Feature</th>
-            <th class="py-4 px-4 text-center">Lite</th>
-            <th class="py-4 px-4 text-center text-purple-400">Full</th>
-            <th class="py-4 px-4 text-center">Commerce</th>
+          <tr class="text-xs font-bold text-gray-400 uppercase tracking-widest bg-white/5">
+            <th class="py-6 px-6 w-1/3">Feature</th>
+            <th class="py-6 px-4 text-center w-1/6">Lite</th>
+            <th class="py-6 px-4 text-center w-1/6 text-purple-400 bg-purple-500/10 border-t-2 border-purple-500">Full</th>
+            <th class="py-6 px-4 text-center w-1/6">Commerce</th>
           </tr>
         </thead>
-        <tbody class="text-sm text-gray-300">
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4 font-medium text-white">Reconstrucción Base Moderna</td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">Réplica Diseño (Look & Feel)</td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
+        <tbody class="text-sm">
           
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">SEO Técnico Base</td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">SEO Avanzado (301/404)</td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
+          {/* SECCIÓN 1 */}
+          <tr class="bg-[#050505]"><td colspan="4" class="py-3 px-6 text-[10px] font-bold text-gray-600 uppercase tracking-widest border-b border-white/5"><div class="flex items-center gap-2"><Zap size={12} /> Infraestructura Core</div></td></tr>
+          {infrastructureFeatures.map(f => (
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+              <td class="py-4 px-6 font-medium text-gray-300 group-hover:text-white transition-colors">{f.label}</td>
+              <td class="text-center">{f.lite ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center bg-purple-500/5 border-x border-purple-500/10">{f.full ? <Check size={16} className="mx-auto text-purple-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center">{f.comm ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+            </tr>
+          ))}
+
+          {/* SECCIÓN 2 */}
+          <tr class="bg-[#050505]"><td colspan="4" class="py-3 px-6 text-[10px] font-bold text-gray-600 uppercase tracking-widest border-y border-white/5"><div class="flex items-center gap-2"><Database size={12} /> Datos & SEO</div></td></tr>
+          {seoFeatures.map(f => (
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+              <td class={`py-4 px-6 font-medium group-hover:text-white transition-colors ${f.highlight ? 'text-purple-300' : 'text-gray-300'}`}>{f.label}</td>
+              <td class="text-center">{f.lite ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center bg-purple-500/5 border-x border-purple-500/10">{f.full ? <Check size={16} className="mx-auto text-purple-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center">{f.comm ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+            </tr>
+          ))}
+
+          {/* SECCIÓN 3 */}
+          <tr class="bg-[#050505]"><td colspan="4" class="py-3 px-6 text-[10px] font-bold text-gray-600 uppercase tracking-widest border-y border-white/5"><div class="flex items-center gap-2"><ShoppingBag size={12} /> Venta Online</div></td></tr>
+          {commerceFeatures.map(f => (
+            <tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+              <td class="py-4 px-6 font-medium text-gray-300 group-hover:text-white transition-colors">{f.label}</td>
+              <td class="text-center">{f.lite ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center bg-purple-500/5 border-x border-purple-500/10">{f.full ? <Check size={16} className="mx-auto text-purple-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+              <td class="text-center">{f.comm ? <Check size={16} className="mx-auto text-green-400"/> : <Minus size={16} className="mx-auto text-gray-700 opacity-30"/>}</td>
+            </tr>
+          ))}
           
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">Migración Contenido</td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">Panel Admin / CMS</td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
-          
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">Pagos & Checkout</td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
-          <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
-            <td class="py-4 px-4">Pedidos & Notificaciones</td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Minus size={16} className="mx-auto text-gray-700"/></td>
-            <td class="text-center"><Check size={16} className="mx-auto text-green-400"/></td>
-          </tr>
         </tbody>
       </table>
     </div>

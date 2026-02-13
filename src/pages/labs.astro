@@ -3,12 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/global/Footer.astro";
 import { 
   GraduationCap, 
-  MapPin, 
+  Store, // Cambiado de MapPin a Store
   Building2, 
   Video, 
   Bot, 
   Sparkles,
-  ArrowUpRight
+  ArrowUpRight,
+  Lock,
+  Zap
 } from "lucide-react";
 
 const projects = [
@@ -16,137 +18,187 @@ const projects = [
     title: "Vantta Academy",
     desc: "Formando la próxima generación de ingenieros.",
     icon: GraduationCap,
-    color: "from-blue-600/20 to-blue-400/20",
-    size: "lg:col-span-2 lg:row-span-2", // Tarjeta Grande
+    // Animación: Gradiente Azul Profundo
+    gradientClass: "bg-gradient-to-br from-blue-900 via-blue-800 to-black",
+    accent: "text-blue-400",
+    size: "lg:col-span-2 lg:row-span-2", 
     tag: "Educación",
-    isSoon: true // Próximamente
+    isSoon: true
   },
   {
     title: "UbikApp",
-    desc: "Geolocalización inteligente en tiempo real.",
-    icon: MapPin,
-    color: "from-orange-600/20 to-orange-400/20",
+    // Nueva descripción
+    desc: "Ordená tu comercio: Tienda, POS e Inventario sin comisiones.",
+    details: "Unifica operación y ventas. Cobra directo y controla stock real.",
+    icon: Store,
+    // Animación: Gradiente Naranja/Ámbar Energético
+    gradientClass: "bg-gradient-to-br from-orange-600 via-amber-700 to-red-900",
+    accent: "text-orange-400",
     size: "lg:col-span-1 lg:row-span-1",
-    tag: "SaaS",
-    link: "https://ubikapp.cl/", // Enlace externo
-    external: true
+    tag: "Commerce",
+    link: "https://ubikapp.cl/",
+    external: true,
+    cta: "Empezar Ahora"
   },
   {
     title: "UbiCorp",
     desc: "Gestión de activos para empresas.",
     icon: Building2,
-    color: "from-emerald-600/20 to-emerald-400/20",
+    // Animación: Gradiente Esmeralda Corporativo
+    gradientClass: "bg-gradient-to-br from-emerald-900 via-green-800 to-black",
+    accent: "text-emerald-400",
     size: "lg:col-span-1 lg:row-span-1",
     tag: "Enterprise",
-    isSoon: true // Próximamente
+    isSoon: true
   },
   {
     title: "Vantta Productions",
     desc: "Contenido audiovisual de alto impacto.",
     icon: Video,
-    color: "from-purple-600/20 to-purple-400/20",
-    size: "lg:col-span-1 lg:row-span-2", // Tarjeta Vertical
+    // Animación: Gradiente Púrpura Creativo
+    gradientClass: "bg-gradient-to-br from-purple-900 via-fuchsia-900 to-black",
+    accent: "text-purple-400",
+    size: "lg:col-span-1 lg:row-span-2",
     tag: "Media",
-    isSoon: true // Próximamente
+    isSoon: true
   },
   {
-    title: "VanttaRig", // Reemplaza a AI Agents
-    desc: "Sistemas operativos autónomos que trabajan por ti.",
+    title: "VanttaRig", 
+    desc: "Sistemas operativos autónomos.",
     icon: Bot,
-    color: "from-red-600/20 to-red-400/20",
-    size: "lg:col-span-2 lg:row-span-1", // Tarjeta Horizontal
+    // Animación: Gradiente Rojo Tech
+    gradientClass: "bg-gradient-to-br from-red-900 via-rose-900 to-black",
+    accent: "text-red-400",
+    size: "lg:col-span-2 lg:row-span-1",
     tag: "R&D",
     highlight: true,
-    link: "/vanttarig" // Enlace interno
+    link: "/vanttarig"
   },
   {
-    title: "Próximamente",
+    title: "Top Secret",
     desc: "Nuevas ideas cocinándose en el sótano.",
     icon: Sparkles,
-    color: "from-gray-800 to-gray-900",
+    gradientClass: "bg-neutral-900",
+    accent: "text-gray-400",
     size: "lg:col-span-1 lg:row-span-1",
-    tag: "Secret",
-    isSoon: true
+    tag: "Classified",
+    isSoon: true,
+    isSecret: true
   }
 ];
 ---
 
 <BaseLayout title="Vantta Lab | El sótano de la innovación">
   
-  <main class="bg-black min-h-screen pt-32 pb-20 px-6">
+  <main class="bg-black min-h-screen pt-32 pb-20 px-6 overflow-x-hidden selection:bg-purple-500/30">
     <div class="max-w-7xl mx-auto">
       
-      <div class="mb-16">
-        <span class="text-[10px] font-bold text-purple-500 uppercase tracking-[0.3em]">Experimental</span>
-        <h1 class="text-5xl md:text-7xl font-black text-white uppercase mt-4 mb-6">
-          Vantta <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-white">Lab</span>
+      {/* HEADER */}
+      <div class="mb-20 relative">
+        <div class="absolute -top-20 -left-20 w-64 h-64 bg-purple-900/20 blur-[100px] rounded-full pointer-events-none"></div>
+        
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold text-purple-400 uppercase tracking-[0.3em] backdrop-blur-md mb-6 animate-fade-in">
+          <Sparkles size={12} /> Experimental Division
+        </span>
+        
+        <h1 class="text-6xl md:text-8xl font-black text-white uppercase mb-6 tracking-tighter leading-[0.9]">
+          Vantta <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-white to-gray-500 animate-gradient bg-300%">Lab</span>
         </h1>
-        <p class="text-gray-400 max-w-xl text-lg">
-          Proyectos internos, experimentos de IA y nuevas unidades de negocio. Lo que estamos construyendo hoy para el mañana.
+        
+        <p class="text-gray-400 max-w-xl text-lg md:text-xl font-light leading-relaxed border-l-2 border-white/10 pl-6">
+          El patio de juegos de ingeniería. Proyectos internos, I+D y nuevas unidades de negocio antes de salir a la luz.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[220px]">
+      {/* GRID DE PROYECTOS */}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[280px]">
         {projects.map((p) => {
-          // Determinar el elemento contenedor: 'a' si tiene link, 'div' si no
           const Tag = p.link ? 'a' : 'div';
-          const href = p.link || undefined;
-          const target = p.external ? "_blank" : undefined;
-          const rel = p.external ? "noopener noreferrer" : undefined;
-
           return (
             <Tag 
-              href={href}
-              target={target}
-              rel={rel}
-              class={`group relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#0a0a0a] transition-all duration-500 hover:border-white/20 hover:shadow-2xl hover:shadow-purple-900/10 ${p.size} flex flex-col justify-between cursor-pointer`}
+              href={p.link}
+              target={p.external ? "_blank" : undefined}
+              rel={p.external ? "noopener noreferrer" : undefined}
+              class={`group relative rounded-[2rem] overflow-hidden bg-[#050505] border border-white/10 transition-all duration-500 hover:border-white/30 hover:shadow-2xl hover:-translate-y-1 ${p.size} flex flex-col justify-between cursor-pointer`}
             >
               
-              <div class={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-20 group-hover:opacity-40 transition-opacity`}></div>
+              {/* 1. FONDO ANIMADO (CSS PURO) */}
+              <div class={`absolute inset-0 ${p.gradientClass} opacity-20 group-hover:opacity-40 transition-opacity duration-700`}></div>
               
-              <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5 mix-blend-overlay"></div>
-
-              <div class="relative h-full p-8 flex flex-col justify-between z-10 w-full">
-                <div class="flex justify-between items-start w-full">
-                  <div class="p-4 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                    <p.icon size={28} class="text-white" />
-                  </div>
-                  {!p.isSoon && <ArrowUpRight size={20} class="text-gray-600 group-hover:text-white transition-colors" />}
+              {/* Mesh Gradient en movimiento */}
+              {!p.isSecret && (
+                <div class="absolute inset-0 opacity-30 group-hover:opacity-60 transition-opacity duration-700 mix-blend-overlay">
+                    <div class={`absolute top-0 -left-1/2 w-[200%] h-[200%] ${p.gradientClass} animate-spin-slow blur-[80px]`}></div>
                 </div>
+              )}
 
-                <div>
-                  <div class="flex items-center gap-2 mb-2">
-                    <span class="text-[9px] font-bold uppercase tracking-widest text-gray-500 block">
-                      {p.tag}
-                    </span>
-                    {p.isSoon && (
-                      <span class="px-2 py-0.5 rounded-full bg-white/10 border border-white/10 text-[8px] font-bold text-gray-400 uppercase tracking-wider">
-                        Próximamente
-                      </span>
-                    )}
+              {/* Grid Pattern que se mueve al hover */}
+              <div class="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10 mix-blend-overlay transition-transform duration-1000 group-hover:scale-110"></div>
+              
+              {/* Ruido estático (siempre queda bien) */}
+              <div class="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+              {/* 2. CONTENIDO */}
+              <div class="relative z-10 h-full p-8 flex flex-col justify-between">
+                
+                {/* Top: Icono + Estado */}
+                <div class="flex justify-between items-start">
+                  <div class={`p-3 rounded-2xl backdrop-blur-xl border border-white/10 transition-all duration-500 group-hover:scale-110 shadow-lg ${p.isSecret ? 'bg-white/5 text-gray-500' : 'bg-black/40 text-white'} group-hover:border-white/20`}>
+                    <p.icon size={24} className={p.isSecret ? "" : "group-hover:animate-pulse"} />
                   </div>
                   
-                  <h2 class={`text-2xl font-black text-white uppercase leading-tight ${p.highlight ? 'md:text-4xl' : ''}`}>
+                  {p.isSoon ? (
+                    <span class="px-3 py-1 rounded-full bg-black/50 border border-white/10 text-[9px] font-bold text-gray-400 uppercase tracking-widest backdrop-blur-md flex items-center gap-1">
+                      {p.isSecret ? <Lock size={10} /> : null} Coming Soon
+                    </span>
+                  ) : (
+                    <div class="flex items-center gap-2">
+                        {p.cta && (
+                            <span class={`hidden md:inline-block text-[10px] font-bold uppercase tracking-wider ${p.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+                                {p.cta}
+                            </span>
+                        )}
+                        <div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 hover:bg-gray-200">
+                           <ArrowUpRight size={18} />
+                        </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom: Info */}
+                <div class="translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class={`text-[9px] font-bold uppercase tracking-[0.2em] ${p.isSecret ? 'text-gray-600' : p.accent}`}>
+                      {p.tag}
+                    </span>
+                    <div class="h-[1px] flex-1 bg-white/5"></div>
+                  </div>
+                  
+                  <h2 class={`font-black text-white uppercase leading-none mb-3 ${p.highlight ? 'text-4xl md:text-5xl' : 'text-3xl'}`}>
                     {p.title}
                   </h2>
-                  <p class="text-gray-400 text-sm mt-2 max-w-[200px] leading-snug">
+                  
+                  <p class="text-gray-300 text-sm leading-snug max-w-[95%] opacity-60 group-hover:opacity-100 transition-opacity duration-500 font-medium">
                     {p.desc}
                   </p>
+                  
+                  {/* Detalle extra para UbikApp */}
+                  {p.details && (
+                     <p class="text-xs text-gray-500 mt-2 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 leading-tight">
+                        {p.details}
+                     </p>
+                  )}
                 </div>
               </div>
 
-              {/* Efecto de luz al pasar el mouse */}
-              {!p.isSoon && (
-                <div class="absolute -inset-full bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-[-20deg] group-hover:animate-[shimmer_2s_infinite] pointer-events-none"></div>
-              )}
             </Tag>
           );
         })}
       </div>
 
-      <div class="mt-20 text-center py-20 border-t border-white/5">
-        <p class="text-xs font-mono text-gray-600 uppercase tracking-widest">
-          No todos los experimentos sobreviven. Disfruta los que sí.
+      <div class="mt-32 text-center py-12 border-t border-white/5">
+        <p class="text-[10px] font-mono text-gray-600 uppercase tracking-[0.4em]">
+           Vantta Labs • Engineering Division • {new Date().getFullYear()}
         </p>
       </div>
     </div>
@@ -157,9 +209,23 @@ const projects = [
 </BaseLayout>
 
 <style>
-  @keyframes shimmer {
-    100% {
-      left: 100%;
-    }
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .animate-gradient {
+    background-size: 200%;
+    animation: gradient 6s ease infinite;
+  }
+  .bg-300\% { background-size: 300%; }
+
+  /* Animación de rotación lenta para el fondo */
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
   }
 </style>

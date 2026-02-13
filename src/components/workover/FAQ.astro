@@ -1,5 +1,5 @@
 ---
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -25,27 +25,67 @@ const faqs = [
 ];
 ---
 
-<section class="py-24 bg-black px-6 border-t border-white/5">
-  <div class="max-w-3xl mx-auto">
+<section class="py-24 bg-[#030303] px-6 relative overflow-hidden">
+  
+  {/* Fondo de ruido sutil */}
+  <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto relative z-10">
+    
     <div class="text-center mb-16">
-      <h2 class="text-3xl font-black uppercase mb-4 text-white">Preguntas Frecuentes</h2>
-      <p class="text-gray-400">Dudas matadas antes de nacer.</p>
+      <span class="text-purple-500 font-bold uppercase tracking-widest text-xs mb-2 block">
+        Despeja tus dudas
+      </span>
+      <h2 class="text-4xl font-black uppercase mb-4 text-white">Preguntas Frecuentes</h2>
+      <p class="text-gray-400 max-w-lg mx-auto">
+        Todo claro antes de empezar. Sin letra chica.
+      </p>
     </div>
 
     <div class="space-y-4">
-      {faqs.map((faq) => (
-        <details class="group bg-[#0A0A0A] border border-white/10 rounded-2xl overflow-hidden transition-all hover:border-white/20">
-          <summary class="flex justify-between items-center p-6 cursor-pointer list-none">
-            <h3 class="font-bold text-white text-sm md:text-base pr-4">{faq.q}</h3>
-            <span class="text-purple-400 group-open:rotate-180 transition-transform duration-300">
-              <ChevronDown size={20} />
+      {faqs.map((faq, index) => (
+        // `name="faq-group"` hace que funcione como acordeón (uno a la vez) nativamente
+        <details name="faq-group" class="group bg-[#080808] border border-white/5 rounded-2xl overflow-hidden transition-all duration-300 open:border-purple-500/40 open:bg-[#0c0c0c] hover:border-white/10">
+          
+          <summary class="flex justify-between items-center p-6 cursor-pointer list-none select-none">
+            <h3 class="font-bold text-gray-200 text-sm md:text-base pr-6 group-hover:text-white transition-colors">
+              {faq.q}
+            </h3>
+            <span class="text-gray-500 group-open:text-purple-400 group-open:rotate-180 transition-all duration-300 shrink-0 bg-white/5 p-2 rounded-lg group-hover:bg-white/10">
+              <ChevronDown size={18} />
             </span>
           </summary>
-          <div class="px-6 pb-6 text-gray-400 text-sm leading-relaxed border-t border-white/5 pt-4">
-            {faq.a}
+          
+          {/* Wrapper para animación CSS Grid */}
+          <div class="grid-rows-[0fr] group-open:grid-rows-[1fr] grid transition-[grid-template-rows] duration-500 ease-out">
+            <div class="overflow-hidden">
+               <div class="px-6 pb-6 pt-0 text-gray-400 text-sm leading-relaxed border-t border-white/5 mt-2 pt-4">
+                 <p>{faq.a}</p>
+               </div>
+            </div>
           </div>
+
         </details>
       ))}
     </div>
+
+    {/* CTA de Soporte */}
+    <div class="mt-12 text-center border-t border-white/5 pt-10">
+        <p class="text-gray-500 text-sm mb-4">¿Tienes una duda técnica específica?</p>
+        <a href="https://wa.me/56937766334" target="_blank" class="inline-flex items-center gap-2 text-white font-bold text-sm border-b border-purple-500 pb-0.5 hover:text-purple-400 transition-colors">
+            <HelpCircle size={16} /> Preguntar al equipo de Ingeniería
+        </a>
+    </div>
+
   </div>
 </section>
+
+<style>
+  /* Elimina el triángulo default de details en algunos navegadores */
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>

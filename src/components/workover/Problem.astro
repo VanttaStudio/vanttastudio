@@ -1,34 +1,91 @@
 ---
-import { Gauge, Code2, Cpu } from "lucide-react";
+import { Gauge, Code2, Cpu, AlertTriangle, XCircle, FileWarning } from "lucide-react";
 
-const features = [
+const problems = [
   {
     icon: Gauge,
-    title: "Lenta y Pesada",
-    desc: "Tarda siglos en cargar. Los clientes se van antes de ver tu logo."
+    code: "ERR_TIMEOUT_408",
+    title: "Latencia Crítica",
+    desc: "Tu web tarda siglos en cargar. Los clientes se van antes de ver tu logo. Google te penaliza y te manda a la página 10.",
+    theme: "red"
   },
   {
-    icon: Code2,
+    icon: FileWarning,
+    code: "ERR_BLOATWARE",
     title: "Código Basura",
-    desc: "Lleno de plugins innecesarios que rompen la web cada vez que actualizas."
+    desc: "Un Frankenstein de plugins innecesarios. Cada actualización es una ruleta rusa: no sabes qué se va a romper hoy.",
+    theme: "orange"
   },
   {
     icon: Cpu,
-    title: "Tecnología Vieja",
-    desc: "WordPress o Wix ya no dan abasto para lo que tu negocio necesita hoy."
+    code: "ERR_LEGACY_SYS",
+    title: "Tecnología Obsoleta",
+    desc: "WordPress y Wix funcionaban en 2015. Hoy, tu negocio necesita velocidad real, no constructores visuales lentos.",
+    theme: "purple"
   }
 ];
+
+// Mapas de colores para Tailwind
+const styles = {
+    red: { icon: "text-red-500", bg: "bg-red-500/10", border: "group-hover:border-red-500/40", shadow: "group-hover:shadow-red-900/20" },
+    orange: { icon: "text-orange-500", bg: "bg-orange-500/10", border: "group-hover:border-orange-500/40", shadow: "group-hover:shadow-orange-900/20" },
+    purple: { icon: "text-purple-500", bg: "bg-purple-500/10", border: "group-hover:border-purple-500/40", shadow: "group-hover:shadow-purple-900/20" }
+};
 ---
-<section class="py-20 px-6 border-y border-white/5 bg-[#050505]">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-    {features.map(f => (
-      <div class="p-8 rounded-2xl bg-black border border-white/10 hover:border-purple-500/30 transition-colors group">
-        <div class="w-12 h-12 rounded-lg bg-purple-900/20 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 transition-transform">
-          <f.icon size={24} />
+
+<section class="py-24 px-6 relative bg-[#030303] overflow-hidden border-t border-white/5">
+  
+  {/* Fondo Técnico */}
+  <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[300px] bg-red-900/5 blur-[100px] rounded-full pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    
+    <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-4">
+            <AlertTriangle size={12} /> Diagnóstico del Sistema
         </div>
-        <h3 class="text-xl font-bold mb-3">{f.title}</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
-      </div>
-    ))}
+        <h2 class="text-3xl md:text-5xl font-black text-white uppercase mb-4">
+            Síntomas de <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">Fallo</span>
+        </h2>
+        <p class="text-gray-400 max-w-xl mx-auto text-lg font-light">
+            Si tu sitio web presenta alguno de estos errores, estás perdiendo dinero en cada visita.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {problems.map((p) => {
+        const style = styles[p.theme];
+        return (
+          <div class={`group relative p-8 rounded-[2rem] bg-[#0A0A0A] border border-white/5 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${style.border} ${style.shadow}`}>
+            
+            {/* Header de la tarjeta */}
+            <div class="flex justify-between items-start mb-6">
+                <div class={`w-14 h-14 rounded-2xl ${style.bg} flex items-center justify-center ${style.icon} group-hover:scale-110 transition-transform duration-300`}>
+                    <p.icon size={28} />
+                </div>
+                <span class="font-mono text-[10px] text-gray-600 border border-white/5 px-2 py-1 rounded uppercase group-hover:text-white group-hover:border-white/10 transition-colors">
+                    {p.code}
+                </span>
+            </div>
+
+            {/* Contenido */}
+            <h3 class="text-2xl font-black text-white uppercase mb-3 leading-none">
+                {p.title}
+            </h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">
+                {p.desc}
+            </p>
+
+            {/* Decoración de alerta */}
+            <div class="mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-2 group-hover:translate-y-0">
+                <XCircle size={12} class={style.icon} /> Impacto Negativo Alto
+            </div>
+
+          </div>
+        );
+      })}
+    </div>
+
   </div>
 </section>
